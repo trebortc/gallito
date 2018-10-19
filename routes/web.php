@@ -42,3 +42,10 @@ Route::get('/gallo/nuevo', 'GalloController@nuevo');
 Route::post('/gallo/crear', 'GalloController@crear');
 Route::get('/gallo/ver/{id}', 'GalloController@ver')
     ->where('id', '[0-9]+');
+
+//INSCRIPCION TORNEO
+Route::get('/inscripcion_torneo', 'InscripcionTorneoController@index');
+Route::get('/inscripcion_torneo/nuevo', 'InscripcionTorneoController@nuevo');
+Route::post('/inscripcion_torneo/crear', 'InscripcionTorneoController@crear');
+Route::get('/inscripcion_torneo/ver/{id}', 'InscripcionTorneoController@ver')
+    ->where('id', '[0-9]+');

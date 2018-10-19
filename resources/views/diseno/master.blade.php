@@ -30,6 +30,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ '/gallo' }}">Gallo</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ '/inscripcion_torneo' }}">Inscripcion Torneo</a>
+                    </li>
                 </ul>
             </div>
         </nav>

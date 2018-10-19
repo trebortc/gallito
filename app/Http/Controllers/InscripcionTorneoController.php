@@ -17,7 +17,7 @@ class InscripcionTorneoController extends BaseController
     public function index()
     {
         $inscripcionesTorneo = InscripcionTorneo::all();
-        return view('inscripcionTorneo.index',['inscripciones' => $inscripcionesTorneo]);
+        return view('inscripcion_torneo.index',['inscripciones' => $inscripcionesTorneo]);
     }
 
     public function nuevo()
@@ -27,17 +27,13 @@ class InscripcionTorneoController extends BaseController
         $gallos = Gallo::all();
         $torneos = Torneo::all();
 
-        return view('inscripcionTorneo.nuevo', 
-            ['criaderos' => $criaderos],
-            ['representantes' => $representantes],
-            ['gallos' => $gallos],
-            ['torneos' => $torneos] );
+        return view('inscripcion_torneo.nuevo', ['torneos' => $torneos, 'criaderos' => $criaderos, 'representantes' => $representantes, 'gallos' => $gallos]);
     }
 
     public function crear()
     {
         $data = request()->all();
-        Representante::create(
+        InscripcionTorneo::create(
             [
                 'ID_TORNEO' => $data['id_torneo'],
                 'ID_CRIADEROS' => $data['id_criaderos'],
@@ -49,17 +45,17 @@ class InscripcionTorneoController extends BaseController
                 'PESO_GALLO' => $data['peso_gallo'],
                 'EDAD_GALLO' => $data['edad_gallo'],
                 'TALLA_GALLO' => $data['talla_gallo'],
-                'ESTADO' => $data['estad0']
+                'ESTADO' => $data['estado']
             ]
         );
 
-        return redirect('inscripcionTorneo/');
+        return redirect('inscripcion_torneo/');
         
     }
 
     public function ver($id)
     {
         $representante = Representante::find($id);
-        return view('representante.ver', ['torneo' => $representante]) ;
+        return view('inscripcion_torneo.ver', ['torneo' => $representante]) ;
     }
 }
