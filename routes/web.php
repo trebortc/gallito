@@ -12,8 +12,22 @@
 */
 
 Route::get('/', function () {
-    return view('welcome'); 
+    return view('master'); 
 });
+
+//Ruta para interactuar con el AJAX - EJEMPLO
+Route::post('miJqueryAjax', 'AjaxController@index');
+
+Route::get('ajax',function(){
+    return view('mensaje');
+ });
+ 
+Route::post('/getmsg','AjaxController2@index');
+
+
+Route::get('/indexCriadero', 'AjaxController@index');
+Route::post('/listadoCriaderos', 'AjaxController@loadCriaderos');
+
 
 //CRIADERO
 Route::get('/criadero', 'CriaderoController@index');
