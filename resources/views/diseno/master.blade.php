@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <title>@yield('titulo')</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href=" {{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
         <link href="css/style.css" rel="stylesheet" type="text/css">
         <link rel="icon" type="image/x-icon" href="favicon.ico" />
         <meta name="csrf-token" content="{{ csrf_token() }}">

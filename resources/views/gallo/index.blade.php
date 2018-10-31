@@ -1,5 +1,5 @@
 @extends('diseno.master')
-@section('titulo','Criaderos')
+@section('titulo','Gallo')
 @section('contenido')
     <div class="container">
         <div class="row">
