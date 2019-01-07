@@ -20,6 +20,9 @@
                                 <th scope="col">DESCRIPCIÓN</th>
                                 <th scope="col">ESTADO</th>
                                 <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,7 +32,11 @@
                                     <td>{{ $criadero -> NOMBRE }}</td>
                                     <td>{{ $criadero -> DESCRIPCION }}</td>
                                     <td>{{ $criadero -> ESTADO }}</td>
-                                    <td><a href="{{ url('/criadero/ver'.$criadero->ID_CRIADEROS) }}"> Ver detalles </a></td>
+                                    <td><a href="{{ url('/criadero/ver'.$criadero->ID_CRIADEROS) }}"> Ver </a></td>
+                                    <td><a href="{{ url('/criadero/actualizar'.$criadero->ID_CRIADEROS)}}"> Actualizar </a></td>
+                                    <td><a href="{{ url('/criadero/eliminar'.$criadero->ID_CRIADEROS)}}"> Eliminar </a></td>
+                                    <td><a href="{{ url('/criadero/estado'.$criadero->ID_CRIADEROS)}}"> estado </a></td>
+    
                                 </tr>
                             @endforeach
                         </tbody>
