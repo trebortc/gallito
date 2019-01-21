@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-end p-4">
-                    <a href="{{ url('/representante/nuevo') }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Nuevo</a>
+                    <a href="{{ route('inscripcion_torneo_nuevo') }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Nuevo</a>
                 </div>
             </div>
         </div>
@@ -27,18 +27,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($representantes as $representante)
+                            @foreach ($inscripciones as $inscripcion)
                                 <tr>
                                 <th scope="row">{{ $loop -> iteration }}</th>
                                     
-                                    <td>{{ $representante -> criadero -> NOMBRE }}</td>
-                                    <td>{{ $representante -> IDENTIFICACION }}</td>
-                                    <td>{{ $representante -> NOMBRES }}</td>
-                                    <td>{{ $representante -> TELEFONOS }}</td>
-                                    <td>{{ $representante -> CORREO }}</td>
-                                    <td>{{ $representante -> DESCRIPCION }}</td>
-                                    <td>{{ $representante -> ETADO }}</td>
-                                    <td><a href="{{ url('/representante/ver'.$representante->ID_REPRESENTANTE) }}"> Ver detalles </a></td>
+                                    <td>{{ $inscripcion -> criadero -> NOMBRE }}</td>
+                                    <td>{{ $inscripcion -> IDENTIFICACION }}</td>
+                                    <td>{{ $inscripcion -> NOMBRES }}</td>
+                                    <td>{{ $inscripcion -> TELEFONOS }}</td>
+                                    <td>{{ $inscripcion -> CORREO }}</td>
+                                    <td>{{ $inscripcion -> DESCRIPCION }}</td>
+                                    <td>{{ $inscripcion -> ETADO }}</td>
+                                    <td><a href="{{ url('/representante/ver/'.$inscripcion->ID_REPRESENTANTE) }}"> Ver detalles </a></td>
                                 </tr>
                             @endforeach
                         </tbody>

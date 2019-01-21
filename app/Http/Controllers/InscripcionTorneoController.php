@@ -22,12 +22,10 @@ class InscripcionTorneoController extends BaseController
 
     public function nuevo()
     {
-        $representantes = Representante::all();
-        $criaderos = Criadero::all();
         $gallos = Gallo::all();
         $torneos = Torneo::all();
 
-        return view('inscripcion_torneo.nuevo', ['torneos' => $torneos, 'criaderos' => $criaderos, 'representantes' => $representantes, 'gallos' => $gallos]);
+        return view('inscripcion_torneo.nuevo', ['torneos' => $torneos, 'gallos' => $gallos]);
     }
 
     public function crear()
@@ -58,4 +56,5 @@ class InscripcionTorneoController extends BaseController
         $representante = Representante::find($id);
         return view('inscripcion_torneo.ver', ['torneo' => $representante]) ;
     }
+
 }

@@ -45,6 +45,6 @@ class RepresentanteController extends BaseController
     public function ver($id)
     {
         $representante = Representante::find($id);
-        return view('representante.ver', ['torneo' => $representante]) ;
+        return view('representante.ver', ['representante' => $representante]) ;
     }
 }

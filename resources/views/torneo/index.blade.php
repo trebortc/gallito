@@ -31,7 +31,7 @@
                                     <td>{{ $torneo -> DESCRIPCION }}</td>
                                     <td>{{ $torneo -> FECHA }}</td>
                                     <td>{{ $torneo -> ESTADO }}</td>
-                                    <td><a href="{{ url('/torneo/ver'.$torneo->ID_TORNEO) }}"> Ver detalles </a></td>
+                                    <td><a href="{{ url('/torneo/ver/'.$torneo->ID_TORNEO) }}"> Ver detalles </a></td>
                                 </tr>
                             @endforeach
                         </tbody>

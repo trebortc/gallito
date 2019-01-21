@@ -33,7 +33,7 @@
                                     <td>{{ $gallo -> EDAD }}</td>
                                     <td>{{ $gallo -> TALLA }}</td>
                                     <td>{{ $gallo -> ESTADO }}</td>
-                                    <td><a href="{{ url('/gallo/ver'.$gallo->ID_GALLO) }}"> Ver detalles </a></td>
+                                    <td><a href="{{ url('/gallo/ver/'.$gallo->ID_GALLO) }}"> Ver detalles </a></td>
                                 </tr>
                             @endforeach
                         </tbody>

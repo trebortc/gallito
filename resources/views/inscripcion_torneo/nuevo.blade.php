@@ -10,7 +10,7 @@
                 <form action=" {{ url('/inscripcion_torneo/crear') }}" method="POST">
                     {!! csrf_field() !!}
                     <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label">Torneos:</label>
+                        <label for="name" class="col-sm-2 col-form-label">Torneo:</label>
                         <div class="col-sm-10">
                             <select name="id_torneo" id="torneo" class="form-control">
                                 @foreach ($torneos as $torneo)
@@ -20,27 +20,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label">Criaderos:</label>
-                        <div class="col-sm-10">
-                            <select name="id_criaderos" id="criadero" class="form-control">
-                                @foreach ($criaderos as $criadero)
-                                    <option value="{{ $criadero -> ID_CRIADEROS }}">{{ $criadero -> NOMBRE }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label">Representantes:</label>
-                        <div class="col-sm-10">
-                            <select name="id_representante" id="representante" class="form-control">
-                                @foreach ($representantes as $representante)
-                                    <option value="{{ $representante -> ID_REPRESENTANTE }}">{{ $representante -> NOMBRES }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label">Gallos:</label>
+                        <label for="name" class="col-sm-2 col-form-label">Gallo:</label>
                         <div class="col-sm-10">
                             <select name="id_gallo" id="gallo" class="form-control">
                                 @foreach ($gallos as $gallo)
@@ -50,7 +30,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="nombre_criadero" class="col-sm-2 col-form-label">Nombre criadero:</label>
+                        <label for="nombre_criadero" class="col-sm-2 col-form-label" id="ejm">Nombre criadero:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="nombre_criadero" name="nombre_criadero" placeholder="Escriba el nombre del criadero">
                         </div>
@@ -100,4 +80,46 @@
             </div>
         </div>
     </div>
+    <div id="ejm">
+        
+    </div>
+@endsection
+@section('scripts')
+    <script type = "text/javascript">
+        $(document).ready(function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#gallo').on('change', function(e){
+                var gallo_id = e.target.value;
+                console.log("Valor de gallo: " + gallo_id);
+                //console.log('/inscripcion_torneo/obtener_gallo/'+gallo_id);
+                //$.get('/inscripcion_torneo/obtener_gallo/'+gallo_id,function(data){
+                  //  $.each(data, function(index, info)
+                    //{
+                     //   console.log(info);
+                    //})
+                //});
+                //alert( "Load was performed." );
+                $.get( "/inscripcion_torneo/obtener_gallo/"+gallo_id, function( data ) {
+                    $( "#ejm" ).html( data );
+                    alert( "Load was performed." );
+                });
+            });
+
+            $("#criaderoBoton").click(function() {
+                $.ajax({
+                    type: "POST",
+                    dataType:'html',
+                    url : "/listadoCriaderos",
+                    success : function (data) {
+                        $("#resultados").html(data);
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

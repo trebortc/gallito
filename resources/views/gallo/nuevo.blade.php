@@ -5,9 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <br>
-                <h1>Gallo - Nuevo</h1>
-                <br>
+                <br><h1>Gallo - Nuevo</h1><br>
                 <form action=" {{ url('/gallo/crear') }}" method="POST">
                     {!! csrf_field() !!}
                     <div class="form-group row">

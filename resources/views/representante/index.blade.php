@@ -38,7 +38,7 @@
                                     <td>{{ $representante -> CORREO }}</td>
                                     <td>{{ $representante -> DESCRIPCION }}</td>
                                     <td>{{ $representante -> ETADO }}</td>
-                                    <td><a href="{{ url('/representante/ver'.$representante->ID_REPRESENTANTE) }}"> Ver detalles </a></td>
+                                    <td><a href="{{ url('/representante/ver/'.$representante->ID_REPRESENTANTE) }}"> Ver detalles </a></td>
                                 </tr>
                             @endforeach
                         </tbody>

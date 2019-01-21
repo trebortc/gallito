@@ -80,7 +80,7 @@ class InscripcionTorneo extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function peleaGallos()
+    public function peleaGallos1()
     {
         return $this->hasMany('App\PeleaGallo', 'INS_ID_DESCRIPCION', 'ID_DESCRIPCION');
     }
@@ -88,7 +88,7 @@ class InscripcionTorneo extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function peleaGallos()
+    public function peleaGallos2()
     {
         return $this->hasMany('App\PeleaGallo', 'ID_DESCRIPCION', 'ID_DESCRIPCION');
     }

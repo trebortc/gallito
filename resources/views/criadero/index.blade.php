@@ -29,7 +29,7 @@
                                     <td>{{ $criadero -> NOMBRE }}</td>
                                     <td>{{ $criadero -> DESCRIPCION }}</td>
                                     <td>{{ $criadero -> ESTADO }}</td>
-                                    <td><a href="{{ url('/criadero/ver'.$criadero->ID_CRIADEROS) }}"> Ver detalles </a></td>
+                                    <td><a href="{{ url('/criadero/ver/'.$criadero->ID_CRIADEROS) }}"> Ver detalles </a></td>
                                 </tr>
                             @endforeach
                         </tbody>
