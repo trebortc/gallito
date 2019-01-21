@@ -39,6 +39,19 @@ class CriaderoController extends BaseController
     public function ver($id)
     {
         $criadero = Criadero::find($id);
-        return view('criadero.ver', ['criadero' => $criadero]) ;
+        return view('criadero.ver', ['criadero' => $criadero]);
+    }
+
+    public function actualizar(){
+
+    }
+
+    public function eliminar(){
+        $criadero = Criadero::find($id);
+        return view('criadero.ver', ['criadero' => $criadero]);
+    }
+
+    public function estado(){
+
     }
 }

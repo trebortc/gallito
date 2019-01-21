@@ -35,6 +35,12 @@ Route::get('/criadero/nuevo', 'CriaderoController@nuevo')->name('criadero_nuevo'
 Route::post('/criadero/crear', 'CriaderoController@crear')->name('criadero_crear');
 Route::get('/criadero/ver/{id}', 'CriaderoController@ver')->name('criadero_ver')
     ->where('id', '[0-9]+');
+Route::get('/criadero/ver/{id}', 'CriaderoController@actualizar')
+    ->where('id', '[0-9]+');
+Route::get('/criadero/ver/{id}', 'CriaderoController@eliminar')
+    ->where('id', '[0-9]+');
+Route::get('/criadero/ver/{id}', 'CriaderoController@estado')
+    ->where('id', '[0-9]+');
 
 //TORNEO
 Route::get('/torneo', 'TorneoController@index')->name('torneo');
