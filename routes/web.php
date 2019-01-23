@@ -27,6 +27,7 @@ Route::post('/getmsg','AjaxController2@index');
 
 Route::get('/indexCriadero', 'AjaxController@index');
 Route::post('/listadoCriaderos', 'AjaxController@loadCriaderos');
+Route::post('/mensajeJson/{id}','AjaxController@mensajejson');
 
 
 //CRIADERO
@@ -48,6 +49,11 @@ Route::get('/torneo/nuevo', 'TorneoController@nuevo')->name('torneo_nuevo');
 Route::post('/torneo/crear', 'TorneoController@crear')->name('torneo_crear');
 Route::get('/torneo/ver/{id}', 'TorneoController@ver')->name('torneo_ver')
     ->where('id', '[0-9]+');
+Route::get('/torneo/eliminar/{id}','TorneoController@eliminar')->name('torneo_eliminar')
+    ->where('id', '[0-9]+');
+Route::get('/torneo/editar/{id}','TorneoController@editar')->name('torneo_editar')
+    ->where('id', '[0-9]+');
+Route::post('/torneo/actualizar', 'TorneoController@actualizar')->name('torneo_actualizar');
 
 //REPRESENTANTE
 Route::get('/representante', 'RepresentanteController@index')->name('representante');
@@ -69,6 +75,12 @@ Route::get('/inscripcion_torneo/nuevo', 'InscripcionTorneoController@nuevo')->na
 Route::post('/inscripcion_torneo/crear', 'InscripcionTorneoController@crear')->name('inscripcion_torneo_crear');
 Route::get('/inscripcion_torneo/ver/{id}', 'InscripcionTorneoController@ver')->name('inscripcion_torneo_ver')
     ->where('id', '[0-9]+');
+Route::post('/inscripcion_torneo/cargarInformacionGallo/{id}','InscripcionTorneoController@cargarInformacionGallo')->name('inscripcion_torneo_cargarInfoGallo')
+    ->where('id', '[0-9]+');
+
+//Route::post('/mensajeJson/{id}','AjaxController@mensajejson');
+
+//cargarInformacionGallo
 
 //Route::get('/inscripcion_torneo/obtener_gallo/{id}', 'InscripcionTorneoController@gallo')->name('inscripcion_torneo_info');
 Route::get('/inscripcion_torneo/obtener_gallo/{gallo_id}', function ($gallo_id) {

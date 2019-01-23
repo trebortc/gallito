@@ -57,4 +57,22 @@ class InscripcionTorneoController extends BaseController
         return view('inscripcion_torneo.ver', ['torneo' => $representante]) ;
     }
 
+    public function cargarInformacionGallo($id)
+    {
+        $gallo = Gallo::find($id);
+        $representante = $gallo->representante;
+        $criadero = $representante->criadero;
+        $nombre_criadero = $criadero->NOMBRE;
+        $nombre_representante = $representante->NOMBRES;
+        return response()->json(
+            array('nombreCriadero' => $criadero->NOMBRE,
+                'idCriadero' => $criadero->ID_CRIADEROS,
+                'nombreRepresentante' => $representante->NOMBRES,
+                'idRepresentante' => $representante->ID_REPRESENTANTE,
+                'placaGallo' => $gallo->PLACA,
+                'pesoGallo' => $gallo->PESO,
+                'edadGallo' => $gallo->EDAD,
+                'tallaGallo' => $gallo->TALLA), 200);
+    }
+
 }

@@ -39,7 +39,32 @@ class TorneoController extends BaseController
 
     public function ver($id)
     {
-        $torneo = Criadero::find($id);
-        return view('torneo.ver', ['torneo' => $torneo]) ;
+        $torneo = Torneo::find($id);
+        return view('torneo.ver', ['torneo' => $torneo]);
+    }
+
+    public function eliminar($id)
+    {
+        Torneo::destroy($id);
+        return redirect('torneo/');
+    }
+
+    public function editar($id)
+    {
+        $torneo = Torneo::find($id);
+        return view('torneo.editar', ['torneo' => $torneo]);
+    }
+
+    public function actualizar()
+    {
+        $data = request()->all();
+        $id = $data['id'];
+        $torneo = Torneo::find($id);
+        $torneo->NOMBRE = $data['nombre'];
+        $torneo->DESCRIPCION = $data['descripcion'];
+        $torneo->FECHA = $data['fecha'];
+        $torneo->ESTADO = $data['estado'];
+        $torneo->save();
+        return redirect('torneo/');
     }
 }

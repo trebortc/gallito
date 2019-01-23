@@ -1,2 +1,6 @@
 ALTER TABLE criadero ADD COLUMN updated_at timestamp;
 ALTER TABLE criadero ADD COLUMN created_at timestamp;
+ALTER TABLE inscripcion_torneo ADD COLUMN updated_at timestamp;
+ALTER TABLE inscripcion_torneo ADD COLUMN created_at timestamp;
+ALTER TABLE pelea_gallos ADD COLUMN updated_at timestamp;
+ALTER TABLE pelea_gallos ADD COLUMN created_at timestamp;
