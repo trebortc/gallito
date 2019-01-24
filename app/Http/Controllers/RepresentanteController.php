@@ -20,7 +20,7 @@ class RepresentanteController extends BaseController
     public function nuevo()
     {
         $criaderos = Criadero::all();
-        return view('representante.nuevo', ['criaderos' => $criaderos]);
+        return view('representante.nuevo',['criaderos' => $criaderos]);
     }
 
     public function crear()
@@ -38,8 +38,7 @@ class RepresentanteController extends BaseController
             ]
         );
 
-        return redirect('representante/');
-        
+        return redirect('representante/');   
     }
 
     public function ver($id)
@@ -47,4 +46,38 @@ class RepresentanteController extends BaseController
         $representante = Representante::find($id);
         return view('representante.ver', ['representante' => $representante]) ;
     }
+
+    public function eliminar($id){
+        Representante::destroy($id);
+        return redirect('representante/');
+    }
+
+    public function editar($id)
+    {
+        $representante = Representante::find($id);
+        $criaderos = Criadero::all();
+        return view('representante.editar', ['representante' => $representante, 'criaderos' => $criaderos]);
+    }
+
+    public function actualizar()
+    {
+        $data = request()->all();
+        $id = $data['id'];
+
+        $representante = Representante::find($id);
+        $representante->IDENTIFICACION = $data['identificacion'];
+        $representante->NOMBRES = $data['nombres'];
+        $representante->TELEFONOS = $data['telefonos'];
+        $representante->CORREO = $data['correo'];
+        $representante->DESCRIPCION = $data['descripcion'];
+        $representante->ETADO = $data['estado'];
+        //Actualizar Criadero
+        $representante->ID_CRIADEROS = $data['id_criaderos'];
+        
+        $representante->save();
+        return redirect('representante/');
+    }
+
+
+
 }

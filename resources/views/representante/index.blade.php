@@ -20,9 +20,9 @@
                                 <th scope="col">IDENTIFICACION</th>
                                 <th scope="col">NOMBRES</th>
                                 <th scope="col">TELEFONOS</th>
-                                <th scope="col">CORREO</th>
-                                <th scope="col">DESCRIPCION</th>
                                 <th scope="col">ESTADO</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -35,10 +35,10 @@
                                     <td>{{ $representante -> IDENTIFICACION }}</td>
                                     <td>{{ $representante -> NOMBRES }}</td>
                                     <td>{{ $representante -> TELEFONOS }}</td>
-                                    <td>{{ $representante -> CORREO }}</td>
-                                    <td>{{ $representante -> DESCRIPCION }}</td>
                                     <td>{{ $representante -> ETADO }}</td>
-                                    <td><a href="{{ url('/representante/ver/'.$representante->ID_REPRESENTANTE) }}"> Ver detalles </a></td>
+                                    <td><a href="{{ url('/representante/ver/'.$representante->ID_REPRESENTANTE) }}"> Ver </a></td>
+                                    <td><a href="{{ url('/representante/editar/'.$representante->ID_REPRESENTANTE)}}"> Editar </a></td>
+                                    <td><a href="{{ url('/representante/eliminar/'.$representante->ID_REPRESENTANTE)}}"> Eliminar </a></td> 
                                 </tr>
                             @endforeach
                         </tbody>

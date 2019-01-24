@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col">
                 <br>
-                <h1>Representante - Nuevo</h1>
+                <h1>Representante - Nuevo</h1> 
                 <br>
                 <form action=" {{ url('/representante/crear') }}" method="POST">
                     {!! csrf_field() !!}

@@ -33,7 +33,6 @@ class CriaderoController extends BaseController
         );
 
         return redirect('criadero/');
-        
     }
 
     public function ver($id)
@@ -42,16 +41,27 @@ class CriaderoController extends BaseController
         return view('criadero.ver', ['criadero' => $criadero]);
     }
 
-    public function actualizar(){
-
+    public function eliminar($id){
+        Criadero::destroy($id);
+        return redirect('criadero/');
     }
 
-    public function eliminar(){
+    public function editar($id)
+    {
         $criadero = Criadero::find($id);
-        return view('criadero.ver', ['criadero' => $criadero]);
+        return view('criadero.editar', ['criadero' => $criadero]);
     }
 
-    public function estado(){
-
+    public function actualizar()
+    {
+        $data = request()->all();
+        $id = $data['id'];
+        $criadero = Criadero::find($id);
+        $criadero->NOMBRE = $data['nombre'];
+        $criadero->DESCRIPCION = $data['descripcion'];
+        $criadero->ESTADO = $data['estado'];
+        $criadero->save();
+        return redirect('criadero/');
     }
+
 }

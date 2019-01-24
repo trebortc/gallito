@@ -16,11 +16,14 @@
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">#</th>
+                                <th scope="col">REPRESENTANTE</th>
                                 <th scope="col">PLACA</th>
                                 <th scope="col">PESO</th>
                                 <th scope="col">EDAD</th>
                                 <th scope="col">TALLA</th>
                                 <th scope="col">ESTADO</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -28,12 +31,15 @@
                             @foreach ($gallos as $gallo)
                                 <tr>
                                 <th scope="row">{{ $loop -> iteration}}</th>
+                                    <td>{{ $gallo->representante->NOMBRES }}</td>
                                     <td>{{ $gallo -> PLACA }}</td>
                                     <td>{{ $gallo -> PESO }}</td>
                                     <td>{{ $gallo -> EDAD }}</td>
                                     <td>{{ $gallo -> TALLA }}</td>
                                     <td>{{ $gallo -> ESTADO }}</td>
-                                    <td><a href="{{ url('/gallo/ver/'.$gallo->ID_GALLO) }}"> Ver detalles </a></td>
+                                    <td><a href="{{ url('/gallo/ver/'.$gallo->ID_GALLO) }}"> Ver </a></td>
+                                    <td><a href="{{ url('/gallo/editar/'.$gallo->ID_GALLO) }}"> Editar </a></td>
+                                    <td><a href="{{ url('/gallo/eliminar/'.$gallo->ID_GALLO) }}"> Eliminar </a></td>
                                 </tr>
                             @endforeach
                         </tbody>

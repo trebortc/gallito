@@ -75,4 +75,10 @@ class InscripcionTorneoController extends BaseController
                 'tallaGallo' => $gallo->TALLA), 200);
     }
 
+    public function eliminar($id)
+    {
+        InscripcionTorneo::destroy($id);
+        return redirect('inscripcion_torneo/');
+    }
+
 }

@@ -17,12 +17,14 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">CRIADERO</th>
-                                <th scope="col">IDENTIFICACION</th>
-                                <th scope="col">NOMBRES</th>
-                                <th scope="col">TELEFONOS</th>
-                                <th scope="col">CORREO</th>
-                                <th scope="col">DESCRIPCION</th>
+                                <th scope="col">REPRESENTANTE</th>
+                                <th scope="col">PLACA GALLO</th>
+                                <th scope="col">PESO GALLO</th>
+                                <th scope="col">EDAD GALLO</th>
+                                <th scope="col">TALLA GALLO</th>
                                 <th scope="col">ESTADO</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -32,13 +34,15 @@
                                 <th scope="row">{{ $loop -> iteration }}</th>
                                     
                                     <td>{{ $inscripcion -> criadero -> NOMBRE }}</td>
-                                    <td>{{ $inscripcion -> IDENTIFICACION }}</td>
-                                    <td>{{ $inscripcion -> NOMBRES }}</td>
-                                    <td>{{ $inscripcion -> TELEFONOS }}</td>
-                                    <td>{{ $inscripcion -> CORREO }}</td>
-                                    <td>{{ $inscripcion -> DESCRIPCION }}</td>
-                                    <td>{{ $inscripcion -> ETADO }}</td>
-                                    <td><a href="{{ url('/representante/ver/'.$inscripcion->ID_REPRESENTANTE) }}"> Ver detalles </a></td>
+                                    <td>{{ $inscripcion -> NOMBRE_REPRESENTANTE }}</td>
+                                    <td>{{ $inscripcion -> PLACA_GALLO }}</td>
+                                    <td>{{ $inscripcion -> PESO_GALLO }}</td>
+                                    <td>{{ $inscripcion -> EDAD_GALLO }}</td>
+                                    <td>{{ $inscripcion -> TALLA_GALLO }}</td>
+                                    <td>{{ $inscripcion -> ESTADO }}</td>
+                                    <td><a href="{{ url('/representante/ver/'.$inscripcion->ID_REPRESENTANTE) }}"> Ver </a></td>
+                                    <td><a href="{{ url('/representante/editar/'.$inscripcion->ID_REPRESENTANTE) }}"> Editar </a></td>
+                                    <td><a href="{{ url('/representante/eliminar/'.$inscripcion->ID_REPRESENTANTE) }}"> Eliminar </a></td>
                                 </tr>
                             @endforeach
                         </tbody>

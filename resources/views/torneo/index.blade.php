@@ -21,21 +21,21 @@
                                 <th scope="col">FECHA</th>
                                 <th scope="col">ESTADO</th>
                                 <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($torneos as $torneo)
                                 <tr>
-                                <th scope="row">{{ $loop -> iteration}}</th>
+                                    <th scope="row">{{ $loop -> iteration}}</th>
                                     <td>{{ $torneo -> NOMBRE }}</td>
                                     <td>{{ $torneo -> DESCRIPCION }}</td>
                                     <td>{{ $torneo -> FECHA }}</td>
                                     <td>{{ $torneo -> ESTADO }}</td>
-                                    <td>
-                                        <a href="{{ url('/torneo/ver/'.$torneo->ID_TORNEO) }}">Ver</a>
-                                        <a href="{{ url('/torneo/editar/'.$torneo->ID_TORNEO) }}">Editar</a>
-                                        <a href="{{ url('/torneo/eliminar/'.$torneo->ID_TORNEO) }}">Eliminar</a>
-                                    </td>
+                                    <td><a href="{{ url('/torneo/ver/'.$torneo->ID_TORNEO) }}">Ver</a></td>
+                                    <td><a href="{{ url('/torneo/editar/'.$torneo->ID_TORNEO) }}">Editar</a></td>
+                                    <td><a href="{{ url('/torneo/eliminar/'.$torneo->ID_TORNEO) }}">Eliminar</a></td>
                                 </tr>
                             @endforeach
                         </tbody>

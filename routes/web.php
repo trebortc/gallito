@@ -30,20 +30,19 @@ Route::post('/listadoCriaderos', 'AjaxController@loadCriaderos');
 Route::post('/mensajeJson/{id}','AjaxController@mensajejson');
 
 
-//CRIADERO
+//RUTAS CRIADERO
 Route::get('/criadero', 'CriaderoController@index')->name('criadero');
 Route::get('/criadero/nuevo', 'CriaderoController@nuevo')->name('criadero_nuevo');
 Route::post('/criadero/crear', 'CriaderoController@crear')->name('criadero_crear');
 Route::get('/criadero/ver/{id}', 'CriaderoController@ver')->name('criadero_ver')
     ->where('id', '[0-9]+');
-Route::get('/criadero/ver/{id}', 'CriaderoController@actualizar')
+Route::get('/criadero/eliminar/{id}', 'CriaderoController@eliminar')->name('criadero_eliminar')
     ->where('id', '[0-9]+');
-Route::get('/criadero/ver/{id}', 'CriaderoController@eliminar')
+Route::get('/criadero/editar/{id}', 'CriaderoController@editar')->name('criadero_editar')
     ->where('id', '[0-9]+');
-Route::get('/criadero/ver/{id}', 'CriaderoController@estado')
-    ->where('id', '[0-9]+');
+Route::post('/criadero/actualizar', 'CriaderoController@actualizar')->name('criadero_actualizar');
 
-//TORNEO
+//RUTAS TORNEO
 Route::get('/torneo', 'TorneoController@index')->name('torneo');
 Route::get('/torneo/nuevo', 'TorneoController@nuevo')->name('torneo_nuevo');
 Route::post('/torneo/crear', 'TorneoController@crear')->name('torneo_crear');
@@ -55,19 +54,29 @@ Route::get('/torneo/editar/{id}','TorneoController@editar')->name('torneo_editar
     ->where('id', '[0-9]+');
 Route::post('/torneo/actualizar', 'TorneoController@actualizar')->name('torneo_actualizar');
 
-//REPRESENTANTE
+//RUTAS REPRESENTANTE
 Route::get('/representante', 'RepresentanteController@index')->name('representante');
 Route::get('/representante/nuevo', 'RepresentanteController@nuevo')->name('representante_nuevo');
 Route::post('/representante/crear', 'RepresentanteController@crear')->name('representante_crear');
 Route::get('/representante/ver/{id}', 'RepresentanteController@ver')->name('representante_ver')
     ->where('id', '[0-9]+');
+Route::get('/representante/eliminar/{id}', 'RepresentanteController@eliminar')->name('representante_eliminar')
+    ->where('id', '[0-9]+');
+Route::get('/representante/editar/{id}', 'RepresentanteController@editar')->name('representante_editar')
+    ->where('id', '[0-9]+');
+Route::post('/representante/actualizar', 'RepresentanteController@actualizar')->name('representante_actualizar');
 
-//GALLO
+//RUTAS GALLO
 Route::get('/gallo', 'GalloController@index')->name('gallo');;
 Route::get('/gallo/nuevo', 'GalloController@nuevo')->name('gallo_nuevo');
 Route::post('/gallo/crear', 'GalloController@crear')->name('gallo_crear');
 Route::get('/gallo/ver/{id}', 'GalloController@ver')->name('gallo_ver')
     ->where('id', '[0-9]+');
+Route::get('/gallo/eliminar/{id}', 'GalloController@eliminar')->name('gallo_eliminar')
+    ->where('id', '[0-9]+');
+Route::get('/gallo/editar/{id}', 'GalloController@editar')->name('gallo_editar')
+    ->where('id', '[0-9]+');
+Route::post('/gallo/actualizar', 'GalloController@actualizar')->name('gallo_actualizar');
 
 //INSCRIPCION TORNEO
 Route::get('/inscripcion_torneo', 'InscripcionTorneoController@index')->name('inscripcion_torneo');

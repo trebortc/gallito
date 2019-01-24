@@ -22,20 +22,18 @@
                                 <th scope="col"></th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
-                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($criaderos as $criadero)
                                 <tr>
-                                <th scope="row">{{ $loop -> iteration}}</th>
+                                    <th scope="row">{{ $loop -> iteration}}</th>
                                     <td>{{ $criadero -> NOMBRE }}</td>
                                     <td>{{ $criadero -> DESCRIPCION }}</td>
                                     <td>{{ $criadero -> ESTADO }}</td>
-                                    <td><a href="{{ url('/criadero/ver'.$criadero->ID_CRIADEROS) }}"> Ver </a></td>
-                                    <td><a href="{{ url('/criadero/actualizar'.$criadero->ID_CRIADEROS)}}"> Actualizar </a></td>
-                                    <td><a href="{{ url('/criadero/eliminar'.$criadero->ID_CRIADEROS)}}"> Eliminar </a></td>
-                                    <td><a href="{{ url('/criadero/estado'.$criadero->ID_CRIADEROS)}}"> estado </a></td> 
+                                    <td><a href="{{ url('/criadero/ver/'.$criadero->ID_CRIADEROS) }}"> Ver </a></td>
+                                    <td><a href="{{ url('/criadero/editar/'.$criadero->ID_CRIADEROS)}}"> Editar </a></td>
+                                    <td><a href="{{ url('/criadero/eliminar/'.$criadero->ID_CRIADEROS)}}"> Eliminar </a></td> 
                                 </tr>
                             @endforeach
                         </tbody>

@@ -46,4 +46,34 @@ class GalloController extends BaseController
         $gallo = Gallo::find($id);
         return view('gallo.ver', ['gallo' => $gallo]) ;
     }
+
+    public function eliminar($id){
+        Gallo::destroy($id);
+        return redirect('gallo/');
+    }
+
+    public function editar($id)
+    {
+        $gallo = Gallo::find($id);
+        $representantes = Representante::all();
+        return view('gallo.editar', ['gallo' => $gallo, 'representantes' => $representantes]);
+    }
+
+    public function actualizar()
+    {
+        $data = request()->all();
+        $id = $data['id'];
+
+        $gallo = Gallo::find($id);
+        $gallo->PLACA = $data['placa'];
+        $gallo->PESO = $data['peso'];
+        $gallo->EDAD = $data['edad'];
+        $gallo->TALLA = $data['talla'];
+        $gallo->ESTADO = $data['estado'];
+        //Actualizar Criadero
+        $gallo->ID_REPRESENTANTE = $data['id_representante'];
+        
+        $gallo->save();
+        return redirect('gallo/');
+    }
 }
