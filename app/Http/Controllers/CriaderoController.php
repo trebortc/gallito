@@ -12,7 +12,8 @@ class CriaderoController extends BaseController
 {
     public function index()
     {
-        $criaderos = Criadero::all();
+        $criaderos = Criadero::paginate(2);
+        //$criaderos = Criadero::all();
         return view('criadero.index',['criaderos' => $criaderos]);
     }
 
@@ -42,6 +43,10 @@ class CriaderoController extends BaseController
     }
 
     public function eliminar($id){
+        $criadero = Criadero::find($id);
+        if(count($criadero->inscripcionTorneos) || count($criadero->representantes)){
+            return redirect('criadero/');
+        }
         Criadero::destroy($id);
         return redirect('criadero/');
     }

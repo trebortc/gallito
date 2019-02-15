@@ -4,3 +4,6 @@ ALTER TABLE inscripcion_torneo ADD COLUMN updated_at timestamp;
 ALTER TABLE inscripcion_torneo ADD COLUMN created_at timestamp;
 ALTER TABLE pelea_gallos ADD COLUMN updated_at timestamp;
 ALTER TABLE pelea_gallos ADD COLUMN created_at timestamp;
+
+CAMBIO DE FORMATO
+ALTER TABLE `pelea_gallos` CHANGE `TIEMPO` `TIEMPO` TIME(6) NULL DEFAULT NULL;

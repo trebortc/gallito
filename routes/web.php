@@ -87,6 +87,26 @@ Route::get('/inscripcion_torneo/ver/{id}', 'InscripcionTorneoController@ver')->n
 Route::post('/inscripcion_torneo/cargarInformacionGallo/{id}','InscripcionTorneoController@cargarInformacionGallo')->name('inscripcion_torneo_cargarInfoGallo')
     ->where('id', '[0-9]+');
 
+//PELEA GALLOS
+Route::get('/pelea_gallos', 'PeleaGallosController@index')->name('pelea_gallos');
+Route::get('/pelea_gallos/nuevo', 'PeleaGallosController@nuevo')->name('pelea_gallos_nuevo');
+Route::post('/pelea_gallos/crear', 'PeleaGallosController@crear')->name('pelea_gallos_crear');
+Route::get('/pelea_gallos/ver/{id}', 'PeleaGallosController@ver')->name('pelea_gallos_ver')
+    ->where('id', '[0-9]+');
+Route::post('/pelea_gallos/cargarInformacionGallo/{id}','InscripcionTorneoController@cargarInformacionGallo')->name('pelea_gallos_cargarInfoGallo')
+    ->where('id', '[0-9]+');
+
+//RUTAS PARAMETRO
+Route::get('/parametro', 'ParametroController@index')->name('parametro');
+Route::get('/parametro/nuevo', 'ParametroController@nuevo')->name('parametro_nuevo');
+Route::post('/parametro/crear', 'ParametroController@crear')->name('parametro_crear');
+Route::get('/parametro/ver/{id}', 'ParametroController@ver')->name('parametro_ver');
+Route::get('/parametro/eliminar/{id}', 'ParametroController@eliminar')->name('parametro_eliminar');
+Route::get('/parametro/editar/{id}', 'ParametroController@editar')->name('parametro_editar');
+Route::post('/parametro/actualizar', 'ParametroController@actualizar')->name('parametro_actualizar');
+
+
+
 //Route::post('/mensajeJson/{id}','AjaxController@mensajejson');
 
 //cargarInformacionGallo

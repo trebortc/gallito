@@ -1,6 +1,7 @@
 @extends('diseno.master')
 @section('titulo','Criaderos')
 @section('contenido')
+    @include('modals.eliminar')
     <div class="container">
         <div class="row">
             <div class="col">
@@ -22,6 +23,7 @@
                                 <th scope="col"></th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,12 +35,23 @@
                                     <td>{{ $criadero -> ESTADO }}</td>
                                     <td><a href="{{ url('/criadero/ver/'.$criadero->ID_CRIADEROS) }}"> Ver </a></td>
                                     <td><a href="{{ url('/criadero/editar/'.$criadero->ID_CRIADEROS)}}"> Editar </a></td>
-                                    <td><a href="{{ url('/criadero/eliminar/'.$criadero->ID_CRIADEROS)}}"> Eliminar </a></td> 
+                                    <td><a href="{{ url('/criadero/eliminar/'.$criadero->ID_CRIADEROS)}}"> Eliminar </a></td>
+                                    <td>
+                                        <!-- Botón trigger modal -->
+                                        <button type="button" id="criaderoBoton" class="btn btn-primary" data-toggle="modal" data-target="#eliminarModal" data-id="{{ $criadero->ID_CRIADEROS }}">
+                                            Eliminar
+                                        </button>
+                                    </td> 
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ $criaderos -> links() }}    
             </div>
         </div>
     </div>
@@ -50,6 +63,42 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
+            //$('#eliminarModal').on('show.bs.modal', function (e) {
+            //    var boton = $(e.relatedTarget)
+            //    var id = boton.data('id');
+            //    $("#eliminar").click(function()
+            //    {
+            //        var url = "/criadero/eliminar/"+id;
+            //        $.get(url, function( data ) {
+            //            alert( "Se elimino el dato correctamente" );
+            //            location.reload();
+            //        });
+            //        
+            //    });
+            //});
+
+            
+            $('#eliminarModal').on('show.bs.modal', function (e) {
+                var boton = $(e.relatedTarget)
+                var id = boton.data('id');
+                $("#eliminar").click(function()
+                {
+                    var url = "/criadero/eliminar/"+id;
+                    $.ajax({
+                        url : url,
+                        success : function(data) {
+                            //alert( "Se elimino el dato correctamente" );
+                            //location.reload();
+                        },
+                        error : function(data) {
+                            alert("Existe una relación con el elemento a eliminar");
+                            //location.reload();
+                        }
+                    }); 
+                });
+            });
+
         });
     </script>
 @endsection

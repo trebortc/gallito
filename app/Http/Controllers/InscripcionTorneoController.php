@@ -62,8 +62,6 @@ class InscripcionTorneoController extends BaseController
         $gallo = Gallo::find($id);
         $representante = $gallo->representante;
         $criadero = $representante->criadero;
-        $nombre_criadero = $criadero->NOMBRE;
-        $nombre_representante = $representante->NOMBRES;
         return response()->json(
             array('nombreCriadero' => $criadero->NOMBRE,
                 'idCriadero' => $criadero->ID_CRIADEROS,

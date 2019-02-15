@@ -39,7 +39,7 @@ class PeleaGallos extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function inscripcionTorneo()
+    public function inscripcionTorneo1()
     {
         return $this->belongsTo('App\InscripcionTorneo', 'INS_ID_DESCRIPCION', 'ID_DESCRIPCION');
     }
@@ -47,7 +47,7 @@ class PeleaGallos extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function inscripcionTorneo()
+    public function inscripcionTorneo2()
     {
         return $this->belongsTo('App\InscripcionTorneo', 'ID_DESCRIPCION', 'ID_DESCRIPCION');
     }

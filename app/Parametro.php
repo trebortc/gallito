@@ -41,6 +41,6 @@ class Parametro extends Model
     /**
      * @var array
      */
-    protected $fillable = ['VALOR'];
+    protected $fillable = ['NOMBRE_PARAMETRO','VALOR'];
 
 }

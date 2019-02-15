@@ -37,7 +37,10 @@
                         <a class="nav-link" href="{{ route('inscripcion_torneo') }}">Inscripcion Torneo</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Pelea Gallo</a>
+                    <a class="nav-link" href="{{ route('pelea_gallos') }}">Pelea Gallo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('parametro') }}">Parametro</a>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
