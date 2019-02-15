@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-end p-4">
-                    <a href="{{ url('/parametro/nuevo') }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Nuevo</a>
+                    <a href="{{ url('/parametro/nuevo') }}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Nuevo</a>
                 </div>
             </div>
         </div>
@@ -19,8 +19,6 @@
                                 <th scope="col">NOMBRE</th>
                                 <th scope="col">VALOR</th>
                                 <th scope="col"></th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,9 +27,9 @@
                                     <th scope="row">{{ $loop -> iteration}}</th>
                                     <td>{{ $parametro -> NOMBRE_PARAMETRO }}</td>
                                     <td>{{ $parametro -> VALOR }}</td>
-                                    <td><a href="{{ url('/parametro/ver/'.$parametro->NOMBRE_PARAMETRO) }}">Ver</a></td>
-                                    <td><a href="{{ url('/parametro/editar/'.$parametro->NOMBRE_PARAMETRO) }}">Editar</a></td>
-                                    <td><a href="{{ url('/parametro/eliminar/'.$parametro->NOMBRE_PARAMETRO) }}">Eliminar</a></td>
+                                    <td class="text-center"><a class="btn btn-primary btn-sm" href="{{ url('/parametro/ver/'.$parametro->NOMBRE_PARAMETRO) }}">Ver</a>
+                                    <a class="btn btn-secondary btn-sm" href="{{ url('/parametro/editar/'.$parametro->NOMBRE_PARAMETRO) }}">Editar</a>
+                                    <a class="btn btn-danger btn-sm" href="{{ url('/parametro/eliminar/'.$parametro->NOMBRE_PARAMETRO) }}">Eliminar</a></td>
                                 </tr>
                             @endforeach
                         </tbody>

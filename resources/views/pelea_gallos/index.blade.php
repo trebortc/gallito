@@ -1,11 +1,12 @@
 @extends('diseno.master')
 @section('titulo','Pelea Gallos')
 @section('contenido')
+    @include('pelea_gallos.modal_editar')
     <div class="container">
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-end p-4">
-                    <a href="{{ url('/pelea_gallos/nuevo') }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Nuevo</a>
+                    <a href="{{ url('/pelea_gallos/nuevo') }}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Nuevo</a>
                 </div>
             </div>
         </div>
@@ -22,8 +23,6 @@
                                 <th scope="col">TIEMPO</th>
                                 <th scope="col">ESTADO</th>
                                 <th scope="col"></th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,20 +33,20 @@
                                     <td>{{ $peleaGallo -> inscripcionTorneo2 -> PLACA_GALLO}}</td>
                                     <td>
                                         @if(!(empty($peleaGallo->RESULTADO)))
-                                            {{ $peleaGallo -> RESULTADO }}
+                                            {{ $peleaGallo->RESULTADO }}
                                         @else
                                             DEFINA VENCEDOR
                                         @endif
                                     </td>
                                     <td>
                                         @if(!(empty($peleaGallo->TIEMPO)))
-                                            {{ $peleaGallo -> TIEMPO }}
+                                            {{ $peleaGallo->TIEMPO }}
                                         @else
                                             SIN TIEMPO
                                         @endif 
                                     </td>
                                     <td>
-                                        @switch($peleaGallo -> ESTADO)
+                                        @switch($peleaGallo->ESTADO)
                                             @case('A')
                                                 ACTIVO    
                                             @break
@@ -59,9 +58,24 @@
                                             @break
                                         @endswitch
                                     </td>
-                                    <td><a href="{{ url('/pelea_gallos/ver/'.$peleaGallo->ID_PELEA) }}"> Ver </a></td>
-                                    <td><a href="{{ url('/pelea_gallos/editar/'.$peleaGallo->ID_PELEA) }}"> Editar </a></td>
-                                    <td><a href="{{ url('/pelea_gallos/eliminar/'.$peleaGallo->ID_PELEA) }}"> Eliminar </a></td> 
+                                    <td><a class="btn btn-primary btn-sm" href="{{ url('/pelea_gallos/ver/'.$peleaGallo->ID_PELEA) }}"> Ver </a>
+                                    
+                                        @switch($peleaGallo->ESTADO)
+                                            @case('A')
+                                                <button type="button" id="criaderoBoton" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#peleaGallosEditarModal" data-id="{{ $peleaGallo->ID_PELEA }}" data-pelea="{{ $peleaGallo }}">
+                                                    Ganador
+                                                </button>  
+                                                @break
+                                            @case('F')
+                                                <button disabled type="button" id="criaderoBoton" class="btn btn-secondary btn-sm">
+                                                    Ganador
+                                                </button>
+                                                @break            
+                                        @endswitch
+                                    
+                                    <a class="btn btn-danger btn-sm" href="{{ url('/pelea_gallos/eliminar/'.$peleaGallo->ID_PELEA) }}"> Eliminar </a>
+                                     <!-- Botón trigger modal -->
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -77,6 +91,17 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
+            });
+
+            $('#peleaGallosEditarModal').on('show.bs.modal', function (e) {
+                var boton = $(e.relatedTarget)
+                var id = boton.data('id');
+                var peleaGallo = boton.data('pelea');
+                $('#id').val(id);
+                var gallo1 = new Option(""+peleaGallo['inscripcion_torneo1']['PLACA_GALLO'], ""+peleaGallo['inscripcion_torneo1']['PLACA_GALLO']);
+                var gallo2 = new Option(""+peleaGallo['inscripcion_torneo2']['PLACA_GALLO'], ""+peleaGallo['inscripcion_torneo2']['PLACA_GALLO']);
+                $("#ganador").append(gallo1);
+                $("#ganador").append(gallo2);
             });
         });
     </script>

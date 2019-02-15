@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-end p-4">
-                    <a href="{{ url('/criadero/nuevo') }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Nuevo</a>
+                    <a href="{{ url('/criadero/nuevo') }}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Nuevo</a>
                 </div>
             </div>
         </div>
@@ -21,9 +21,6 @@
                                 <th scope="col">DESCRIPCIÓN</th>
                                 <th scope="col">ESTADO</th>
                                 <th scope="col"></th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,12 +30,11 @@
                                     <td>{{ $criadero -> NOMBRE }}</td>
                                     <td>{{ $criadero -> DESCRIPCION }}</td>
                                     <td>{{ $criadero -> ESTADO }}</td>
-                                    <td><a href="{{ url('/criadero/ver/'.$criadero->ID_CRIADEROS) }}"> Ver </a></td>
-                                    <td><a href="{{ url('/criadero/editar/'.$criadero->ID_CRIADEROS)}}"> Editar </a></td>
-                                    <td><a href="{{ url('/criadero/eliminar/'.$criadero->ID_CRIADEROS)}}"> Eliminar </a></td>
                                     <td>
+                                        <a class="btn btn-primary btn-sm" href="{{ url('/criadero/ver/'.$criadero->ID_CRIADEROS) }}"> Ver </a>
+                                        <a class="btn btn-secondary btn-sm" href="{{ url('/criadero/editar/'.$criadero->ID_CRIADEROS)}}"> Editar </a>                                  
                                         <!-- Botón trigger modal -->
-                                        <button type="button" id="criaderoBoton" class="btn btn-primary" data-toggle="modal" data-target="#eliminarModal" data-id="{{ $criadero->ID_CRIADEROS }}">
+                                        <button type="button" id="criaderoBoton" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#eliminarModal" data-id="{{ $criadero->ID_CRIADEROS }}">
                                             Eliminar
                                         </button>
                                     </td> 

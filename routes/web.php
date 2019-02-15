@@ -96,6 +96,12 @@ Route::get('/pelea_gallos/ver/{id}', 'PeleaGallosController@ver')->name('pelea_g
 Route::post('/pelea_gallos/cargarInformacionGallo/{id}','InscripcionTorneoController@cargarInformacionGallo')->name('pelea_gallos_cargarInfoGallo')
     ->where('id', '[0-9]+');
 
+Route::get('/pelea_gallos/eliminar/{id}', 'PeleaGallosController@eliminar')->name('pelea_gallos_eliminar')
+->where('id', '[0-9]+');
+Route::get('/pelea_gallos/editar/{id}', 'PeleaGallosController@editar')->name('pelea_gallos_editar')
+->where('id', '[0-9]+');
+Route::post('/pelea_gallos/actualizar', 'PeleaGallosController@actualizar')->name('pelea_gallos_actualizar');
+
 //RUTAS PARAMETRO
 Route::get('/parametro', 'ParametroController@index')->name('parametro');
 Route::get('/parametro/nuevo', 'ParametroController@nuevo')->name('parametro_nuevo');

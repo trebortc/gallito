@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-end p-4">
-                    <a href="{{ url('/representante/nuevo') }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Nuevo</a>
+                    <a href="{{ url('/representante/nuevo') }}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Nuevo</a>
                 </div>
             </div>
         </div>
@@ -22,8 +22,6 @@
                                 <th scope="col">TELEFONOS</th>
                                 <th scope="col">ESTADO</th>
                                 <th scope="col"></th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,9 +34,11 @@
                                     <td>{{ $representante -> NOMBRES }}</td>
                                     <td>{{ $representante -> TELEFONOS }}</td>
                                     <td>{{ $representante -> ETADO }}</td>
-                                    <td><a href="{{ url('/representante/ver/'.$representante->ID_REPRESENTANTE) }}"> Ver </a></td>
-                                    <td><a href="{{ url('/representante/editar/'.$representante->ID_REPRESENTANTE)}}"> Editar </a></td>
-                                    <td><a href="{{ url('/representante/eliminar/'.$representante->ID_REPRESENTANTE)}}"> Eliminar </a></td> 
+                                    <td>
+                                        <a class="btn btn-primary btn-sm" href="{{ url('/representante/ver/'.$representante->ID_REPRESENTANTE) }}"> Ver </a>
+                                        <a class="btn btn-secondary btn-sm" href="{{ url('/representante/editar/'.$representante->ID_REPRESENTANTE)}}"> Editar </a>
+                                        <a class="btn btn-danger btn-sm" href="{{ url('/representante/eliminar/'.$representante->ID_REPRESENTANTE)}}"> Eliminar </a>
+                                    </td> 
                                 </tr>
                             @endforeach
                         </tbody>

@@ -46,8 +46,8 @@ class PeleaGallosController extends BaseController
 
     public function ver($id)
     {
-        $representante = Representante::find($id);
-        return view('pelea_gallos.ver', ['torneo' => $representante]) ;
+        $peleaGallo = PeleaGallos::find($id);
+        return view('pelea_gallos.ver', ['peleaGallo' => $peleaGallo]) ;
     }
 
     public function cargarInformacionGallo($id)
@@ -70,7 +70,26 @@ class PeleaGallosController extends BaseController
 
     public function eliminar($id)
     {
-        InscripcionTorneo::destroy($id);
+        PeleaGallos::destroy($id);
+        return redirect('pelea_gallos/');
+    }
+
+    public function editar($id)
+    {
+        $peleaGallo = PeleaGallos::find($id);
+        return view('criadero.editar', ['peleaGallo' => $peleaGallo]);
+    }
+
+    public function actualizar()
+    {
+        $data = request()->all();
+        $id = $data['id'];
+        $peleaGallo = PeleaGallos::find($id);
+        $peleaGallo->RESULTADO = $data['ganador'];
+        $peleaGallo->TIEMPO = $data['tiempo'];
+        $peleaGallo->OBSERVACION = $data['observacion'];
+        $peleaGallo->ESTADO = 'F';
+        $peleaGallo->save();
         return redirect('pelea_gallos/');
     }
 

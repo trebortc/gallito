@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-end p-4">
-                    <a href="{{ route('inscripcion_torneo_nuevo') }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Nuevo</a>
+                    <a href="{{ route('inscripcion_torneo_nuevo') }}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Nuevo</a>
                 </div>
             </div>
         </div>
@@ -20,11 +20,8 @@
                                 <th scope="col">REPRESENTANTE</th>
                                 <th scope="col">PLACA GALLO</th>
                                 <th scope="col">PESO GALLO</th>
-                                <th scope="col">EDAD GALLO</th>
-                                <th scope="col">TALLA GALLO</th>
+                                                                                         
                                 <th scope="col">ESTADO</th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -37,12 +34,12 @@
                                     <td>{{ $inscripcion -> NOMBRE_REPRESENTANTE }}</td>
                                     <td>{{ $inscripcion -> PLACA_GALLO }}</td>
                                     <td>{{ $inscripcion -> PESO_GALLO }}</td>
-                                    <td>{{ $inscripcion -> EDAD_GALLO }}</td>
-                                    <td>{{ $inscripcion -> TALLA_GALLO }}</td>
                                     <td>{{ $inscripcion -> ESTADO }}</td>
-                                    <td><a href="{{ url('/representante/ver/'.$inscripcion->ID_REPRESENTANTE) }}"> Ver </a></td>
-                                    <td><a href="{{ url('/representante/editar/'.$inscripcion->ID_REPRESENTANTE) }}"> Editar </a></td>
-                                    <td><a href="{{ url('/representante/eliminar/'.$inscripcion->ID_REPRESENTANTE) }}"> Eliminar </a></td>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm" href="{{ url('/representante/ver/'.$inscripcion->ID_REPRESENTANTE) }}"> Ver </a>
+                                        <a class="btn btn-secondary btn-sm" href="{{ url('/representante/editar/'.$inscripcion->ID_REPRESENTANTE) }}"> Editar </a>
+                                        <a class="btn btn-danger btn-sm" href="{{ url('/representante/eliminar/'.$inscripcion->ID_REPRESENTANTE) }}"> Eliminar </a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

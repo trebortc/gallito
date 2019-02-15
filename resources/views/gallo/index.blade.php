@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-end p-4">
-                    <a href="{{ url('/gallo/nuevo') }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Nuevo</a>
+                    <a href="{{ url('/gallo/nuevo') }}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Nuevo</a>
                 </div>
             </div>
         </div>
@@ -23,8 +23,6 @@
                                 <th scope="col">TALLA</th>
                                 <th scope="col">ESTADO</th>
                                 <th scope="col"></th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,9 +35,11 @@
                                     <td>{{ $gallo -> EDAD }}</td>
                                     <td>{{ $gallo -> TALLA }}</td>
                                     <td>{{ $gallo -> ESTADO }}</td>
-                                    <td><a href="{{ url('/gallo/ver/'.$gallo->ID_GALLO) }}"> Ver </a></td>
-                                    <td><a href="{{ url('/gallo/editar/'.$gallo->ID_GALLO) }}"> Editar </a></td>
-                                    <td><a href="{{ url('/gallo/eliminar/'.$gallo->ID_GALLO) }}"> Eliminar </a></td>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm" href="{{ url('/gallo/ver/'.$gallo->ID_GALLO) }}"> Ver </a>
+                                        <a class="btn btn-secondary btn-sm" href="{{ url('/gallo/editar/'.$gallo->ID_GALLO) }}"> Editar </a>
+                                        <a class="btn btn-danger btn-sm" href="{{ url('/gallo/eliminar/'.$gallo->ID_GALLO) }}"> Eliminar </a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
