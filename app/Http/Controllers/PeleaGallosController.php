@@ -14,10 +14,29 @@ class PeleaGallosController extends BaseController
 {
     public function index()
     {
-        $peleaGallos = PeleaGallos::all();
+        $peleaGallos = PeleaGallos::paginate(7);
         //$a = $this->realizarSorteoGallosSegunPeso();
         $sinPareja = $this->realizarSorteoGallosSinPareja();
         return view('pelea_gallos.index',['peleaGallos' => $peleaGallos]);
+    }
+
+    public function buscar()
+    {
+        $data = request()->all();
+        if(isset($data['textoBuscar']))
+        {
+            if($data['textoBuscar'] != "")
+            {
+                /*$peleaGallos = PeleaGallos::where('PLACA', 'LIKE', '%' . $data['textoBuscar'] . '%' )->paginate(7);
+                if(count($peleaGallos) > 0)
+                {
+                    return view('gallo.index',['peleaGallos' => $peleaGallos]);
+                }else{
+                    return redirect('pelea_gallos/');
+                }*/
+            }
+        }
+        return redirect('gallo/');
     }
 
     public function nuevo()

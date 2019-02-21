@@ -12,8 +12,30 @@ class TorneoController extends BaseController
 {
     public function index()
     {
-        $torneos = Torneo::all();
+        //$torneos = Torneo::all();
+        $torneos = Torneo::paginate(7);
         return view('torneo.index',['torneos' => $torneos]);
+    }
+
+    public function buscar()
+    {
+        $data = request()->all();
+        if(isset($data['textoBuscar']))
+        {
+            if($data['textoBuscar'] != "")
+            {
+                //dd($data['textoBuscar']);
+                $torneos = Torneo::where('NOMBRE', 'LIKE', '%' . $data['textoBuscar'] . '%' )->paginate(7);
+                //dd($torneos);
+                if(count($torneos) > 0)
+                {
+                    return view('torneo.index',['torneos' => $torneos]);
+                }else{
+                    return redirect('torneo/');
+                }
+            }
+        }
+        return redirect('torneo/');
     }
 
     public function nuevo()

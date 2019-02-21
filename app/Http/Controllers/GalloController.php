@@ -13,8 +13,27 @@ class GalloController extends BaseController
 {
     public function index()
     {
-        $gallos = Gallo::all();
+        $gallos = Gallo::orderBy('PLACA','asc')->paginate(7);
         return view('gallo.index',['gallos' => $gallos]);
+    }
+
+    public function buscar()
+    {
+        $data = request()->all();
+        if(isset($data['textoBuscar']))
+        {
+            if($data['textoBuscar'] != "")
+            {
+                $gallos = Gallo::where('PLACA', 'LIKE', '%' . $data['textoBuscar'] . '%' )->paginate(7);
+                if(count($gallos) > 0)
+                {
+                    return view('gallo.index',['gallos' => $gallos]);
+                }else{
+                    return redirect('gallos/');
+                }
+            }
+        }
+        return redirect('gallo/');
     }
 
     public function nuevo()

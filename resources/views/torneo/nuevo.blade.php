@@ -32,8 +32,8 @@
                         <div class="col-sm-10">
                             <select name="estado" id="estado" class="form-control">
                                 <option value="A">Activo</option>
+                                <option value="F">Finalizado</option>
                                 <option value="S">Suspendido</option>
-                                <option value="C">Clausurado</option>
                             </select>
                         </div>
                     </div>

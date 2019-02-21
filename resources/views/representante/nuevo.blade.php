@@ -55,7 +55,6 @@
                             <select name="estado" id="estado" class="form-control">
                                 <option value="A">Activo</option>
                                 <option value="S">Suspendido</option>
-                                <option value="C">Clausurado</option>
                             </select>
                         </div>
                     </div>

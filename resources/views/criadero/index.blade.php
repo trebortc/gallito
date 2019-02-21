@@ -12,6 +12,21 @@
         </div>
         <div class="row">
             <div class="col">
+                <form action="{{ url('/criadero/buscar') }}" method="POST">
+                    {!! csrf_field() !!}
+                    <div class="input-group p-4">
+                        <input type="text" class="form-control" name="textoBuscar"
+                            placeholder="Buscar criadero"> <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default">
+                                <img src="{{ asset('img/search-icon.png') }}" alt="Icono buscar" class="img-fluid" width="20">
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
                 <div class="table-responsive">
                     <table class="table">
                         <thead class="thead-light">
@@ -24,12 +39,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($criaderos as $criadero)
+                            @isset($criaderos)
+                                @foreach ($criaderos as $criadero)
                                 <tr>
                                     <th scope="row">{{ $loop -> iteration}}</th>
                                     <td>{{ $criadero -> NOMBRE }}</td>
                                     <td>{{ $criadero -> DESCRIPCION }}</td>
-                                    <td>{{ $criadero -> ESTADO }}</td>
+                                    <td>
+                                        @switch($criadero->ESTADO)
+                                            @case('A')
+                                                Activo
+                                                @break
+                                            @case('C')
+                                                Clausurado
+                                                @break    
+                                            @case('S')
+                                                Suspendido
+                                                @break                                                
+                                        @endswitch
+                                    </td>
                                     <td>
                                         <a class="btn btn-primary btn-sm" href="{{ url('/criadero/ver/'.$criadero->ID_CRIADEROS) }}"> Ver </a>
                                         <a class="btn btn-secondary btn-sm" href="{{ url('/criadero/editar/'.$criadero->ID_CRIADEROS)}}"> Editar </a>                                  
@@ -39,7 +67,8 @@
                                         </button>
                                     </td> 
                                 </tr>
-                            @endforeach
+                                @endforeach
+                            @endisset
                         </tbody>
                     </table>
                 </div>
@@ -47,7 +76,9 @@
         </div>
         <div class="row">
             <div class="col">
-                {{ $criaderos -> links() }}    
+                @isset($criaderos)
+                    {{ $criaderos -> links() }}    
+                @endisset    
             </div>
         </div>
     </div>

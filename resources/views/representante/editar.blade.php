@@ -2,7 +2,6 @@
     $options = array("A","S","C");
     $opciones[0]['opc']="A";$opciones[0]['nombre']="Activo";
     $opciones[1]['opc']="S";$opciones[1]['nombre']="Suspendido";
-    $opciones[2]['opc']="C";$opciones[2]['nombre']="Clausurado";
 @endphp
 @extends('diseno.master')
 @section('titulo','Criaderos')

@@ -13,8 +13,30 @@ class RepresentanteController extends BaseController
 {
     public function index()
     {
-        $representantes = Representante::all();
+        //$representantes = Representante::all();
+        $representantes = Representante::orderBy('ETADO','asc')->orderBy('NOMBRES','asc')->paginate(7);
         return view('representante.index',['representantes' => $representantes]);
+    }
+
+    public function buscar()
+    {
+        $data = request()->all();
+        if(isset($data['textoBuscar']))
+        {
+            if($data['textoBuscar'] != "")
+            {
+                //dd($data['textoBuscar']);
+                $representantes = Representante::where('NOMBRES', 'LIKE', '%' . $data['textoBuscar'] . '%' )->paginate(7);
+                //dd($torneos);
+                if(count($representantes) > 0)
+                {
+                    return view('representante.index',['representantes' => $representantes]);
+                }else{
+                    return redirect('representante/');
+                }
+            }
+        }
+        return redirect('torneo/');
     }
 
     public function nuevo()

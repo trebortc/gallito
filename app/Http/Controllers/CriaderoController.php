@@ -12,9 +12,28 @@ class CriaderoController extends BaseController
 {
     public function index()
     {
-        $criaderos = Criadero::paginate(2);
+        $criaderos = Criadero::where('ESTADO','!=','C')->paginate(7);
         //$criaderos = Criadero::all();
         return view('criadero.index',['criaderos' => $criaderos]);
+    }
+
+    public function buscar()
+    {
+        $data = request()->all();
+        if(isset($data['textoBuscar']))
+        {
+            if($data['textoBuscar'] != "")
+            {
+                $criaderos = Criadero::where( 'NOMBRE', 'LIKE', '%' . $data['textoBuscar'] . '%' )->paginate(7);
+                if(count($criaderos) > 0)
+                {
+                    return view('criadero.index',['criaderos' => $criaderos]);
+                }else{
+                    return redirect('criadero/');
+                }
+            }
+        }
+        return redirect('criadero/');
     }
 
     public function nuevo()

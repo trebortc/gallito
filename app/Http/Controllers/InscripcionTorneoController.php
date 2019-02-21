@@ -16,15 +16,37 @@ class InscripcionTorneoController extends BaseController
 {
     public function index()
     {
-        $inscripcionesTorneo = InscripcionTorneo::all();
+        //$inscripcionesTorneo = InscripcionTorneo::all();
+        $inscripcionesTorneo = InscripcionTorneo::paginate(7);
         return view('inscripcion_torneo.index',['inscripciones' => $inscripcionesTorneo]);
+    }
+
+    public function buscar()
+    {
+        $data = request()->all();
+        if(isset($data['textoBuscar']))
+        {
+            if($data['textoBuscar'] != "")
+            {
+                $inscripcionesTorneo = InscripcionTorneo::where('NOMBRE_CRIADERO', 'LIKE', '%' . $data['textoBuscar'] . '%' )
+                                                        ->orwhere('NOMBRE_REPRESENTANTE', 'LIKE', '%' . $data['textoBuscar'] . '%' )
+                                                        ->orwhere('PLACA_GALLO', 'LIKE', '%' . $data['textoBuscar'] . '%' )
+                                                        ->paginate(7);
+                if(count($inscripcionesTorneo) > 0)
+                {
+                    return view('inscripcion_torneo.index',['inscripciones' => $inscripcionesTorneo]);
+                }else{
+                    return redirect('inscripcion_torneo/');
+                }
+            }
+        }
+        return redirect('inscripcion_torneo/');
     }
 
     public function nuevo()
     {
         $gallos = Gallo::all();
         $torneos = Torneo::all();
-
         return view('inscripcion_torneo.nuevo', ['torneos' => $torneos, 'gallos' => $gallos]);
     }
 

@@ -32,6 +32,7 @@ Route::post('/mensajeJson/{id}','AjaxController@mensajejson');
 
 //RUTAS CRIADERO
 Route::get('/criadero', 'CriaderoController@index')->name('criadero');
+Route::any('/criadero/buscar', 'CriaderoController@buscar')->name('criadero_buscar');
 Route::get('/criadero/nuevo', 'CriaderoController@nuevo')->name('criadero_nuevo');
 Route::post('/criadero/crear', 'CriaderoController@crear')->name('criadero_crear');
 Route::get('/criadero/ver/{id}', 'CriaderoController@ver')->name('criadero_ver')
@@ -44,6 +45,7 @@ Route::post('/criadero/actualizar', 'CriaderoController@actualizar')->name('cria
 
 //RUTAS TORNEO
 Route::get('/torneo', 'TorneoController@index')->name('torneo');
+Route::any('/torneo/buscar', 'TorneoController@buscar')->name('torneo_buscar');
 Route::get('/torneo/nuevo', 'TorneoController@nuevo')->name('torneo_nuevo');
 Route::post('/torneo/crear', 'TorneoController@crear')->name('torneo_crear');
 Route::get('/torneo/ver/{id}', 'TorneoController@ver')->name('torneo_ver')
@@ -56,6 +58,7 @@ Route::post('/torneo/actualizar', 'TorneoController@actualizar')->name('torneo_a
 
 //RUTAS REPRESENTANTE
 Route::get('/representante', 'RepresentanteController@index')->name('representante');
+Route::any('/representante/buscar', 'RepresentanteController@buscar')->name('representante_buscar');
 Route::get('/representante/nuevo', 'RepresentanteController@nuevo')->name('representante_nuevo');
 Route::post('/representante/crear', 'RepresentanteController@crear')->name('representante_crear');
 Route::get('/representante/ver/{id}', 'RepresentanteController@ver')->name('representante_ver')
@@ -67,7 +70,8 @@ Route::get('/representante/editar/{id}', 'RepresentanteController@editar')->name
 Route::post('/representante/actualizar', 'RepresentanteController@actualizar')->name('representante_actualizar');
 
 //RUTAS GALLO
-Route::get('/gallo', 'GalloController@index')->name('gallo');;
+Route::get('/gallo', 'GalloController@index')->name('gallo');
+Route::any('/gallo/buscar', 'GalloController@buscar')->name('gallo_buscar');
 Route::get('/gallo/nuevo', 'GalloController@nuevo')->name('gallo_nuevo');
 Route::post('/gallo/crear', 'GalloController@crear')->name('gallo_crear');
 Route::get('/gallo/ver/{id}', 'GalloController@ver')->name('gallo_ver')
@@ -80,6 +84,7 @@ Route::post('/gallo/actualizar', 'GalloController@actualizar')->name('gallo_actu
 
 //INSCRIPCION TORNEO
 Route::get('/inscripcion_torneo', 'InscripcionTorneoController@index')->name('inscripcion_torneo');
+Route::any('/inscripcion_torneo/buscar', 'InscripcionTorneoController@buscar')->name('inscripcion_torneo_buscar');
 Route::get('/inscripcion_torneo/nuevo', 'InscripcionTorneoController@nuevo')->name('inscripcion_torneo_nuevo');
 Route::post('/inscripcion_torneo/crear', 'InscripcionTorneoController@crear')->name('inscripcion_torneo_crear');
 Route::get('/inscripcion_torneo/ver/{id}', 'InscripcionTorneoController@ver')->name('inscripcion_torneo_ver')
@@ -89,6 +94,7 @@ Route::post('/inscripcion_torneo/cargarInformacionGallo/{id}','InscripcionTorneo
 
 //PELEA GALLOS
 Route::get('/pelea_gallos', 'PeleaGallosController@index')->name('pelea_gallos');
+Route::any('/pelea_gallos/buscar', 'PeleaGallosController@buscar')->name('pelea_gallos_buscar');
 Route::get('/pelea_gallos/nuevo', 'PeleaGallosController@nuevo')->name('pelea_gallos_nuevo');
 Route::post('/pelea_gallos/crear', 'PeleaGallosController@crear')->name('pelea_gallos_crear');
 Route::get('/pelea_gallos/ver/{id}', 'PeleaGallosController@ver')->name('pelea_gallos_ver')
