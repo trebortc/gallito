@@ -7,6 +7,7 @@
             <div class="col">
                 <div class="d-flex justify-content-end p-4">
                     <a href="{{ url('/pelea_gallos/nuevo') }}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Nuevo</a>
+                    <a href="{{ url('/pelea_gallos/peleas') }}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Peleas</a>
                 </div>
             </div>
         </div>

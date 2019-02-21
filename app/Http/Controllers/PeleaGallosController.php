@@ -15,9 +15,14 @@ class PeleaGallosController extends BaseController
     public function index()
     {
         $peleaGallos = PeleaGallos::paginate(7);
-        //$a = $this->realizarSorteoGallosSegunPeso();
-        $sinPareja = $this->realizarSorteoGallosSinPareja();
         return view('pelea_gallos.index',['peleaGallos' => $peleaGallos]);
+    }
+
+    public function peleas()
+    {
+        $a = $this->realizarSorteoGallosSegunPeso();
+        //$sinPareja = $this->realizarSorteoGallosSinPareja();
+        return redirect('pelea_gallos/');
     }
 
     public function buscar()
@@ -36,7 +41,7 @@ class PeleaGallosController extends BaseController
                 }*/
             }
         }
-        return redirect('gallo/');
+        return redirect('pelea_gallos/');
     }
 
     public function nuevo()

@@ -94,6 +94,7 @@ Route::post('/inscripcion_torneo/cargarInformacionGallo/{id}','InscripcionTorneo
 
 //PELEA GALLOS
 Route::get('/pelea_gallos', 'PeleaGallosController@index')->name('pelea_gallos');
+Route::get('/pelea_gallos/peleas', 'PeleaGallosController@peleas')->name('pelea_gallos_peleas');
 Route::any('/pelea_gallos/buscar', 'PeleaGallosController@buscar')->name('pelea_gallos_buscar');
 Route::get('/pelea_gallos/nuevo', 'PeleaGallosController@nuevo')->name('pelea_gallos_nuevo');
 Route::post('/pelea_gallos/crear', 'PeleaGallosController@crear')->name('pelea_gallos_crear');
