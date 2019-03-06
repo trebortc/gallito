@@ -47,4 +47,21 @@ class Torneo extends Model
     {
         return $this->hasMany('App\InscripcionTorneo', 'ID_TORNEO', 'ID_TORNEO');
     }
+
+    /**
+     * Obtengo todos los gallos que inscribi para la pelea de gallos para
+     * el torneo
+     */
+    public function peleaGallos()
+    {
+        return $this->hasManyThrough(
+            'App\PeleaGallos',
+            'App\InscripcionTorneo',
+            'ID_TORNEO',
+            'ID_DESCRIPCION',
+            'ID_TORNEO',
+            'ID_DESCRIPCION'
+        );
+        
+    }
 }

@@ -1,11 +1,12 @@
 @extends('diseno.master')
 @section('titulo','Torneos')
 @section('contenido')
+    @include('modals.eliminar')
     <div class="container">
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-end p-4">
-                    <a href="{{ url('/torneo/nuevo') }}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Nuevo</a>
+                    <a href="{{ url('/torneo/nuevo') }}" class="btn btn-light btn-lg active" role="button" aria-pressed="true"><i class="fa fa-file-o"></i></a>
                 </div>
             </div>
         </div>
@@ -43,7 +44,7 @@
                                     <tr>
                                         <th scope="row">{{ $loop -> iteration}}</th>
                                         <td>{{ $torneo -> NOMBRE }}</td>
-                                        <td>{{ $torneo -> DESCRIPCION }}</td>
+                                        <td>{{ str_limit($torneo->DESCRIPCION, $limit = 150, $end = '...') }}
                                         <td>
                                             @switch($torneo -> ESTADO)
                                                 @case('A')
@@ -58,9 +59,12 @@
                                             @endswitch
                                         </td>
                                         <td>
-                                            <a class="btn btn-primary btn-sm" href="{{ url('/torneo/ver/'.$torneo->ID_TORNEO) }}">Ver</a>
-                                            <a class="btn btn-secondary btn-sm" href="{{ url('/torneo/editar/'.$torneo->ID_TORNEO) }}">Editar</a>
-                                            <a class="btn btn-danger btn-sm" href="{{ url('/torneo/eliminar/'.$torneo->ID_TORNEO) }}">Eliminar</a>
+                                            <a class="btn btn-primary btn-sm" href="{{ url('/torneo/ver/'.$torneo->ID_TORNEO) }}"><i class="fa fa-file-text-o"></i></a>
+                                            <a class="btn btn-secondary btn-sm" href="{{ url('/torneo/editar/'.$torneo->ID_TORNEO) }}"><i class="fa fa-pencil-square-o"></i></a>
+                                            <!-- Botón trigger modal -->
+                                            <button type="button" id="criaderoBoton" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#eliminarModal" data-id="{{ $torneo->ID_TORNEO }}">
+                                                <i class="fa fa-window-close"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 @endforeach    
@@ -78,4 +82,36 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script type = "text/javascript">
+        $(document).ready(function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
+            $('#eliminarModal').on('show.bs.modal', function (e) {
+                var boton = $(e.relatedTarget)
+                var id = boton.data('id');
+                $("#eliminar").click(function()
+                {
+                    var url = "/torneo/eliminar/"+id;
+                    $.ajax({
+                        url : url,
+                        success : function(data) {
+                            alert( "Se elimino el dato correctamente" );
+                            location.reload();
+                        },
+                        error : function(data) {
+                            alert("Existe una relación con el elemento a eliminar");
+                            location.reload();
+                        }
+                    }); 
+                });
+            });
+
+        });
+    </script>
 @endsection

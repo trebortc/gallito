@@ -1,17 +1,18 @@
 @extends('diseno.master')
-@section('titulo','Criaderos')
+@section('titulo','Inscripcion Torneo')
 @section('contenido')
+    @include('modals.eliminar')
     <div class="container">
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-end p-4">
-                    <a href="{{ route('inscripcion_torneo_nuevo') }}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Nuevo</a>
+                    <a href="{{ route('inscripcion_torneo_nuevo') }}" class="btn btn-light btn-lg active" role="button" aria-pressed="true"><i class="fa fa-file-o"></i></a>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <form action="{{ route('inscripcion_torneo_buscar') }}" method="POST">
+                <form action="{{ url('/inscripcion_torneo/buscar') }}" method="POST">
                     {!! csrf_field() !!}
                     <div class="input-group p-4">
                         <input type="text" class="form-control" name="textoBuscar"
@@ -49,11 +50,28 @@
                                         <td>{{ $inscripcion -> NOMBRE_REPRESENTANTE }}</td>
                                         <td>{{ $inscripcion -> PLACA_GALLO }}</td>
                                         <td>{{ $inscripcion -> PESO_GALLO }}</td>
-                                        <td>{{ $inscripcion -> ESTADO }}</td>
                                         <td>
-                                            <a class="btn btn-primary btn-sm" href="{{ url('/representante/ver/'.$inscripcion->ID_REPRESENTANTE) }}"> Ver </a>
-                                            <a class="btn btn-secondary btn-sm" href="{{ url('/representante/editar/'.$inscripcion->ID_REPRESENTANTE) }}"> Editar </a>
-                                            <a class="btn btn-danger btn-sm" href="{{ url('/representante/eliminar/'.$inscripcion->ID_REPRESENTANTE) }}"> Eliminar </a>
+                                            @switch($inscripcion->ESTADO)
+                                                @case('A')
+                                                    Activo
+                                                    @break
+                                                @case('C')
+                                                    Clausurado
+                                                @case('F')
+                                                    Finalizado
+                                                    @break    
+                                                @case('S')
+                                                    Suspendido
+                                                    @break                                                
+                                            @endswitch
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-primary btn-sm" href="{{ url('/inscripcion_torneo/ver/'.$inscripcion->ID_DESCRIPCION) }}"> <i class="fa fa-file-text-o"></i> </a>
+                                            <a class="btn btn-secondary btn-sm" href="{{ url('/inscripcion_torneo/editar/'.$inscripcion->ID_DESCRIPCION) }}"> <i class="fa fa-pencil-square-o"></i> </a>
+                                            <!-- Botón trigger modal -->
+                                            <button type="button" id="criaderoBoton" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#eliminarModal" data-id="{{ $inscripcion->ID_DESCRIPCION }}">
+                                                <i class="fa fa-window-close"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 @endforeach    
@@ -71,4 +89,36 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script type = "text/javascript">
+        $(document).ready(function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#eliminarModal').on('show.bs.modal', function (e) {
+                var boton = $(e.relatedTarget)
+                var id = boton.data('id');
+                $("#eliminar").click(function()
+                {
+                    var url = "/inscripcion_torneo/eliminar/"+id;
+                    $.ajax({
+                        url : url,
+                        success : function(data) {
+                            alert( "Se elimino el dato correctamente" );
+                            location.reload();
+                        },
+                        error : function(data) {
+                            alert("Existe una relación con el elemento a eliminar");
+                            location.reload();
+                        }
+                    }); 
+                });
+            });
+
+        });
+    </script>
 @endsection

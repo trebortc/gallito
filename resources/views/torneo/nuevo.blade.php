@@ -6,7 +6,6 @@
             <div class="col">
                 <br>
                 <h1>Torneo - Nuevo</h1>
-                <br>
                 <form action=" {{ url('/torneo/crear') }}" method="POST">
                     {!! csrf_field() !!}
                     <div class="form-group row">

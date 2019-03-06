@@ -10,15 +10,16 @@
         <title>@yield('titulo')</title>
         <link href=" {{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
         <link href=" {{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
-        <link rel="icon" type="image/x-icon" href="favicon.ico" />
-        
+        <link href=" {{ asset('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+        <link rel="icon" type="image/x-icon" href="{{ asset('img/icono.png') }}" />
+        @yield('estilos')
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="#">Gallito</a>
+        <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('img/gallo.png') }}" width="40">Gallito</a>
             <div class="collapse navbar-collapse" id="menu">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item active">
@@ -37,16 +38,9 @@
                         <a class="nav-link" href="{{ route('inscripcion_torneo') }}">Inscripcion Torneo</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="{{ route('pelea_gallos') }}">Pelea Gallo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('parametro') }}">Parametro</a>
+                        <a class="nav-link" href="{{ route('pelea_gallos') }}">Pelea Gallo</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
             </div>
         </nav>
 

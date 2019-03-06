@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <br><h1>Gallo - Nuevo</h1><br>
+                <br><h1>Gallo - Nuevo</h1>
                 <form action=" {{ url('/gallo/crear') }}" method="POST">
                     {!! csrf_field() !!}
                     <div class="form-group row">
@@ -27,7 +27,7 @@
                     <div class="form-group row">
                         <label for="peso" class="col-sm-2 col-form-label">Peso:</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" id="peso" name="peso" placeholder="Ingrese el peso" step="0.001">
+                            <input type="number" class="form-control" id="peso" name="peso" placeholder="Ingrese el peso" step="0.100" min="3.3" max="4.6">
                         </div>
                     </div>
                     <div class="form-group row">

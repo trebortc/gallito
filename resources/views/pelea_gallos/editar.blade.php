@@ -5,8 +5,7 @@
         <div class="row">
             <div class="col">
                 <br>
-                <h1>Criadero - Editar</h1>
-                <br>
+                <h1>Pelea Gallos - Editar</h1>
                 <form action=" {{ url('/criadero/actualizar') }}" method="POST">
                     {!! csrf_field() !!}
                     <div class="form-group row">

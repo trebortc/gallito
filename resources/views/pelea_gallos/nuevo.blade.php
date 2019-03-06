@@ -6,7 +6,6 @@
             <div class="col">
                 <br>
                 <h1>Pelea Gallos - Nuevo</h1>
-                <br>
                 <form action=" {{ url('/pelea_gallos/crear') }}" method="POST">
                     {!! csrf_field() !!}
                     <div class="form-group row">

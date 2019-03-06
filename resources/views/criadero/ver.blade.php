@@ -8,6 +8,7 @@
 @section('titulo','Criaderos')
 @section('contenido')
     <div class="container">
+        <h2> CRIADERO </h2>
         <div class="form-group row">
             <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
             <div class="col-sm-10">
@@ -35,5 +36,5 @@
             </div>
         </div>        
     </div>
-    <a href="{{ url()->previous() }}">Regresar</a>
+    {{-- <a href="{{ url()->previous() }}">Regresar</a> --}}
 @endsection

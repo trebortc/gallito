@@ -26,7 +26,9 @@ class RepresentanteController extends BaseController
             if($data['textoBuscar'] != "")
             {
                 //dd($data['textoBuscar']);
-                $representantes = Representante::where('NOMBRES', 'LIKE', '%' . $data['textoBuscar'] . '%' )->paginate(7);
+                $representantes = Representante::where('NOMBRES', 'LIKE', '%' . $data['textoBuscar'] . '%' )
+                ->orwhere('IDENTIFICACION', 'LIKE', '%' . $data['textoBuscar'] . '%' )
+                ->paginate(7);
                 //dd($torneos);
                 if(count($representantes) > 0)
                 {

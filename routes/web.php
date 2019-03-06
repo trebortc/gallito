@@ -47,6 +47,7 @@ Route::post('/criadero/actualizar', 'CriaderoController@actualizar')->name('cria
 Route::get('/torneo', 'TorneoController@index')->name('torneo');
 Route::any('/torneo/buscar', 'TorneoController@buscar')->name('torneo_buscar');
 Route::get('/torneo/nuevo', 'TorneoController@nuevo')->name('torneo_nuevo');
+Route::get('/torneo/reporte', 'TorneoController@reporte')->name('torneo_reporte');
 Route::post('/torneo/crear', 'TorneoController@crear')->name('torneo_crear');
 Route::get('/torneo/ver/{id}', 'TorneoController@ver')->name('torneo_ver')
     ->where('id', '[0-9]+');
@@ -89,6 +90,9 @@ Route::get('/inscripcion_torneo/nuevo', 'InscripcionTorneoController@nuevo')->na
 Route::post('/inscripcion_torneo/crear', 'InscripcionTorneoController@crear')->name('inscripcion_torneo_crear');
 Route::get('/inscripcion_torneo/ver/{id}', 'InscripcionTorneoController@ver')->name('inscripcion_torneo_ver')
     ->where('id', '[0-9]+');
+Route::get('/inscripcion_torneo/editar/{id}', 'InscripcionTorneoController@editar')->name('inscripcion_torneo_editar')
+    ->where('id', '[0-9]+');
+Route::post('/inscripcion_torneo/actualizar', 'InscripcionTorneoController@actualizar')->name('inscripcion_torneo_actualizar');
 Route::post('/inscripcion_torneo/cargarInformacionGallo/{id}','InscripcionTorneoController@cargarInformacionGallo')->name('inscripcion_torneo_cargarInfoGallo')
     ->where('id', '[0-9]+');
 
@@ -102,12 +106,12 @@ Route::get('/pelea_gallos/ver/{id}', 'PeleaGallosController@ver')->name('pelea_g
     ->where('id', '[0-9]+');
 Route::post('/pelea_gallos/cargarInformacionGallo/{id}','InscripcionTorneoController@cargarInformacionGallo')->name('pelea_gallos_cargarInfoGallo')
     ->where('id', '[0-9]+');
-
 Route::get('/pelea_gallos/eliminar/{id}', 'PeleaGallosController@eliminar')->name('pelea_gallos_eliminar')
 ->where('id', '[0-9]+');
 Route::get('/pelea_gallos/editar/{id}', 'PeleaGallosController@editar')->name('pelea_gallos_editar')
 ->where('id', '[0-9]+');
 Route::post('/pelea_gallos/actualizar', 'PeleaGallosController@actualizar')->name('pelea_gallos_actualizar');
+Route::get('/pelea_gallos/reporte', 'PeleaGallosController@reporte')->name('pelea_gallos_reporte');
 
 //RUTAS PARAMETRO
 Route::get('/parametro', 'ParametroController@index')->name('parametro');

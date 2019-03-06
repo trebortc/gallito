@@ -7,13 +7,13 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Torneo;
+use PDF;
 
 class TorneoController extends BaseController
 {
     public function index()
     {
-        //$torneos = Torneo::all();
-        $torneos = Torneo::paginate(7);
+        $torneos = Torneo::orderBy('ESTADO','asc')->paginate(7);
         return view('torneo.index',['torneos' => $torneos]);
     }
 
@@ -46,6 +46,8 @@ class TorneoController extends BaseController
     public function crear()
     {
         $data = request()->all();
+        //Si existen torneos activos los cancelos, asi solamente tengo un torneo activo
+        Torneo::where('ESTADO','A')->update(['ESTADO'=>'F']);
         Torneo::create(
             [
                 'NOMBRE' => $data['nombre'],
@@ -80,13 +82,26 @@ class TorneoController extends BaseController
     public function actualizar()
     {
         $data = request()->all();
+        
+        if($data['estado']=='A'){
+            Torneo::where('ESTADO','A')->update(['ESTADO'=>'F']);    
+        }
         $id = $data['id'];
         $torneo = Torneo::find($id);
         $torneo->NOMBRE = $data['nombre'];
         $torneo->DESCRIPCION = $data['descripcion'];
         $torneo->FECHA = $data['fecha'];
         $torneo->ESTADO = $data['estado'];
+        print("".$torneo->ESTADO);
         $torneo->save();
+        
         return redirect('torneo/');
+    }
+
+    public function reporte()
+    {      
+        $pdf = PDF::loadView('reportes.torneo',['titulo'=>'Reporte Ejemplo']);
+        return $pdf->stream();
+        //return $pdf->download( 'torneo.pdf' );
     }
 }

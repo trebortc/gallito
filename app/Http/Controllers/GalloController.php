@@ -13,7 +13,7 @@ class GalloController extends BaseController
 {
     public function index()
     {
-        $gallos = Gallo::orderBy('PLACA','asc')->paginate(7);
+        $gallos = Gallo::orderBy('ESTADO','asc')->orderBy('PLACA','asc')->paginate(7);
         return view('gallo.index',['gallos' => $gallos]);
     }
 
@@ -29,7 +29,7 @@ class GalloController extends BaseController
                 {
                     return view('gallo.index',['gallos' => $gallos]);
                 }else{
-                    return redirect('gallos/');
+                    return redirect('gallo/');
                 }
             }
         }

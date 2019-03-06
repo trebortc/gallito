@@ -11,7 +11,6 @@
             <div class="col">
                 <br>
                 <h1>Representante - Editar</h1> 
-                <br>
                 <form action=" {{ url('/representante/actualizar') }}" method="POST">
                     {!! csrf_field() !!}
                     <div class="form-group row">

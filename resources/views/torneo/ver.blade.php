@@ -2,7 +2,7 @@
 $options = array("A","S","C");
 $opciones[0]['opc']="A";$opciones[0]['nombre']="Activo";
 $opciones[1]['opc']="S";$opciones[1]['nombre']="Suspendido";
-$opciones[2]['opc']="C";$opciones[2]['nombre']="Clausurado";
+$opciones[2]['opc']="F";$opciones[2]['nombre']="Finalizado";
 @endphp
 @extends('diseno.master')
 @section('titulo','Torneo')
@@ -42,6 +42,6 @@ $opciones[2]['opc']="C";$opciones[2]['nombre']="Clausurado";
             </div>
         </div>        
     </div>
-    <a href="{{ url()->previous() }}"> Regresar</a>
+    {{-- <a href="{{ url()->previous() }}"> Regresar</a> --}}
 
 @endsection

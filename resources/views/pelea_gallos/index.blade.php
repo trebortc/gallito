@@ -6,8 +6,19 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-end p-4">
-                    <a href="{{ url('/pelea_gallos/nuevo') }}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Nuevo</a>
-                    <a href="{{ url('/pelea_gallos/peleas') }}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Peleas</a>
+                    <a href="{{ url('/pelea_gallos/nuevo') }}" class="btn btn-light btn-lg active" role="button" aria-pressed="true"><i class="fa fa-file-o"></i></a>
+                    <a href="{{ url('/pelea_gallos/peleas') }}" class="btn btn-light btn-lg active" role="button" aria-pressed="true"><i class="fa fa-flickr"></i></a>
+                    <a href="{{ url('/pelea_gallos/reporte') }}" class="btn btn-light btn-lg active" role="button" aria-pressed="true"><i class="fa fa-file-text-o"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Mensaje: </strong> {{ $mensaje }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -36,7 +47,7 @@
                                 <th scope="col">GALLO 1</th>
                                 <th scope="col">GALLO 2</th>
                                 <th scope="col">GALLO<br>GANADOR</th>
-                                <th scope="col">TIEMPO</th>
+                                <th scope="col">PESOS</th>
                                 <th scope="col">ESTADO</th>
                                 <th scope="col"></th>
                             </tr>
@@ -56,11 +67,8 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if(!(empty($peleaGallo->TIEMPO)))
-                                                {{ $peleaGallo->TIEMPO }}
-                                            @else
-                                                SIN TIEMPO
-                                            @endif 
+                                            {{ $peleaGallo->inscripcionTorneo1->PESO_GALLO }}/
+                                            {{ $peleaGallo->inscripcionTorneo2->PESO_GALLO }}
                                         </td>
                                         <td>
                                             @switch($peleaGallo->ESTADO)
@@ -75,22 +83,22 @@
                                                 @break
                                             @endswitch
                                         </td>
-                                        <td><a class="btn btn-primary btn-sm" href="{{ url('/pelea_gallos/ver/'.$peleaGallo->ID_PELEA) }}"> Ver </a>
+                                        <td><a class="btn btn-primary btn-sm" href="{{ url('/pelea_gallos/ver/'.$peleaGallo->ID_PELEA) }}"> <i class="fa fa-file-text-o"></i> </a>
                                         
                                             @switch($peleaGallo->ESTADO)
                                                 @case('A')
                                                     <button type="button" id="criaderoBoton" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#peleaGallosEditarModal" data-id="{{ $peleaGallo->ID_PELEA }}" data-pelea="{{ $peleaGallo }}">
-                                                        Ganador
+                                                        <i class="fa fa-hand-rock-o" aria-hidden="true"></i>
                                                     </button>  
                                                     @break
                                                 @case('F')
                                                     <button disabled type="button" id="criaderoBoton" class="btn btn-secondary btn-sm">
-                                                        Ganador
+                                                        <i class="fa fa-trophy" aria-hidden="true"></i>
                                                     </button>
                                                     @break            
                                             @endswitch
                                         
-                                        <a class="btn btn-danger btn-sm" href="{{ url('/pelea_gallos/eliminar/'.$peleaGallo->ID_PELEA) }}"> Eliminar </a>
+                                        <a class="btn btn-danger btn-sm" href="{{ url('/pelea_gallos/eliminar/'.$peleaGallo->ID_PELEA) }}"> <i class="fa fa-window-close"></i> </a>
                                         <!-- Botón trigger modal -->
                                         </td>
                                     </tr>
@@ -122,9 +130,14 @@
                 var boton = $(e.relatedTarget)
                 var id = boton.data('id');
                 var peleaGallo = boton.data('pelea');
+                //$("#ganador").find("option[value=".peleaGallo['inscripcion_torneo1']['PLACA_GALLO']."]").remove(); 
+                //$("#ganador").find("option[value=".peleaGallo['inscripcion_torneo2']['PLACA_GALLO']."]").remove();
                 $('#id').val(id);
                 var gallo1 = new Option(""+peleaGallo['inscripcion_torneo1']['PLACA_GALLO'], ""+peleaGallo['inscripcion_torneo1']['PLACA_GALLO']);
                 var gallo2 = new Option(""+peleaGallo['inscripcion_torneo2']['PLACA_GALLO'], ""+peleaGallo['inscripcion_torneo2']['PLACA_GALLO']);
+                var definirGallo = new Option("Seleccione ganador","-1");
+                $('#ganador').empty();
+                $('#ganador').append(definirGallo);
                 $("#ganador").append(gallo1);
                 $("#ganador").append(gallo2);
             });

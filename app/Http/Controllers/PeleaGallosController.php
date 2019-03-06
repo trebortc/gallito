@@ -9,20 +9,29 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\InscripcionTorneo;
 use App\PeleaGallos;
 use App\Parametro;
+use App\Torneo;
+use PDF;
 
 class PeleaGallosController extends BaseController
 {
     public function index()
     {
-        $peleaGallos = PeleaGallos::paginate(7);
-        return view('pelea_gallos.index',['peleaGallos' => $peleaGallos]);
+        $torneo = Torneo::where('ESTADO','=','A')->get();
+        $peleaGallos = $torneo->first()->peleaGallos()->paginate(7);
+        return view('pelea_gallos.index',['peleaGallos' => $peleaGallos, 'mensaje'=>'Bienvenidos']);
     }
 
     public function peleas()
     {
-        $a = $this->realizarSorteoGallosSegunPeso();
-        //$sinPareja = $this->realizarSorteoGallosSinPareja();
-        return redirect('pelea_gallos/');
+        $peleaGallos = PeleaGallos::paginate(7);
+        $gallosSegunPeso = $this->obtenerGallosSegunPeso();
+        if(count($gallosSegunPeso)>0){
+            $this->realizarSorteoGallosSegunPeso($gallosSegunPeso);
+            $sinPareja = $this->obtenerGallosSinPareja();
+            $this->realizarSorteoGallosSinPareja($sinPareja);
+            return view('pelea_gallos.index',['peleaGallos'=>$peleaGallos,'mensaje'=>'Peleas creadas con exito']);
+        }        
+        return view('pelea_gallos.index',['peleaGallos'=>$peleaGallos,'mensaje'=>'No se pudo generar las pelas']);
     }
 
     public function buscar()
@@ -32,13 +41,18 @@ class PeleaGallosController extends BaseController
         {
             if($data['textoBuscar'] != "")
             {
-                /*$peleaGallos = PeleaGallos::where('PLACA', 'LIKE', '%' . $data['textoBuscar'] . '%' )->paginate(7);
+                $torneo = Torneo::where('ESTADO','=','A')->get();
+                $peleaGallos = $torneo->first()->peleaGallos()
+                ->where('inscripcion_torneo.PLACA_GALLO','LIKE','%'.$data['textoBuscar'].'%')
+                ->orwhere('inscripcion_torneo.PESO_GALLO','LIKE','%'.$data['textoBuscar'].'%')
+                ->paginate(7);
                 if(count($peleaGallos) > 0)
                 {
-                    return view('gallo.index',['peleaGallos' => $peleaGallos]);
+                    $peleaGallos->appends ( array ('textoBuscar' => $data['textoBuscar']));
+                    return view('pelea_gallos.index',['peleaGallos' => $peleaGallos, 'mensaje'=>'Busqueda correcta']);
                 }else{
                     return redirect('pelea_gallos/');
-                }*/
+                }
             }
         }
         return redirect('pelea_gallos/');
@@ -46,7 +60,7 @@ class PeleaGallosController extends BaseController
 
     public function nuevo()
     {
-        $inscripcionesTorneo = InscripcionTorneo::all();
+        $inscripcionesTorneo = InscripcionTorneo::where('ESTADO','=','A')->get();
         return view('pelea_gallos.nuevo', ['inscripcionesTorneo' => $inscripcionesTorneo]);
     }
 
@@ -121,11 +135,13 @@ class PeleaGallosController extends BaseController
     {
         $pesoMaximo = Parametro::find('PESO MAXIMO')->VALOR;
         $pesoMinimo = Parametro::find('PESO MINIMO')->VALOR;
-
+        $torneo = Torneo::where('ESTADO','=','A')->get();
+        
         $gallosPorPeso = collect();
         for ($p = $pesoMinimo; $p <= $pesoMaximo; $p=$p+0.1) {
-            $gallosInscriptos = InscripcionTorneo::where('ESTADO', 'A')
-            ->where('PESO_GALLO', "".$p)
+            $gallosInscriptos = InscripcionTorneo::where('ESTADO','=','A')
+            ->where('ID_TORNEO','=', $torneo[0]->ID_TORNEO)
+            ->where('PESO_GALLO',''.$p)
             ->orderBy('PLACA_GALLO', 'desc')
             ->get();
             if($gallosInscriptos->count() !== 0 ){
@@ -136,10 +152,8 @@ class PeleaGallosController extends BaseController
         return $gallosPorPeso;
     }
 
-    public function realizarSorteoGallosSegunPeso()
+    public function realizarSorteoGallosSegunPeso($gallosSegunPeso)
     {
-        $gallosSegunPeso = $this->obtenerGallosSegunPeso();
-        $gallosSinPareja = array();
         foreach($gallosSegunPeso as $grupoGalloSegunPeso)
         {
             if(count($grupoGalloSegunPeso)%2==0){
@@ -156,11 +170,23 @@ class PeleaGallosController extends BaseController
                         'ESTADO' => 'A'
                     ]
                 );
+
+                /**
+                 * Cambio estado de las incripciones, cuando se seleccionan para una pelea de gallos
+                 */
+                $inscripcion1 = InscripcionTorneo::find($grupoGalloSegunPeso[$i]['ID_DESCRIPCION']);
+                $inscripcion1->ESTADO = 'F';
+                $inscripcion1->save();
+
+                $inscripcion2 = InscripcionTorneo::find($grupoGalloSegunPeso[$i+1]['ID_DESCRIPCION']);
+                $inscripcion2->ESTADO = 'F';
+                $inscripcion2->save();
+
             }
         }
     }
 
-    public function realizarSorteoGallosSinPareja()
+    public function obtenerGallosSinPareja()
     {
         $gallosSegunPeso = $this->obtenerGallosSegunPeso();
         $gallosSinPareja = array();
@@ -174,6 +200,48 @@ class PeleaGallosController extends BaseController
             }
         }
         return $gallosSinPareja;    
+    }
+
+    public function realizarSorteoGallosSinPareja($gallos)
+    {
+        for($i=0;$i<count($gallos);$i++)
+        {
+            $peso = $gallos[$i]->PESO_GALLO + 0.1;
+            if(isset($gallos[$i+1])){
+                if( $peso == $gallos[$i+1]->PESO_GALLO){
+                    /**
+                     * Creo la pelea de gallos con un peso solo mayor a 0.01
+                     */
+                    PeleaGallos::create(
+                        [
+                            'ID_DESCRIPCION' => $gallos[$i]->ID_DESCRIPCION,
+                            'INS_ID_DESCRIPCION' => $gallos[$i+1]->ID_DESCRIPCION,
+                            'ESTADO' => 'A'
+                        ]
+                    );
+    
+                    /**
+                     * Cambio estado de las incripciones, cuando se seleccionan para una pelea de gallos
+                     */
+                    $inscripcion1 = InscripcionTorneo::find($gallos[$i]->ID_DESCRIPCION);
+                    $inscripcion1->ESTADO = 'F';
+                    $inscripcion1->save();
+    
+                    $inscripcion2 = InscripcionTorneo::find($gallos[$i+1]->ID_DESCRIPCION);
+                    $inscripcion2->ESTADO = 'F';
+                    $inscripcion2->save();
+                    $i++;    
+                }
+            }
+        }
+    }
+
+    public function reporte()
+    {      
+        $torneo = Torneo::where('ESTADO','=','A')->get();
+        $peleaGallos = $torneo->first()->peleaGallos()->get();
+        $pdf = PDF::loadView('reportes.pelea_gallos',['peleaGallos'=>$peleaGallos]);
+        return $pdf->stream();
     }
 
 }

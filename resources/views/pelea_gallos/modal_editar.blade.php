@@ -20,7 +20,6 @@
                         <label for="ganador" class="col-sm-3 col-form-label">Ganador:</label>
                         <div class="col-sm-9">
                             <select name="ganador" id="ganador" class="form-control">
-                                <option value="DEFINA VENCEDOR">Seleccione ganador</option>
                             </select>
                         </div>
                     </div>

@@ -51,4 +51,5 @@ class PeleaGallos extends Model
     {
         return $this->belongsTo('App\InscripcionTorneo', 'ID_DESCRIPCION', 'ID_DESCRIPCION');
     }
+
 }

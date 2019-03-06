@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-end p-4">
-                    <a href="{{ url('/criadero/nuevo') }}" class="btn btn-info btn-lg active" role="button" aria-pressed="true">Nuevo</a>
+                    <a href="{{ url('/criadero/nuevo') }}" class="btn btn-light btn-lg active" role="button" aria-pressed="true"><i class="fa fa-file-o"></i></a>
                 </div>
             </div>
         </div>
@@ -59,11 +59,11 @@
                                         @endswitch
                                     </td>
                                     <td>
-                                        <a class="btn btn-primary btn-sm" href="{{ url('/criadero/ver/'.$criadero->ID_CRIADEROS) }}"> Ver </a>
-                                        <a class="btn btn-secondary btn-sm" href="{{ url('/criadero/editar/'.$criadero->ID_CRIADEROS)}}"> Editar </a>                                  
+                                        <a class="btn btn-primary btn-sm" href="{{ url('/criadero/ver/'.$criadero->ID_CRIADEROS) }}"> <i class="fa fa-file-text-o"></i> </a>
+                                        <a class="btn btn-secondary btn-sm" href="{{ url('/criadero/editar/'.$criadero->ID_CRIADEROS)}}"> <i class="fa fa-pencil-square-o"></i> </a>                                  
                                         <!-- Botón trigger modal -->
                                         <button type="button" id="criaderoBoton" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#eliminarModal" data-id="{{ $criadero->ID_CRIADEROS }}">
-                                            Eliminar
+                                            <i class="fa fa-window-close"></i>
                                         </button>
                                     </td> 
                                 </tr>
@@ -82,7 +82,8 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+@endsection
+@section('scripts')
     <script type = "text/javascript">
         $(document).ready(function(){
             $.ajaxSetup({
@@ -91,21 +92,6 @@
                 }
             });
 
-            //$('#eliminarModal').on('show.bs.modal', function (e) {
-            //    var boton = $(e.relatedTarget)
-            //    var id = boton.data('id');
-            //    $("#eliminar").click(function()
-            //    {
-            //        var url = "/criadero/eliminar/"+id;
-            //        $.get(url, function( data ) {
-            //            alert( "Se elimino el dato correctamente" );
-            //            location.reload();
-            //        });
-            //        
-            //    });
-            //});
-
-            
             $('#eliminarModal').on('show.bs.modal', function (e) {
                 var boton = $(e.relatedTarget)
                 var id = boton.data('id');
@@ -115,12 +101,12 @@
                     $.ajax({
                         url : url,
                         success : function(data) {
-                            //alert( "Se elimino el dato correctamente" );
-                            //location.reload();
+                            alert( "Se elimino el dato correctamente" );
+                            location.reload();
                         },
                         error : function(data) {
                             alert("Existe una relación con el elemento a eliminar");
-                            //location.reload();
+                            location.reload();
                         }
                     }); 
                 });

@@ -55,5 +55,5 @@
             </div>
         </div>       
     </div>
-    <a href="{{ url()->previous() }}"> Regresar </a>
+    {{-- <a href="{{ url()->previous() }}"> Regresar </a> --}}
 @endsection

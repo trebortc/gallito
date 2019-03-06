@@ -16,8 +16,8 @@ class InscripcionTorneoController extends BaseController
 {
     public function index()
     {
-        //$inscripcionesTorneo = InscripcionTorneo::all();
-        $inscripcionesTorneo = InscripcionTorneo::paginate(7);
+        $torneo = Torneo::where('ESTADO','=','A')->get();
+        $inscripcionesTorneo = $torneo->first()->inscripcionTorneos()->orderBy('ESTADO','asc')->orderBy('PLACA_GALLO','asc')->paginate(7);
         return view('inscripcion_torneo.index',['inscripciones' => $inscripcionesTorneo]);
     }
 
@@ -28,12 +28,16 @@ class InscripcionTorneoController extends BaseController
         {
             if($data['textoBuscar'] != "")
             {
-                $inscripcionesTorneo = InscripcionTorneo::where('NOMBRE_CRIADERO', 'LIKE', '%' . $data['textoBuscar'] . '%' )
-                                                        ->orwhere('NOMBRE_REPRESENTANTE', 'LIKE', '%' . $data['textoBuscar'] . '%' )
-                                                        ->orwhere('PLACA_GALLO', 'LIKE', '%' . $data['textoBuscar'] . '%' )
-                                                        ->paginate(7);
+                $torneo = Torneo::where('ESTADO','=','A')->get();
+                $inscripcionesTorneo = $torneo->first()->inscripcionTorneos()->where('NOMBRE_CRIADERO', 'LIKE', '%' . $data['textoBuscar'] . '%' )
+                    ->orwhere('NOMBRE_REPRESENTANTE', 'LIKE', '%' . $data['textoBuscar'] . '%' )
+                    ->orwhere('PLACA_GALLO', 'LIKE', '%' . $data['textoBuscar'] . '%' )
+                    ->orderBy('ESTADO','asc')
+                    ->orderBy('PLACA_GALLO','asc')
+                    ->paginate(7);
                 if(count($inscripcionesTorneo) > 0)
                 {
+                    $inscripcionesTorneo->appends(array('textoBuscar' => $data['textoBuscar'], 'torneo' => $torneo)); 
                     return view('inscripcion_torneo.index',['inscripciones' => $inscripcionesTorneo]);
                 }else{
                     return redirect('inscripcion_torneo/');
@@ -45,8 +49,8 @@ class InscripcionTorneoController extends BaseController
 
     public function nuevo()
     {
-        $gallos = Gallo::all();
-        $torneos = Torneo::all();
+        $gallos = Gallo::where('ESTADO','=','A')->get();
+        $torneos = Torneo::where('ESTADO','=','A')->get();
         return view('inscripcion_torneo.nuevo', ['torneos' => $torneos, 'gallos' => $gallos]);
     }
 
@@ -73,10 +77,40 @@ class InscripcionTorneoController extends BaseController
         
     }
 
+    public function editar($id)
+    {
+        $inscripcion = InscripcionTorneo::find($id);
+        $gallos = Gallo::where('ESTADO','=','A')->get();
+        $torneos = Torneo::where('ESTADO','=','A')->get();
+        return view('inscripcion_torneo.editar', ['inscripcion' => $inscripcion,'torneos' => $torneos,'gallos' => $gallos]) ;
+    }
+
+    public function actualizar()
+    {
+        $data = request()->all();
+        $id = $data['id'];
+        $inscripcion = InscripcionTorneo::find($id);
+        $inscripcion->ID_TORNEO = $data['id_torneo'];
+        $inscripcion->ID_CRIADEROS = $data['id_criaderos'];
+        $inscripcion->ID_REPRESENTANTE = $data['id_representante'];
+        $inscripcion->ID_GALLO = $data['id_gallo'];
+        $inscripcion->NOMBRE_CRIADERO = $data['nombre_criadero'];
+        $inscripcion->NOMBRE_REPRESENTANTE = $data['nombre_representante'];
+        $inscripcion->PLACA_GALLO = $data['placa_gallo'];
+        $inscripcion->PESO_GALLO = $data['peso_gallo'];
+        $inscripcion->EDAD_GALLO = $data['edad_gallo'];
+        $inscripcion->TALLA_GALLO = $data['talla_gallo'];
+        $inscripcion->ESTADO = $data['estado'];
+        $inscripcion->save();
+        return redirect('inscripcion_torneo/');
+    }
+
     public function ver($id)
     {
-        $representante = Representante::find($id);
-        return view('inscripcion_torneo.ver', ['torneo' => $representante]) ;
+        $inscripcion = InscripcionTorneo::find($id);
+        $gallos = Gallo::where('ESTADO','=','A')->get();
+        $torneos = Torneo::where('ESTADO','=','A')->get();
+        return view('inscripcion_torneo.ver', ['inscripcion' => $inscripcion,'torneos' => $torneos,'gallos' => $gallos]) ;
     }
 
     public function cargarInformacionGallo($id)

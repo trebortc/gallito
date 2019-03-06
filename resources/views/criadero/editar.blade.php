@@ -6,7 +6,6 @@
             <div class="col">
                 <br>
                 <h1>Criadero - Editar</h1>
-                <br>
                 <form action=" {{ url('/criadero/actualizar') }}" method="POST">
                     {!! csrf_field() !!}
                     <div class="form-group row">

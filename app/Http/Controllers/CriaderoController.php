@@ -12,7 +12,9 @@ class CriaderoController extends BaseController
 {
     public function index()
     {
-        $criaderos = Criadero::where('ESTADO','!=','C')->paginate(7);
+        //$criaderos = Criadero::where('ESTADO','!=','C')->simplePaginate(7);
+        $criaderos = Criadero::where('ESTADO','!=','C')->orderBy('ESTADO','asc')->orderBy('NOMBRE','asc')->Paginate(7);
+        //$criaderos -> withPath('indices/criaderos')
         //$criaderos = Criadero::all();
         return view('criadero.index',['criaderos' => $criaderos]);
     }
@@ -27,6 +29,7 @@ class CriaderoController extends BaseController
                 $criaderos = Criadero::where( 'NOMBRE', 'LIKE', '%' . $data['textoBuscar'] . '%' )->paginate(7);
                 if(count($criaderos) > 0)
                 {
+                    $criaderos->appends ( array ('textoBuscar' => $data['textoBuscar'])); 
                     return view('criadero.index',['criaderos' => $criaderos]);
                 }else{
                     return redirect('criadero/');
