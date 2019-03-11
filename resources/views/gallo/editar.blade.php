@@ -40,19 +40,19 @@
                     <div class="form-group row">
                         <label for="peso" class="col-sm-2 col-form-label">Peso:</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" id="peso" name="peso" placeholder="Ingrese el peso" step="0.100" value="{{ $gallo->PESO }}" min="3.3" max="4.6">
+                            <input type="number" class="form-control" id="peso" name="peso" placeholder="Ingrese el peso" step="0.01" value="{{ $gallo->PESO }}" min="3.3" max="4.6">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="edad" class="col-sm-2 col-form-label">Edad:</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" id="edad" name="edad" placeholder="Ingrese edad" step="0.001" value="{{ $gallo->EDAD }}">
+                            <input type="number" class="form-control" id="edad" name="edad" placeholder="Ingrese edad" step="0.01" value="{{ $gallo->EDAD }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="talla" class="col-sm-2 col-form-label">Talla:</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" id="talla" name="talla" placeholder="Ingrese su talla" step="0.001" value="{{ $gallo->TALLA }}">
+                            <input type="number" class="form-control" id="talla" name="talla" placeholder="Ingrese su talla" step="0.01" value="{{ $gallo->TALLA }}">
                         </div>
                     </div>
                     <div class="form-group row">

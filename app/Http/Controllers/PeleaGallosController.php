@@ -240,7 +240,7 @@ class PeleaGallosController extends BaseController
     {      
         $torneo = Torneo::where('ESTADO','=','A')->get();
         $peleaGallos = $torneo->first()->peleaGallos()->get();
-        $pdf = PDF::loadView('reportes.pelea_gallos',['peleaGallos'=>$peleaGallos]);
+        $pdf = PDF::loadView('reportes.pelea_gallos',['peleaGallos'=>$peleaGallos])->setPaper('a4', 'landscape');;
         return $pdf->stream();
     }
 

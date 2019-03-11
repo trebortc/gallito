@@ -37,10 +37,12 @@
                 <thead class="">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">GALLO 1</th>
-                        <th scope="col">GALLO 2</th>
-                        <th scope="col">GANADOR</th>
+                        <th scope="col">CRIADERO</th>
+                        <th scope="col">REPRESENTANTE</th>
+                        <th scope="col">GALLO</th>
                         <th scope="col">PESOS</th>
+                        <th scope="col">GANADOR</th>
+                        <th scope="col">TIEMPO</th>
                         <th scope="col">ESTADO</th>
                     </tr>
                 </thead>
@@ -49,8 +51,22 @@
                         @foreach ($peleaGallos as $peleaGallo)
                             <tr>
                                 <th scope="row">{{ $loop -> iteration}}</th>
-                                <td>{{ $peleaGallo -> inscripcionTorneo1 -> PLACA_GALLO}}</td>
-                                <td>{{ $peleaGallo -> inscripcionTorneo2 -> PLACA_GALLO}}</td>
+                                <td>
+                                    {{ $peleaGallo ->inscripcionTorneo1->NOMBRE_CRIADERO }}<br>
+                                    {{ $peleaGallo ->inscripcionTorneo2->NOMBRE_CRIADERO }}
+                                </td>
+                                <td>
+                                    {{ $peleaGallo ->inscripcionTorneo1->NOMBRE_REPRESENTANTE }}<br>
+                                    {{ $peleaGallo ->inscripcionTorneo2->NOMBRE_REPRESENTANTE }}
+                                </td>
+                                <td>
+                                    {{ $peleaGallo ->inscripcionTorneo1->PLACA_GALLO }}<br>
+                                    {{ $peleaGallo ->inscripcionTorneo2->PLACA_GALLO }}
+                                </td>
+                                <td>
+                                    {{ $peleaGallo->inscripcionTorneo1->PESO_GALLO }}<br>
+                                    {{ $peleaGallo->inscripcionTorneo2->PESO_GALLO }}
+                                    </td>
                                 <td>
                                     @if(!(empty($peleaGallo->RESULTADO)))
                                         {{ $peleaGallo->RESULTADO }}
@@ -59,8 +75,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {{ $peleaGallo->inscripcionTorneo1->PESO_GALLO }}/
-                                    {{ $peleaGallo->inscripcionTorneo2->PESO_GALLO }}
+                                    {{ $peleaGallo->TIEMPO}}
                                 </td>
                                 <td>
                                     @switch($peleaGallo->ESTADO)

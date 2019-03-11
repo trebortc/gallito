@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('diseno.master'); 
+    return view('torneo.inicio'); 
 });
 
 //Ruta para interactuar con el AJAX - EJEMPLO
@@ -44,6 +44,7 @@ Route::get('/criadero/editar/{id}', 'CriaderoController@editar')->name('criadero
 Route::post('/criadero/actualizar', 'CriaderoController@actualizar')->name('criadero_actualizar');
 
 //RUTAS TORNEO
+Route::get('/inicio', 'TorneoController@index')->name('inicio');
 Route::get('/torneo', 'TorneoController@index')->name('torneo');
 Route::any('/torneo/buscar', 'TorneoController@buscar')->name('torneo_buscar');
 Route::get('/torneo/nuevo', 'TorneoController@nuevo')->name('torneo_nuevo');

@@ -11,6 +11,11 @@ use PDF;
 
 class TorneoController extends BaseController
 {
+    public function inicio()
+    {
+        return view('torneo.inicio');
+    }
+
     public function index()
     {
         $torneos = Torneo::orderBy('ESTADO','asc')->paginate(7);
