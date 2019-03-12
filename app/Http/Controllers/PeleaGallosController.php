@@ -23,12 +23,14 @@ class PeleaGallosController extends BaseController
 
     public function peleas()
     {
-        $peleaGallos = PeleaGallos::paginate(7);
+        $torneo = Torneo::where('ESTADO','=','A')->get();
+        $peleaGallos =  $torneo->first()->peleaGallos()->paginate(7);
         $gallosSegunPeso = $this->obtenerGallosSegunPeso();
         if(count($gallosSegunPeso)>0){
             $this->realizarSorteoGallosSegunPeso($gallosSegunPeso);
             $sinPareja = $this->obtenerGallosSinPareja();
             $this->realizarSorteoGallosSinPareja($sinPareja);
+            $peleaGallos =  $torneo->first()->peleaGallos()->paginate(7);
             return view('pelea_gallos.index',['peleaGallos'=>$peleaGallos,'mensaje'=>'Peleas creadas con exito']);
         }        
         return view('pelea_gallos.index',['peleaGallos'=>$peleaGallos,'mensaje'=>'No se pudo generar las pelas']);
@@ -60,7 +62,9 @@ class PeleaGallosController extends BaseController
 
     public function nuevo()
     {
-        $inscripcionesTorneo = InscripcionTorneo::where('ESTADO','=','A')->get();
+        //$inscripcionesTorneo = InscripcionTorneo::where('ESTADO','=','A')->get();
+        $torneo = Torneo::where('ESTADO','=','A')->get();
+        $inscripcionesTorneo = $torneo->first()->inscripcionTorneos;
         return view('pelea_gallos.nuevo', ['inscripcionesTorneo' => $inscripcionesTorneo]);
     }
 
@@ -138,12 +142,14 @@ class PeleaGallosController extends BaseController
         $torneo = Torneo::where('ESTADO','=','A')->get();
         
         $gallosPorPeso = collect();
-        for ($p = $pesoMinimo; $p <= $pesoMaximo; $p=$p+0.1) {
+        for ($p = $pesoMinimo; $p <= $pesoMaximo; $p=$p+0.01) {
+            //printf($p."<br>");
             $gallosInscriptos = InscripcionTorneo::where('ESTADO','=','A')
             ->where('ID_TORNEO','=', $torneo[0]->ID_TORNEO)
             ->where('PESO_GALLO',''.$p)
             ->orderBy('PLACA_GALLO', 'desc')
             ->get();
+            //printf()
             if($gallosInscriptos->count() !== 0 ){
                 $gallosPorPeso->put("".$p , $gallosInscriptos);
             }
@@ -154,13 +160,15 @@ class PeleaGallosController extends BaseController
 
     public function realizarSorteoGallosSegunPeso($gallosSegunPeso)
     {
+        //dd($gallosSegunPeso);
         foreach($gallosSegunPeso as $grupoGalloSegunPeso)
         {
             if(count($grupoGalloSegunPeso)%2==0){
                 $limite = count($grupoGalloSegunPeso);
             }else{
                 $limite = count($grupoGalloSegunPeso) - 1;
-            }   
+            }
+            //dd($limite);   
             for($i=0; $i<$limite;$i+=2)
             {
                 PeleaGallos::create(

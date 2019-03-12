@@ -70,7 +70,7 @@
                     <div class="form-group row">
                         <label for="peso_gallo" class="col-sm-2 col-form-label">Peso gallo:</label>
                         <div class="col-sm-5">
-                            <input type="number" class="form-control" id="peso_gallo" name="peso_gallo" placeholder="Escriba el peso del gallo" value="{{ $inscripcion->PESO_GALLO }}" min="3.3" max="4.6">
+                            <input type="number" class="form-control" id="peso_gallo" name="peso_gallo" placeholder="Escriba el peso del gallo" value="{{ $inscripcion->PESO_GALLO }}" min="3.30" max="4.60" step="any">
                         </div>
                     </div>
                     <div class="form-group row">

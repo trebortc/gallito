@@ -14,7 +14,7 @@
                             <select name="id_descripcion" id="id_descripcion" class="form-control">
                                 <option value="-1">Seleccione una opción:</option>
                                 @foreach ($inscripcionesTorneo as $inscripcionTorneo)
-                                    <option value="{{ $inscripcionTorneo -> ID_TORNEO }}">{{ $inscripcionTorneo -> PLACA_GALLO }}</option>
+                                    <option value="{{ $inscripcionTorneo -> ID_DESCRIPCION }}">{{ $inscripcionTorneo -> PLACA_GALLO }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -25,7 +25,7 @@
                             <select name="ins_id_descripcion" id="ins_id_descripcion" class="form-control">
                                 <option value="-1">Seleccione una opción:</option>
                                 @foreach ($inscripcionesTorneo as $inscripcionTorneo)
-                                    <option value="{{ $inscripcionTorneo -> ID_TORNEO }}">{{ $inscripcionTorneo -> PLACA_GALLO }}</option>
+                                    <option value="{{ $inscripcionTorneo -> ID_DESCRIPCION }}">{{ $inscripcionTorneo -> PLACA_GALLO }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -34,7 +34,7 @@
                         <label for="resultado" class="col-sm-2 col-form-label">Resultado:</label>
                         <div class="col-sm-8">
                             <select name="resultado" id="resultado" class="form-control">
-                                <option value="-1">Seleccione ganador:</option>
+                                <option value="Ninguno">Seleccione ganador:</option>
                                 @foreach ($inscripcionesTorneo as $inscripcionTorneo)
                                     <option value="{{ $inscripcionTorneo -> PLACA_GALLO }}">{{ $inscripcionTorneo -> PLACA_GALLO }}</option>
                                 @endforeach
@@ -44,7 +44,7 @@
                     <div class="form-group row">
                         <label for="tiempo" class="col-sm-2 col-form-label">Tiempo:</label>
                         <div class="col-sm-10">
-                            <input type="time" class="form-control" id="tiempo" name="tiempo" placeholder="Escriba la duración de pelea">
+                            <input type="time" class="form-control" id="tiempo" name="tiempo" placeholder="Escriba la duración de pelea" value="00:00">
                         </div>
                     </div>
                     <div class="form-group row">
