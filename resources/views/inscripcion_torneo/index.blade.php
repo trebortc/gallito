@@ -102,6 +102,7 @@
             $('#eliminarModal').on('show.bs.modal', function (e) {
                 var boton = $(e.relatedTarget)
                 var id = boton.data('id');
+                console.log("Dato a boorar" + id);
                 $("#eliminar").click(function()
                 {
                     var url = "/inscripcion_torneo/eliminar/"+id;

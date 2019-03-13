@@ -89,6 +89,8 @@ Route::get('/inscripcion_torneo', 'InscripcionTorneoController@index')->name('in
 Route::any('/inscripcion_torneo/buscar', 'InscripcionTorneoController@buscar')->name('inscripcion_torneo_buscar');
 Route::get('/inscripcion_torneo/nuevo', 'InscripcionTorneoController@nuevo')->name('inscripcion_torneo_nuevo');
 Route::post('/inscripcion_torneo/crear', 'InscripcionTorneoController@crear')->name('inscripcion_torneo_crear');
+Route::get('/inscripcion_torneo/eliminar/{id}', 'InscripcionTorneoController@eliminar')->name('inscripcion_torneo_eliminar')
+    ->where('id', '[0-9]+');
 Route::get('/inscripcion_torneo/ver/{id}', 'InscripcionTorneoController@ver')->name('inscripcion_torneo_ver')
     ->where('id', '[0-9]+');
 Route::get('/inscripcion_torneo/editar/{id}', 'InscripcionTorneoController@editar')->name('inscripcion_torneo_editar')

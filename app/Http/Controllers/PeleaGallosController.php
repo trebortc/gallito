@@ -214,7 +214,7 @@ class PeleaGallosController extends BaseController
     {
         for($i=0;$i<count($gallos);$i++)
         {
-            $peso = $gallos[$i]->PESO_GALLO + 0.1;
+            $peso = $gallos[$i]->PESO_GALLO + 0.01;
             if(isset($gallos[$i+1])){
                 if( $peso == $gallos[$i+1]->PESO_GALLO){
                     /**

@@ -135,4 +135,5 @@ class InscripcionTorneoController extends BaseController
         return redirect('inscripcion_torneo/');
     }
 
+
 }
