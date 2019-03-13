@@ -17,7 +17,7 @@ class InscripcionTorneoController extends BaseController
     public function index()
     {
         $torneo = Torneo::where('ESTADO','=','A')->get();
-        $inscripcionesTorneo = $torneo->first()->inscripcionTorneos()->orderBy('ESTADO','asc')->orderBy('PLACA_GALLO','asc')->paginate(7);
+        $inscripcionesTorneo = $torneo->first()->inscripcionTorneos()->orderBy('ESTADO','asc')->orderBy('PLACA_GALLO','asc')->paginate(15);
         return view('inscripcion_torneo.index',['inscripciones' => $inscripcionesTorneo]);
     }
 

@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table" id="miTabla">
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">#</th>
@@ -41,7 +41,7 @@
                         <tbody>
                             @isset($torneos)
                                 @foreach ($torneos as $torneo)
-                                    <tr>
+                                    <tr class="clickTabla-fila">
                                         <th scope="row">{{ $loop -> iteration}}</th>
                                         <td>{{ $torneo -> NOMBRE }}</td>
                                         <td>{{ str_limit($torneo->DESCRIPCION, $limit = 150, $end = '...') }}
@@ -111,7 +111,6 @@
                     }); 
                 });
             });
-
         });
     </script>
 @endsection

@@ -79,6 +79,7 @@
                                 <option value="C">Clausurado</option>
                                 <option value="F">Finalizado</option>
                                 <option value="S">Suspendido</option>
+                                <option value="O">Sorteado</option>
                             </select>
                         </div>
                     </div>

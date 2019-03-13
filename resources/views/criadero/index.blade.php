@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table" id="miTabla">
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">#</th>
@@ -41,7 +41,7 @@
                         <tbody>
                             @isset($criaderos)
                                 @foreach ($criaderos as $criadero)
-                                <tr>
+                                <tr class="clickTabla-fila">
                                     <th scope="row">{{ $loop -> iteration}}</th>
                                     <td>{{ $criadero -> NOMBRE }}</td>
                                     <td>{{ $criadero -> DESCRIPCION }}</td>

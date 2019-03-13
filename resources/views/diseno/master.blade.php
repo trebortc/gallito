@@ -53,7 +53,22 @@
         <script src="{{ asset('js/jquery-3.2.1.js') }}"  type="text/javascript" charset="utf-8" ></script>
         <script src="{{ asset('js/popper.min.js') }}" type="text/javascript" charset="utf-8" ></script>
         <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript" charset="utf-8" ></script>
-
+        <script type = "text/javascript">
+            $(document).ready(function(){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $('#miTabla').on('click', '.clickTabla-fila', function(event) {
+                    if($(this).hasClass('table-active')){
+                        $(this).removeClass('table-active'); 
+                    } else {
+                        $(this).addClass('table-active').siblings().removeClass('table-active');
+                    }
+                });
+            });
+        </script>
         @yield('scripts')
 
     </body>

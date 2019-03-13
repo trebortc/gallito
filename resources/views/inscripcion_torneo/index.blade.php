@@ -28,15 +28,14 @@
         <div class="row">
             <div class="col">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table" id="miTabla">
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">CRIADERO</th>
                                 <th scope="col">REPRESENTANTE</th>
                                 <th scope="col">PLACA GALLO</th>
-                                <th scope="col">PESO GALLO</th>
-                                                                                         
+                                <th scope="col">PESO GALLO</th>                                                
                                 <th scope="col">ESTADO</th>
                                 <th scope="col"></th>
                             </tr>
@@ -44,7 +43,7 @@
                         <tbody>
                             @isset($inscripciones)
                                 @foreach ($inscripciones as $inscripcion)
-                                    <tr>
+                                    <tr class="clickTabla-fila">
                                         <th scope="row">{{ $loop -> iteration }}</th>
                                         <td>{{ $inscripcion -> criadero -> NOMBRE }}</td>
                                         <td>{{ $inscripcion -> NOMBRE_REPRESENTANTE }}</td>
@@ -62,7 +61,10 @@
                                                     @break    
                                                 @case('S')
                                                     Suspendido
-                                                    @break                                                
+                                                    @break
+                                                @case('O')
+                                                    Sorteado
+                                                @break                                                
                                             @endswitch
                                         </td>
                                         <td>
