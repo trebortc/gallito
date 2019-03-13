@@ -28,6 +28,8 @@ class PeleaGallosController extends BaseController
         $gallosSegunPeso = $this->obtenerGallosSegunPeso();
         if(count($gallosSegunPeso)>0){
             $this->realizarSorteoGallosSegunPeso($gallosSegunPeso);
+            $gallosSegunPeso = $this->obtenerGallosSegunPeso();
+            $this->realizarSorteoGallosSegunPeso($gallosSegunPeso);
             $sinPareja = $this->obtenerGallosSinPareja();
             $this->realizarSorteoGallosSinPareja($sinPareja);
             $peleaGallos =  $torneo->first()->peleaGallos()->paginate(7);
