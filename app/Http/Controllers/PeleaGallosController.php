@@ -28,13 +28,16 @@ class PeleaGallosController extends BaseController
         $gallosSegunPeso = $this->obtenerGallosSegunPeso();
         if(count($gallosSegunPeso)>0){
             $this->realizarSorteoGallosSegunPeso($gallosSegunPeso);
+            printf("Si ingreso 1");
             $gallosSegunPeso = $this->obtenerGallosSegunPeso();
             if(count($gallosSegunPeso)>0){
                 $this->realizarSorteoGallosSegunPeso($gallosSegunPeso);
+                printf("Si ingreso 2");
             }
             $sinPareja = $this->obtenerGallosSinPareja();
             if(count($sinPareja)>0){
                 $this->realizarSorteoGallosSinPareja($sinPareja);    
+                printf("Si ingreso 3");
             }
             $peleaGallos =  $torneo->first()->peleaGallos()->paginate(7);
             return view('pelea_gallos.index',['peleaGallos'=>$peleaGallos,'mensaje'=>'Peleas creadas con exito']);
@@ -161,9 +164,12 @@ class PeleaGallosController extends BaseController
             $gallosInscriptos = InscripcionTorneo::where('ESTADO','=','A')
             ->where('ID_TORNEO','=', $torneo[0]->ID_TORNEO)
             ->where('PESO_GALLO','like',''.$p.'%')
-            ->orderBy('PLACA_GALLO', 'desc')
+            ->orderBy('ESTADO', 'asc')
+            ->orderBy('PESO_GALLO','asc')
+            ->orderBy('created_at', 'asc')
             ->get();
-            //printf("->".$gallosInscriptos->count()."<br>");
+            //printf($p." -> "."<br>");
+            //print_r($gallosInscriptos . "<br>");
             if($gallosInscriptos->count() !== 0 ){
                 $gallosPorPeso->put("".$p , $gallosInscriptos);
             }

@@ -17,7 +17,7 @@ class InscripcionTorneoController extends BaseController
     public function index()
     {
         $torneo = Torneo::where('ESTADO','=','A')->get();
-        $inscripcionesTorneo = $torneo->first()->inscripcionTorneos()->orderBy('ESTADO','asc')->orderBy('PLACA_GALLO','asc')->paginate(15);
+        $inscripcionesTorneo = $torneo->first()->inscripcionTorneos()->orderBy('ESTADO','asc')->orderBy('PESO_GALLO','asc')->paginate(15);
         return view('inscripcion_torneo.index',['inscripciones' => $inscripcionesTorneo]);
     }
 
@@ -33,7 +33,7 @@ class InscripcionTorneoController extends BaseController
                     ->orwhere('NOMBRE_REPRESENTANTE', 'LIKE', '%' . $data['textoBuscar'] . '%' )
                     ->orwhere('PLACA_GALLO', 'LIKE', '%' . $data['textoBuscar'] . '%' )
                     ->orderBy('ESTADO','asc')
-                    ->orderBy('PLACA_GALLO','asc')
+                    ->orderBy('PESO_GALLO','asc')
                     ->paginate(7);
                 if(count($inscripcionesTorneo) > 0)
                 {
