@@ -12,6 +12,16 @@
         </div>
         <div class="row">
             <div class="col">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Mensaje: </strong> {{ $mensaje }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
                 <form action="{{ url('/inscripcion_torneo/buscar') }}" method="POST">
                     {!! csrf_field() !!}
                     <div class="input-group p-4">
