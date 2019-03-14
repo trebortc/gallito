@@ -28,16 +28,16 @@ class PeleaGallosController extends BaseController
         $gallosSegunPeso = $this->obtenerGallosSegunPeso();
         if(count($gallosSegunPeso)>0){
             $this->realizarSorteoGallosSegunPeso($gallosSegunPeso);
-            printf("Si ingreso 1");
+            //printf("Si ingreso 1");
             $gallosSegunPeso = $this->obtenerGallosSegunPeso();
             if(count($gallosSegunPeso)>0){
                 $this->realizarSorteoGallosSegunPeso($gallosSegunPeso);
-                printf("Si ingreso 2");
+                //printf("Si ingreso 2");
             }
             $sinPareja = $this->obtenerGallosSinPareja();
             if(count($sinPareja)>0){
                 $this->realizarSorteoGallosSinPareja($sinPareja);    
-                printf("Si ingreso 3");
+                //printf("Si ingreso 3");
             }
             $peleaGallos =  $torneo->first()->peleaGallos()->paginate(7);
             return view('pelea_gallos.index',['peleaGallos'=>$peleaGallos,'mensaje'=>'Peleas creadas con exito']);
