@@ -164,6 +164,8 @@ class PeleaGallosController extends BaseController
             $gallosInscriptos = InscripcionTorneo::where('ESTADO','=','A')
             ->where('ID_TORNEO','=', $torneo[0]->ID_TORNEO)
             ->where('PESO_GALLO','like',''.$p.'%')
+            ->orderBy('ESTADO', 'asc')
+            ->orderBy('PESO_GALLO', 'asc')
             ->orderBy('created_at', 'asc')
             ->get();
             //printf($p." -> "."<br>");
