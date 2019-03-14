@@ -14,7 +14,9 @@
                             <select name="id_descripcion" id="id_descripcion" class="form-control">
                                 <option value="-1">Seleccione una opción:</option>
                                 @foreach ($inscripcionesTorneo as $inscripcionTorneo)
-                                    <option value="{{ $inscripcionTorneo -> ID_DESCRIPCION }}">{{ $inscripcionTorneo -> PLACA_GALLO }}</option>
+                                    @if($inscripcionTorneo->ESTADO === 'A')
+                                        <option value="{{ $inscripcionTorneo -> ID_DESCRIPCION }}">{{ $inscripcionTorneo -> PLACA_GALLO }}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
@@ -25,7 +27,9 @@
                             <select name="ins_id_descripcion" id="ins_id_descripcion" class="form-control">
                                 <option value="-1">Seleccione una opción:</option>
                                 @foreach ($inscripcionesTorneo as $inscripcionTorneo)
-                                    <option value="{{ $inscripcionTorneo -> ID_DESCRIPCION }}">{{ $inscripcionTorneo -> PLACA_GALLO }}</option>
+                                    @if($inscripcionTorneo->ESTADO === 'A')
+                                        <option value="{{ $inscripcionTorneo -> ID_DESCRIPCION }}">{{ $inscripcionTorneo -> PLACA_GALLO }}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
