@@ -65,7 +65,9 @@ class InscripcionTorneoController extends BaseController
     public function crear()
     {
         $data = request()->all();
-        $inscripciones = InscripcionTorneo::where('ID_GALLO','=',$data['id_gallo']);
+        $torneo = Torneo::where('ESTADO','=','A')->get();
+        $inscripciones = InscripcionTorneo::where('ID_GALLO','=',$data['id_gallo'])
+                                            ->where('ID_TORNEO','=',$torneo->first()->ID_TORNEO)->get();
         if(count($inscripciones)>0)
         {
             $torneo = Torneo::where('ESTADO','=','A')->get();

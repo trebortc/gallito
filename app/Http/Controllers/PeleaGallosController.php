@@ -26,22 +26,14 @@ class PeleaGallosController extends BaseController
         $torneo = Torneo::where('ESTADO','=','A')->get();
         $peleaGallos =  $torneo->first()->peleaGallos()->paginate(7);
         $gallosSegunPeso = $this->obtenerGallosSegunPeso();
-        if(count($gallosSegunPeso)>0){
+        /*if(count($gallosSegunPeso)>0){
             $this->realizarSorteoGallosSegunPeso($gallosSegunPeso);
-            //printf("Si ingreso 1");
-            $gallosSegunPeso = $this->obtenerGallosSegunPeso();
-            if(count($gallosSegunPeso)>0){
-                $this->realizarSorteoGallosSegunPeso($gallosSegunPeso);
-                //printf("Si ingreso 2");
-            }
             $sinPareja = $this->obtenerGallosSinPareja();
-            if(count($sinPareja)>0){
-                $this->realizarSorteoGallosSinPareja($sinPareja);    
-                //printf("Si ingreso 3");
-            }
+            $this->realizarSorteoGallosSinPareja($sinPareja);    
+
             $peleaGallos =  $torneo->first()->peleaGallos()->paginate(7);
             return view('pelea_gallos.index',['peleaGallos'=>$peleaGallos,'mensaje'=>'Peleas creadas con exito']);
-        }        
+        } */       
         return view('pelea_gallos.index',['peleaGallos'=>$peleaGallos,'mensaje'=>'No se pudo generar las pelas']);
     }
 
@@ -160,7 +152,6 @@ class PeleaGallosController extends BaseController
         
         $gallosPorPeso = collect();
         for ($p = $pesoMinimo; $p <= $pesoMaximo; $p=$p+0.1) {
-            //printf($p."<br>");
             $gallosInscriptos = InscripcionTorneo::where('ESTADO','=','A')
             ->where('ID_TORNEO','=', $torneo[0]->ID_TORNEO)
             ->where('PESO_GALLO','like',''.$p.'%')
@@ -168,12 +159,9 @@ class PeleaGallosController extends BaseController
             ->orderBy('PESO_GALLO', 'asc')
             ->orderBy('created_at', 'asc')
             ->get();
-            //printf($p." -> "."<br>");
-            //print_r($gallosInscriptos . "<br>");
             if($gallosInscriptos->count() !== 0 ){
                 $gallosPorPeso->put("".$p , $gallosInscriptos);
             }
-            
         }
         return $gallosPorPeso;
     }
