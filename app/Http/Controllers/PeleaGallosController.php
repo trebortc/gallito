@@ -32,8 +32,8 @@ class PeleaGallosController extends BaseController
             if(count($gallosSegunPeso)>0){
                 $this->realizarSorteoGallosSegunPeso($gallosSegunPeso);
             }
-            if(count($gallosSegunPeso)>0){
-                $sinPareja = $this->obtenerGallosSinPareja();
+            $sinPareja = $this->obtenerGallosSinPareja();
+            if(count($sinPareja)>0){
                 $this->realizarSorteoGallosSinPareja($sinPareja);    
             }
             $peleaGallos =  $torneo->first()->peleaGallos()->paginate(7);
@@ -237,7 +237,7 @@ class PeleaGallosController extends BaseController
                     /**
                      * Creo la pelea de gallos con un peso solo mayor a 0.01
                      */
-                    if($grupoGalloSegunPeso[$i]['ID_CRIADEROS'] !== $grupoGalloSegunPeso[$i+1]['ID_CRIADEROS'])
+                    if($gallos[$i]['ID_CRIADEROS'] !== $gallos[$i+1]['ID_CRIADEROS'])
                     {
                         PeleaGallos::create(
                             [
