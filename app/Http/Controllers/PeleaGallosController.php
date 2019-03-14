@@ -87,7 +87,7 @@ class PeleaGallosController extends BaseController
                 'RESULTADO' => $data['resultado'],
                 'TIEMPO' => "".$data['tiempo'],
                 'OBSERVACION' => $data['observacion'],
-                'ESTADO' => 'O'
+                'ESTADO' => 'A'
             ]
         );
 
