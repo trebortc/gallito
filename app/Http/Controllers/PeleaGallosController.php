@@ -25,15 +25,34 @@ class PeleaGallosController extends BaseController
     {
         $torneo = Torneo::where('ESTADO','=','A')->get();
         $peleaGallos =  $torneo->first()->peleaGallos()->paginate(7);
+        /**
+         * Optener inscripciones activas para crear peleas de gallos
+         */
         $gallosSegunPeso = $this->obtenerGallosSegunPeso();
-        /*if(count($gallosSegunPeso)>0){
-            $this->realizarSorteoGallosSegunPeso($gallosSegunPeso);
-            $sinPareja = $this->obtenerGallosSinPareja();
-            $this->realizarSorteoGallosSinPareja($sinPareja);    
-
+        /**
+         * Verificar si existen inscripciones
+         */
+        if(count($gallosSegunPeso)>0)
+        {
+            /**
+             * Creo las peleas por pesos iguales
+             */
+            $this->crearPeleaPesosIguales($gallosSegunPeso);
+            /**
+             * Obtengo todos los gallos que no participaron en pesos iguales y que son del mismo criadero
+             */
+            $gallosSegunPeso = $this->obtenerGallosSegunPeso();
+            /**
+             * Mezclo todos los gallos ordenadamente segun su peso para sortear en las peleas con un rango mayor de 0.1
+             */
+            $gallos = $this->obtenerTodosGallos($gallosSegunPeso);
+            $this->crearPeleaPesosDiferentes($gallos);
+            /**
+             * Cargar las peleas creadas
+             */
             $peleaGallos =  $torneo->first()->peleaGallos()->paginate(7);
             return view('pelea_gallos.index',['peleaGallos'=>$peleaGallos,'mensaje'=>'Peleas creadas con exito']);
-        } */       
+        }       
         return view('pelea_gallos.index',['peleaGallos'=>$peleaGallos,'mensaje'=>'No se pudo generar las pelas']);
     }
 
@@ -63,7 +82,6 @@ class PeleaGallosController extends BaseController
 
     public function nuevo()
     {
-        //$inscripcionesTorneo = InscripcionTorneo::where('ESTADO','=','A')->get();
         $torneo = Torneo::where('ESTADO','=','A')->get();
         $inscripcionesTorneo = $torneo->first()->inscripcionTorneos;
         return view('pelea_gallos.nuevo', ['inscripcionesTorneo' => $inscripcionesTorneo]);
@@ -166,43 +184,116 @@ class PeleaGallosController extends BaseController
         return $gallosPorPeso;
     }
 
-    public function realizarSorteoGallosSegunPeso($gallosSegunPeso)
+    public function crearPeleaPesosIguales($gallosSegunPeso)
     {
-        //dd($gallosSegunPeso);
-        foreach($gallosSegunPeso as $grupoGalloSegunPeso)
+        foreach($gallosSegunPeso as $galloSegunPeso)
         {
-            if(count($grupoGalloSegunPeso)%2==0){
-                $limite = count($grupoGalloSegunPeso);
-            }else{
-                $limite = count($grupoGalloSegunPeso) - 1;
-            }
-            //dd($limite);   
-            for($i=0; $i<$limite;$i+=2)
+            $arrayGalloSegunPeso = $galloSegunPeso->all();
+            $i=0;
+            while(count($arrayGalloSegunPeso) >= 2)
             {
-
-                if($grupoGalloSegunPeso[$i]['ID_CRIADEROS'] !== $grupoGalloSegunPeso[$i+1]['ID_CRIADEROS'])
+                if(isset($arrayGalloSegunPeso[$i],$arrayGalloSegunPeso[$i+1]))
                 {
-                    PeleaGallos::create(
-                        [
-                            'ID_DESCRIPCION' => $grupoGalloSegunPeso[$i]['ID_DESCRIPCION'],
-                            'INS_ID_DESCRIPCION' => $grupoGalloSegunPeso[$i+1]['ID_DESCRIPCION'],
-                            'ESTADO' => 'A'
-                        ]
-                    );
+                    if($arrayGalloSegunPeso[$i]->ID_CRIADEROS !== $arrayGalloSegunPeso[$i+1]->ID_CRIADEROS)
+                    {
+                        /**
+                         * Genero la pelea
+                         */
+                        $this->crearPeleaGallos($arrayGalloSegunPeso[$i], $arrayGalloSegunPeso[$i+1]);
+                        /**
+                         * Cambio estado de las incripciones, cuando se seleccionan para una pelea de gallos
+                         */
+                        $this->editarInscripcionDePelea($arrayGalloSegunPeso[$i]);
+                        $this->editarInscripcionDePelea($arrayGalloSegunPeso[$i+1]);
+                        /**
+                         * Elimino los datos del arreglo
+                         */
+                        unset($arrayGalloSegunPeso[$i],$arrayGalloSegunPeso[$i+1]);
+                        /**
+                         * Reinicio los valores del arreglo
+                         */
+                        $arrayGalloSegunPeso = array_values($arrayGalloSegunPeso);
 
+                        $i=0;
+                    }else {
+                        $i++;    
+                    }
+                }else{
+                    break;
+                }
+            }    
+        }    
+    }
+
+    public function crearPeleaPesosDiferentes($arrayGalloSegunPeso)
+    {
+        $i=0;
+        while(count($arrayGalloSegunPeso) >= 2)
+        {
+            if(isset($arrayGalloSegunPeso[$i],$arrayGalloSegunPeso[$i+1]))
+            {
+                $peso1 = bcdiv($arrayGalloSegunPeso[$i]->PESO_GALLO, '1', 1);$peso1 = $peso1 + 0.1;
+                $peso2 = bcdiv($arrayGalloSegunPeso[$i+1]->PESO_GALLO, '1', 1);
+                if(($arrayGalloSegunPeso[$i]->ID_CRIADEROS !== $arrayGalloSegunPeso[$i+1]->ID_CRIADEROS) && ($peso1 == $peso2))
+                {                    
+                    /**
+                     * Genero la pelea
+                     */
+                    $this->crearPeleaGallos($arrayGalloSegunPeso[$i], $arrayGalloSegunPeso[$i+1]);
                     /**
                      * Cambio estado de las incripciones, cuando se seleccionan para una pelea de gallos
                      */
-                    $inscripcion1 = InscripcionTorneo::find($grupoGalloSegunPeso[$i]['ID_DESCRIPCION']);
-                    $inscripcion1->ESTADO = 'O';
-                    $inscripcion1->save();
+                    $this->editarInscripcionDePelea($arrayGalloSegunPeso[$i]);
+                    $this->editarInscripcionDePelea($arrayGalloSegunPeso[$i+1]);
+                    /**
+                     * Elimino los datos del arreglo
+                     */
+                    unset($arrayGalloSegunPeso[$i],$arrayGalloSegunPeso[$i+1]);
+                    /**
+                     * Reinicio los valores del arreglo
+                     */
+                    $arrayGalloSegunPeso = array_values($arrayGalloSegunPeso);
 
-                    $inscripcion2 = InscripcionTorneo::find($grupoGalloSegunPeso[$i+1]['ID_DESCRIPCION']);
-                    $inscripcion2->ESTADO = 'O';
-                    $inscripcion2->save();
+                    $i=0;
+                }else {
+                    $i++;    
                 }
+            }else{
+                break;
             }
         }
+    }
+
+    public function obtenerTodosGallos($gallosSegunPeso)
+    {
+        $gallos = array();
+        foreach($gallosSegunPeso as $grupoGalloSegunPeso)
+        {
+            foreach($grupoGalloSegunPeso as $gallo)
+            {
+                $gallos[] = $gallo;
+            }
+        }
+        return $gallos;
+    }
+
+    public function crearPeleaGallos($inscripcion1, $inscripcion2)
+    {
+        PeleaGallos::create
+        (
+            [
+                'ID_DESCRIPCION' => $inscripcion1->ID_DESCRIPCION,
+                'INS_ID_DESCRIPCION' => $inscripcion2->ID_DESCRIPCION,
+                'ESTADO' => 'A'
+            ]
+        );        
+    }
+
+    public function editarInscripcionDePelea($inscripcion)
+    {
+        $inscripcionPelea = InscripcionTorneo::find($inscripcion->ID_DESCRIPCION);
+        $inscripcionPelea->ESTADO = 'O';
+        $inscripcionPelea->save();
     }
 
     public function obtenerGallosSinPareja()

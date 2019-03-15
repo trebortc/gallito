@@ -57,8 +57,12 @@
                                 @foreach ($peleaGallos as $peleaGallo)
                                     <tr class="clickTabla-fila">
                                         <th scope="row">{{ $loop -> iteration}}</th>
-                                        <td>{{ $peleaGallo -> inscripcionTorneo1 -> PLACA_GALLO}}</td>
-                                        <td>{{ $peleaGallo -> inscripcionTorneo2 -> PLACA_GALLO}}</td>
+                                        <td>{{ $peleaGallo -> inscripcionTorneo1 -> PLACA_GALLO}}
+                                            <div style='font-size:0.7rem'>[{{ $peleaGallo -> inscripcionTorneo1 -> NOMBRE_CRIADERO}}]</div>
+                                        </td>
+                                        <td>{{ $peleaGallo -> inscripcionTorneo2 -> PLACA_GALLO}}
+                                            <div style='font-size:0.7rem'>[{{ $peleaGallo -> inscripcionTorneo2 -> NOMBRE_CRIADERO}}]</div>
+                                        </td>
                                         <td>
                                             @if(!(empty($peleaGallo->RESULTADO)))
                                                 {{ $peleaGallo->RESULTADO }}
