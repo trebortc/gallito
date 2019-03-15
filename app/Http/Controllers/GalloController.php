@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Gallo;
 use App\Representante;
+use App\Parametro;
 
 class GalloController extends BaseController
 {
@@ -38,8 +39,11 @@ class GalloController extends BaseController
 
     public function nuevo()
     {
+        /**Valores definidos para pesos */
+        $pesoMaximo = Parametro::find('PESO MAXIMO')->VALOR;
+        $pesoMinimo = Parametro::find('PESO MINIMO')->VALOR;
         $representantes = Representante::all();
-        return view('gallo.nuevo', ['representantes' => $representantes]);
+        return view('gallo.nuevo', ['representantes' => $representantes, 'pesoMaximo' => $pesoMaximo, 'pesoMinimo' => $pesoMinimo]);
     }
 
     public function crear()
@@ -75,7 +79,7 @@ class GalloController extends BaseController
     {
         $gallo = Gallo::find($id);
         $representantes = Representante::all();
-        return view('gallo.editar', ['gallo' => $gallo, 'representantes' => $representantes]);
+        return view('gallo.editar', ['gallo' => $gallo, 'representantes' => $representantes, 'pesoMaximo' => $pesoMaximo, 'pesoMinimo' => $pesoMinimo]);
     }
 
     public function actualizar()

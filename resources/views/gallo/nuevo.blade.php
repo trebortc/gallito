@@ -27,7 +27,7 @@
                     <div class="form-group row">
                         <label for="peso" class="col-sm-2 col-form-label">Peso:</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" id="peso" name="peso" placeholder="Ingrese el peso" step="0.01" min="3.3" max="4.6">
+                            <input type="number" class="form-control" id="peso" name="peso" placeholder="Ingrese el peso" step="0.01" min="{{ $pesoMinimo}}" max="{{ $pesoMaximo}}">
                         </div>
                     </div>
                     <div class="form-group row">

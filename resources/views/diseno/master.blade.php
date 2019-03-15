@@ -42,6 +42,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('pelea_gallos') }}">Pelea Gallo</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('parametro') }}">Parametro</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

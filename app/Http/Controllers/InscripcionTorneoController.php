@@ -11,6 +11,7 @@ use App\Criadero;
 use App\Gallo;
 use App\Torneo;
 use App\InscripcionTorneo;
+Use App\Parametro;
 use DB;
 
 class InscripcionTorneoController extends BaseController
@@ -52,6 +53,9 @@ class InscripcionTorneoController extends BaseController
     {
         $gallos = Gallo::where('ESTADO','=','A')->get();
 
+         /**Valores definidos para pesos */
+         $pesoMaximo = Parametro::find('PESO MAXIMO')->VALOR;
+         $pesoMinimo = Parametro::find('PESO MINIMO')->VALOR;
         /*$gallos = DB::table('gallo')
         ->leftJoin('inscripcion_torneo', 'gallo.ID_GALLO', '=', 'inscripcion_torneo.ID_GALLO')
         ->whereNull('inscripcion_torneo.ID_GALLO')
@@ -59,7 +63,7 @@ class InscripcionTorneoController extends BaseController
         ->get();*/
 
         $torneos = Torneo::where('ESTADO','=','A')->get();
-        return view('inscripcion_torneo.nuevo', ['torneos' => $torneos, 'gallos' => $gallos]);
+        return view('inscripcion_torneo.nuevo', ['torneos' => $torneos, 'gallos' => $gallos, 'pesoMaximo' => $pesoMaximo, 'pesoMinimo' => $pesoMinimo]);
     }
 
     public function crear()
@@ -99,7 +103,7 @@ class InscripcionTorneoController extends BaseController
         $inscripcion = InscripcionTorneo::find($id);
         $gallos = Gallo::where('ESTADO','=','A')->get();
         $torneos = Torneo::where('ESTADO','=','A')->get();
-        return view('inscripcion_torneo.editar', ['inscripcion' => $inscripcion,'torneos' => $torneos,'gallos' => $gallos]) ;
+        return view('inscripcion_torneo.editar', ['inscripcion' => $inscripcion,'torneos' => $torneos,'gallos' => $gallos, 'pesoMaximo' => $pesoMaximo, 'pesoMinimo' => $pesoMinimo]) ;
     }
 
     public function actualizar()

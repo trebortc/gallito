@@ -5,9 +5,9 @@
         <div class="row">
             <div class="col">
                 <br>
-                <h1>Torneo - Editar</h1>
+                <h1>Parametro - Editar</h1>
                 <br>
-                <form action=" {{ url('/torneo/actualizar') }}" method="POST">
+                <form action=" {{ url('/parametro/actualizar') }}" method="POST">
                     {!! csrf_field() !!}
                     <div class="form-group row">
                         <div class="col-sm-10">
