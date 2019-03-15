@@ -79,6 +79,8 @@ class GalloController extends BaseController
     {
         $gallo = Gallo::find($id);
         $representantes = Representante::all();
+        $pesoMaximo = Parametro::find('PESO MAXIMO')->VALOR;
+        $pesoMinimo = Parametro::find('PESO MINIMO')->VALOR;
         return view('gallo.editar', ['gallo' => $gallo, 'representantes' => $representantes, 'pesoMaximo' => $pesoMaximo, 'pesoMinimo' => $pesoMinimo]);
     }
 

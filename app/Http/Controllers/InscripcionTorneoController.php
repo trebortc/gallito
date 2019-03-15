@@ -101,6 +101,8 @@ class InscripcionTorneoController extends BaseController
     public function editar($id)
     {
         $inscripcion = InscripcionTorneo::find($id);
+        $pesoMaximo = Parametro::find('PESO MAXIMO')->VALOR;
+        $pesoMinimo = Parametro::find('PESO MINIMO')->VALOR;
         $gallos = Gallo::where('ESTADO','=','A')->get();
         $torneos = Torneo::where('ESTADO','=','A')->get();
         return view('inscripcion_torneo.editar', ['inscripcion' => $inscripcion,'torneos' => $torneos,'gallos' => $gallos, 'pesoMaximo' => $pesoMaximo, 'pesoMinimo' => $pesoMinimo]) ;
