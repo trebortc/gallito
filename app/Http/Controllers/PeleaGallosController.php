@@ -167,12 +167,12 @@ class PeleaGallosController extends BaseController
         $pesoMaximo = Parametro::find('PESO MAXIMO')->VALOR;
         $pesoMinimo = Parametro::find('PESO MINIMO')->VALOR;
         $torneo = Torneo::where('ESTADO','=','A')->get();
-        
         $gallosPorPeso = collect();
         for ($p = $pesoMinimo; $p <= $pesoMaximo; $p=$p+0.1) {
+            $p = bcdiv($p, '1', 1);
             $gallosInscriptos = InscripcionTorneo::where('ESTADO','=','A')
             ->where('ID_TORNEO','=', $torneo[0]->ID_TORNEO)
-            ->where('PESO_GALLO','like',''.$p.'%')
+            ->where('PESO_GALLO','like',$p.'%')
             ->orderBy('ESTADO', 'asc')
             ->orderBy('PESO_GALLO', 'asc')
             ->orderBy('created_at', 'asc')
