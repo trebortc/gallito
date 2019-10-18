@@ -15,7 +15,10 @@ class GalloController extends BaseController
     public function index()
     {
         $gallos = Gallo::orderBy('ESTADO','asc')->orderBy('PLACA','asc')->paginate(7);
-        return view('gallo.index',['gallos' => $gallos]);
+        $representantes = Representante::all();
+        $pesoMaximo = Parametro::find('PESO MAXIMO')->VALOR;
+        $pesoMinimo = Parametro::find('PESO MINIMO')->VALOR;
+        return view('gallo.index',['gallos' => $gallos, 'representantes'=>$representantes, 'pesoMaximo' => $pesoMaximo, 'pesoMinimo' => $pesoMinimo]);
     }
 
     public function buscar()

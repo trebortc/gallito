@@ -15,7 +15,8 @@ class RepresentanteController extends BaseController
     {
         //$representantes = Representante::all();
         $representantes = Representante::orderBy('ETADO','asc')->orderBy('NOMBRES','asc')->paginate(7);
-        return view('representante.index',['representantes' => $representantes]);
+        $criaderos = Criadero::all();
+        return view('representante.index',['representantes' => $representantes, 'criaderos' => $criaderos]);
     }
 
     public function buscar()

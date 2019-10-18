@@ -20,7 +20,12 @@ class InscripcionTorneoController extends BaseController
     {
         $torneo = Torneo::where('ESTADO','=','A')->get();
         $inscripcionesTorneo = $torneo->first()->inscripcionTorneos()->orderBy('ESTADO','asc')->orderBy('PESO_GALLO','asc')->paginate(15);
-        return view('inscripcion_torneo.index',['inscripciones' => $inscripcionesTorneo, 'mensaje'=>'Bienvenido']);
+        $gallos = Gallo::where('ESTADO','=','A')->get();
+         /**Valores definidos para pesos */
+         $pesoMaximo = Parametro::find('PESO MAXIMO')->VALOR;
+         $pesoMinimo = Parametro::find('PESO MINIMO')->VALOR;
+        $torneos = Torneo::where('ESTADO','=','A')->get();
+        return view('inscripcion_torneo.index',['inscripciones' => $inscripcionesTorneo, 'mensaje'=>'Bienvenido', 'gallos'=>$gallos, 'pesoMaximo'=>$pesoMaximo, 'pesoMinimo'=>$pesoMinimo, 'torneos'=>$torneos]);
     }
 
     public function buscar()

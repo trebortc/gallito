@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('torneo.inicio'); 
-});
+}); 
 
 //Ruta para interactuar con el AJAX - EJEMPLO
 Route::post('miJqueryAjax', 'AjaxController@index');

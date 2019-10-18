@@ -9,6 +9,7 @@
 
         <title>@yield('titulo')</title>
         <link href=" {{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+        <link href=" {{ asset('css/select2.min.css') }}" rel="stylesheet" type="text/css">
         <link href=" {{ asset('css/style.css') }}" rel="stylesheet" type="text/css">
         <link href=" {{ asset('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
         <link rel="icon" type="image/x-icon" href="{{ asset('img/icono.png') }}" />
@@ -56,6 +57,7 @@
         <script src="{{ asset('js/jquery-3.2.1.js') }}"  type="text/javascript" charset="utf-8" ></script>
         <script src="{{ asset('js/popper.min.js') }}" type="text/javascript" charset="utf-8" ></script>
         <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript" charset="utf-8" ></script>
+        <script src="{{ asset('js/select2.min.js') }}"  type="text/javascript" charset="utf-8" ></script>
         <script type = "text/javascript">
             $(document).ready(function(){
                 $.ajaxSetup({
