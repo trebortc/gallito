@@ -33,7 +33,8 @@ class RepresentanteController extends BaseController
                 //dd($torneos);
                 if(count($representantes) > 0)
                 {
-                    return view('representante.index',['representantes' => $representantes]);
+                    $criaderos = Criadero::all();
+                    return view('representante.index',['representantes' => $representantes, 'criaderos' => $criaderos]);
                 }else{
                     return redirect('representante/');
                 }

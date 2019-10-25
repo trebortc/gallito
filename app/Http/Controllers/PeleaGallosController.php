@@ -46,6 +46,7 @@ class PeleaGallosController extends BaseController
              * Mezclo todos los gallos ordenadamente segun su peso para sortear en las peleas con un rango mayor de 0.1
              */
             $gallos = $this->obtenerTodosGallos($gallosSegunPeso);
+            //dd($gallos);
             $this->crearPeleaPesosDiferentes($gallos);
             /**
              * Cargar las peleas creadas
@@ -168,8 +169,8 @@ class PeleaGallosController extends BaseController
         $pesoMinimo = Parametro::find('PESO MINIMO')->VALOR;
         $torneo = Torneo::where('ESTADO','=','A')->get();
         $gallosPorPeso = collect();
-        for ($p = $pesoMinimo; $p <= $pesoMaximo; $p=$p+0.1) {
-            $p = bcdiv($p, '1', 1);
+        for ($p = $pesoMinimo; $p <= $pesoMaximo; $p=$p+0.01) {
+            $p = bcdiv($p, '1', 2);
             $gallosInscriptos = InscripcionTorneo::where('ESTADO','=','A')
             ->where('ID_TORNEO','=', $torneo[0]->ID_TORNEO)
             ->where('PESO_GALLO','like',$p.'%')
@@ -232,10 +233,14 @@ class PeleaGallosController extends BaseController
         {
             if(isset($arrayGalloSegunPeso[$i],$arrayGalloSegunPeso[$i+1]))
             {
-                $peso1 = bcdiv($arrayGalloSegunPeso[$i]->PESO_GALLO, '1', 1);$peso1 = $peso1 + 0.1;
-                $peso2 = bcdiv($arrayGalloSegunPeso[$i+1]->PESO_GALLO, '1', 1);
-                if(($arrayGalloSegunPeso[$i]->ID_CRIADEROS !== $arrayGalloSegunPeso[$i+1]->ID_CRIADEROS) && ($peso1 == $peso2))
-                {                    
+                $peso1 = bcdiv($arrayGalloSegunPeso[$i]->PESO_GALLO, '1', 2);$peso1 = $peso1 + 0.01;
+                $peso2 = bcdiv($arrayGalloSegunPeso[$i+1]->PESO_GALLO, '1', 2);$peso2 = $peso2 + 0.00;
+                //dd($peso1);
+                //dd($peso2);
+                //dd($arrayGalloSegunPeso[$i]->ID_CRIADEROS );
+                //dd($arrayGalloSegunPeso[$i+1]->ID_CRIADEROS );
+                if(($arrayGalloSegunPeso[$i]->ID_CRIADEROS !== $arrayGalloSegunPeso[$i+1]->ID_CRIADEROS) && ((strcmp ($peso1 , $peso2 ) == 0)))
+                {                  
                     /**
                      * Genero la pelea
                      */

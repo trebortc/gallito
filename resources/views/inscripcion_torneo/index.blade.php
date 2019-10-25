@@ -38,7 +38,7 @@
                             <select name="id_gallo" id="gallo_id" class="form-control">
                                 <option value="-1">Seleccione una opción</option>
                                 @foreach ($gallos as $gallo)
-                                    <option value="{{ $gallo -> ID_GALLO }}">{{ $gallo -> PLACA }}</option>
+                            <option value="{{ $gallo -> ID_GALLO }}">{{ $gallo -> PLACA }} - {{$gallo->representante->NOMBRES}}</option>
                                 @endforeach
                             </select>
                         </div>

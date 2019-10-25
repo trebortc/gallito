@@ -31,7 +31,10 @@ class GalloController extends BaseController
                 $gallos = Gallo::where('PLACA', 'LIKE', '%' . $data['textoBuscar'] . '%' )->paginate(7);
                 if(count($gallos) > 0)
                 {
-                    return view('gallo.index',['gallos' => $gallos]);
+                    $representantes = Representante::all();
+                    $pesoMaximo = Parametro::find('PESO MAXIMO')->VALOR;
+                    $pesoMinimo = Parametro::find('PESO MINIMO')->VALOR;
+                    return view('gallo.index',['gallos' => $gallos,'representantes'=>$representantes, 'pesoMaximo' => $pesoMaximo, 'pesoMinimo' => $pesoMinimo]);
                 }else{
                     return redirect('gallo/');
                 }
