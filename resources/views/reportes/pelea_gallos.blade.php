@@ -30,24 +30,79 @@
     }
 </style>
 @section('contenido')
-<div class="row">
-    <div class="col">
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead class="">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">CRIADERO</th>
-                        <th scope="col">REPRESENTANTE</th>
-                        <th scope="col">GALLO</th>
-                        <th scope="col">PESOS</th>
-                        <th scope="col">GANADOR</th>
-                        <th scope="col">TIEMPO</th>
-                        <th scope="col">ESTADO</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @isset($peleaGallos)
+@isset($gallosInscriptos)
+    <h3 style='padding-left: 30px;'>GALLOS SIN ASIGNAR PELEA</h3>
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="">
+                        <tr>
+                            <th scope="col" style="font-size: 8px;">#</th>
+                            <th scope="col" style="font-size: 8px;">CRIADERO</th>
+                            <th scope="col" style="font-size: 8px;">REPRESENTANTE</th>
+                            <th scope="col" style="font-size: 8px;">GALLO</th>
+                            <th scope="col" style="font-size: 8px;">PESOS</th>
+                            <th scope="col" style="font-size: 8px;">ESTADO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($gallosInscriptos as $gallosInscripto)
+                            <tr>
+                                <th scope="row" style="font-size: 8px;">{{ $loop -> iteration}}</th>
+                                <td style="font-size: 8px;">
+                                    {{ $gallosInscripto->NOMBRE_CRIADERO }}
+                                </td>
+                                <td style="font-size: 8px;">
+                                    {{ $gallosInscripto->NOMBRE_REPRESENTANTE }}
+                                </td>
+                                <td style="font-size: 8px;">
+                                    {{ $gallosInscripto->PLACA_GALLO }}
+                                </td>
+                                <td style="font-size: 8px;">
+                                    {{ $gallosInscripto->PESO_GALLO }}
+                                    </td>
+                                <td style="font-size: 8px;">
+                                    @switch($gallosInscripto->ESTADO)
+                                        @case('A')
+                                            SIN PELEA   
+                                        @break
+                                        @case('F')
+                                            FINALIZADO
+                                        @break
+                                        @case('S')
+                                            SUSPENDIDO
+                                        @break
+                                    @endswitch
+                                </td>
+                            </tr>
+                        @endforeach   
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+@endisset
+@isset($peleaGallos)
+    <h3 style='padding-left: 30px;'>PELEAS DE GALLOS</h3>
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">CRIADERO</th>
+                            <th scope="col">REPRESENTANTE</th>
+                            <th scope="col">GALLO</th>
+                            <th scope="col">PESOS</th>
+                            <th scope="col">GANADOR</th>
+                            <th scope="col">TIEMPO</th>
+                            <th scope="col">ESTADO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         @foreach ($peleaGallos as $peleaGallo)
                             <tr>
                                 <th scope="row">{{ $loop -> iteration}}</th>
@@ -92,10 +147,10 @@
                                 </td>
                             </tr>
                         @endforeach   
-                    @endisset
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
+@endisset
 @endsection
