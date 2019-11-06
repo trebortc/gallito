@@ -109,4 +109,10 @@ class TorneoController extends BaseController
         return $pdf->stream();
         //return $pdf->download( 'torneo.pdf' );
     }
+
+    public function eliminarTodosLosDatos()
+    {
+        $torneos = Torneo::where('ID_TORNEO','>',0)->delete();
+        return redirect('parametro/');
+    }
 }

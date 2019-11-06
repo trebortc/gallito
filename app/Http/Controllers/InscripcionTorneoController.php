@@ -174,5 +174,11 @@ class InscripcionTorneoController extends BaseController
         return redirect('inscripcion_torneo/');
     }
 
+    public function eliminarTodosLosDatos()
+    {
+        $inscripcionesTorneo = InscripcionTorneo::where('ID_DESCRIPCION','>',0)->delete();
+        return redirect('parametro/');
+    }
+
 
 }

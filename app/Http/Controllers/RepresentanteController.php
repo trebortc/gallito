@@ -104,6 +104,12 @@ class RepresentanteController extends BaseController
         return redirect('representante/');
     }
 
+    public function eliminarTodosLosDatos()
+    {
+        $representantes = Representante::where('ID_REPRESENTANTE','>',0)->delete();
+        return redirect('parametro/');
+    }
+
 
 
 }

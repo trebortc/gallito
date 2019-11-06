@@ -42,6 +42,7 @@ Route::get('/criadero/eliminar/{id}', 'CriaderoController@eliminar')->name('cria
 Route::get('/criadero/editar/{id}', 'CriaderoController@editar')->name('criadero_editar')
     ->where('id', '[0-9]+');
 Route::post('/criadero/actualizar', 'CriaderoController@actualizar')->name('criadero_actualizar');
+Route::get('/criadero/eliminarTodos', 'CriaderoController@eliminarTodosLosDatos')->name('criadero_eliminar_todos_datos');
 
 //RUTAS TORNEO
 Route::get('/inicio', 'TorneoController@index')->name('inicio');
@@ -57,6 +58,7 @@ Route::get('/torneo/eliminar/{id}','TorneoController@eliminar')->name('torneo_el
 Route::get('/torneo/editar/{id}','TorneoController@editar')->name('torneo_editar')
     ->where('id', '[0-9]+');
 Route::post('/torneo/actualizar', 'TorneoController@actualizar')->name('torneo_actualizar');
+Route::get('/torneo/eliminarTodos', 'TorneoController@eliminarTodosLosDatos')->name('torneo_eliminar_todos_datos');
 
 //RUTAS REPRESENTANTE
 Route::get('/representante', 'RepresentanteController@index')->name('representante');
@@ -70,6 +72,7 @@ Route::get('/representante/eliminar/{id}', 'RepresentanteController@eliminar')->
 Route::get('/representante/editar/{id}', 'RepresentanteController@editar')->name('representante_editar')
     ->where('id', '[0-9]+');
 Route::post('/representante/actualizar', 'RepresentanteController@actualizar')->name('representante_actualizar');
+Route::get('/representante/eliminarTodos', 'RepresentanteController@eliminarTodosLosDatos')->name('representante_eliminar_todos_datos');
 
 //RUTAS GALLO
 Route::get('/gallo', 'GalloController@index')->name('gallo');
@@ -83,6 +86,7 @@ Route::get('/gallo/eliminar/{id}', 'GalloController@eliminar')->name('gallo_elim
 Route::get('/gallo/editar/{id}', 'GalloController@editar')->name('gallo_editar')
     ->where('id', '[0-9]+');
 Route::post('/gallo/actualizar', 'GalloController@actualizar')->name('gallo_actualizar');
+Route::get('/gallo/eliminarTodos', 'GalloController@eliminarTodosLosDatos')->name('gallo_eliminar_todos_datos');
 
 //INSCRIPCION TORNEO
 Route::get('/inscripcion_torneo', 'InscripcionTorneoController@index')->name('inscripcion_torneo');
@@ -98,6 +102,7 @@ Route::get('/inscripcion_torneo/editar/{id}', 'InscripcionTorneoController@edita
 Route::post('/inscripcion_torneo/actualizar', 'InscripcionTorneoController@actualizar')->name('inscripcion_torneo_actualizar');
 Route::post('/inscripcion_torneo/cargarInformacionGallo/{id}','InscripcionTorneoController@cargarInformacionGallo')->name('inscripcion_torneo_cargarInfoGallo')
     ->where('id', '[0-9]+');
+Route::get('/inscripcion_torneo/eliminarTodos', 'InscripcionTorneoController@eliminarTodosLosDatos')->name('inscripcion_torneo_eliminar_todos_datos');
 
 //PELEA GALLOS
 Route::get('/pelea_gallos', 'PeleaGallosController@index')->name('pelea_gallos');
@@ -115,6 +120,8 @@ Route::get('/pelea_gallos/editar/{id}', 'PeleaGallosController@editar')->name('p
 ->where('id', '[0-9]+');
 Route::post('/pelea_gallos/actualizar', 'PeleaGallosController@actualizar')->name('pelea_gallos_actualizar');
 Route::get('/pelea_gallos/reporte', 'PeleaGallosController@reporte')->name('pelea_gallos_reporte');
+Route::get('/pelea_gallos/eliminarTodos', 'PeleaGallosController@eliminarTodosLosDatos')->name('pelea_gallos_eliminar_todos_datos');
+
 
 //RUTAS PARAMETRO
 Route::get('/parametro', 'ParametroController@index')->name('parametro');

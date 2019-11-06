@@ -107,4 +107,10 @@ class GalloController extends BaseController
         $gallo->save();
         return redirect('gallo/');
     }
+
+    public function eliminarTodosLosDatos()
+    {
+        $gallos = Gallo::where('ID_GALLO','>',0)->delete();
+        return redirect('parametro/');
+    }
 }

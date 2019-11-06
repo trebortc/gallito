@@ -90,5 +90,10 @@ class CriaderoController extends BaseController
         $criadero->save();
         return redirect('criadero/');
     }
+    public function eliminarTodosLosDatos()
+    {
+        $criaderos = Criadero::where('ID_CRIADEROS','>',0)->delete();
+        return redirect('parametro/');
+    }
 
 }

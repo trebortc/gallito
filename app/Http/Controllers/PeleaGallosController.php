@@ -363,4 +363,10 @@ class PeleaGallosController extends BaseController
         return $pdf->stream();
     }
 
+    public function eliminarTodosLosDatos()
+    {
+        $peleaGallos = PeleaGallos::where('ID_PELEA','>',0)->delete();
+        return redirect('parametro/');
+    }
+
 }

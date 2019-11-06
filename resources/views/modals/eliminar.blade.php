@@ -13,7 +13,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" id="cerrar" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" id="eliminar" class="btn btn-primary" data-dismiss="modal">Eliminar</button>
+            <button type="button" id="eliminar" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
         </div>
         </div>
     </div>
