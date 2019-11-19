@@ -6,9 +6,10 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex justify-content-end p-4">
-                    <a href="{{ url('/pelea_gallos/nuevo') }}" class="btn btn-light btn-lg active" role="button" aria-pressed="true"><i class="fa fa-file-o"></i></a>
-                    <a href="{{ url('/pelea_gallos/peleas') }}" class="btn btn-light btn-lg active" role="button" aria-pressed="true"><i class="fa fa-flickr"></i></a>
-                    <a href="{{ url('/pelea_gallos/reporte') }}" class="btn btn-light btn-lg active" role="button" aria-pressed="true"><i class="fa fa-file-text-o"></i></a>
+                    <a href="{{ url('/pelea_gallos/nuevo') }}" class="btn btn-light btn-lg active" role="button" aria-pressed="true"><i class="fa fa-file-o"></i>Crear Pelea</a>
+                    <a href="{{ url('/pelea_gallos/peleas') }}" class="btn btn-light btn-lg active" role="button" aria-pressed="true"><i class="fa fa-flickr"></i>Generar Peleas</a>
+                    <a href="{{ url('/pelea_gallos/reporte') }}" class="btn btn-light btn-lg active" role="button" aria-pressed="true"><i class="fa fa-file-text-o"></i>Reporte Peleas</a>
+                    <a href="{{ url('/pelea_gallos/limpiar') }}" class="btn btn-light btn-lg active" role="button" aria-pressed="true"><i class="fas fa-eraser"></i>Limpiar</a>
                 </div>
             </div>
         </div>

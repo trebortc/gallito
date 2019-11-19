@@ -46,7 +46,7 @@ class PeleaGallosController extends BaseController
              * Mezclo todos los gallos ordenadamente segun su peso para sortear en las peleas con un rango mayor de 0.1
              */
             $gallos = $this->obtenerTodosGallos($gallosSegunPeso);
-            //dd($gallos);
+            
             $this->crearPeleaPesosDiferentes($gallos);
             /**
              * Cargar las peleas creadas
@@ -177,11 +177,12 @@ class PeleaGallosController extends BaseController
             ->orderBy('ESTADO', 'asc')
             ->orderBy('PESO_GALLO', 'asc')
             ->orderBy('created_at', 'asc')
-            ->get();
+            ->get();            
             if($gallosInscriptos->count() !== 0 ){
                 $gallosPorPeso->put("".$p , $gallosInscriptos);
             }
         }
+        //$$gallosPorPeso->shuffle()
         return $gallosPorPeso;
     }
 
@@ -193,6 +194,8 @@ class PeleaGallosController extends BaseController
             $i=0;
             while(count($arrayGalloSegunPeso) >= 2)
             {
+                //Desordenar las inscripciones para que siempre salgan diferentes peleas
+                shuffle($arrayGalloSegunPeso);
                 if(isset($arrayGalloSegunPeso[$i],$arrayGalloSegunPeso[$i+1]))
                 {
                     if($arrayGalloSegunPeso[$i]->ID_CRIADEROS !== $arrayGalloSegunPeso[$i+1]->ID_CRIADEROS)
@@ -358,9 +361,27 @@ class PeleaGallosController extends BaseController
     {      
         $torneo = Torneo::where('ESTADO','=','A')->get();
         $peleaGallos = $torneo->first()->peleaGallos()->get();
+        //Funcion que me permite desordenar la collection
+        $peleaGallosAleatorio = $peleaGallos->shuffle();
         $gallosInscriptos = InscripcionTorneo::where('ESTADO','=','A')->get();
-        $pdf = PDF::loadView('reportes.pelea_gallos',['peleaGallos'=>$peleaGallos, 'gallosInscriptos'=>$gallosInscriptos])->setPaper('a4', 'landscape');;
+        $pdf = PDF::loadView('reportes.pelea_gallos',['peleaGallos'=>$peleaGallosAleatorio, 'gallosInscriptos'=>$gallosInscriptos])->setPaper('a4', 'landscape');;
         return $pdf->stream();
+    }
+
+    public function eliminarPeleasGeneradas()
+    {
+        $torneo = Torneo::where('ESTADO','=','A')->get();
+
+        $gallosInscriptos = InscripcionTorneo::where('ID_TORNEO','=', $torneo[0]->ID_TORNEO)
+        ->where(function($q){
+            $q->where('ESTADO','=','O')
+              ->orWhere('ESTADO','=','F');
+        })   
+        ->update(['ESTADO'=>'A']);    
+        
+        PeleaGallos::where('ESTADO','=','A')->delete();
+
+        return redirect('pelea_gallos/');
     }
 
     public function eliminarTodosLosDatos()

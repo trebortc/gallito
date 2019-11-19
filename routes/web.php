@@ -121,7 +121,7 @@ Route::get('/pelea_gallos/editar/{id}', 'PeleaGallosController@editar')->name('p
 Route::post('/pelea_gallos/actualizar', 'PeleaGallosController@actualizar')->name('pelea_gallos_actualizar');
 Route::get('/pelea_gallos/reporte', 'PeleaGallosController@reporte')->name('pelea_gallos_reporte');
 Route::get('/pelea_gallos/eliminarTodos', 'PeleaGallosController@eliminarTodosLosDatos')->name('pelea_gallos_eliminar_todos_datos');
-
+Route::get('/pelea_gallos/limpiar', 'PeleaGallosController@eliminarPeleasGeneradas')->name('pelea_gallos_limpiar');
 
 //RUTAS PARAMETRO
 Route::get('/parametro', 'ParametroController@index')->name('parametro');
