@@ -6,6 +6,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
 use App\Torneo;
 use PDF;
 
@@ -48,19 +49,35 @@ class TorneoController extends BaseController
         return view('torneo.nuevo');
     }
 
-    public function crear()
+    public function crear(Request $request)
     {
         $data = request()->all();
+        $torneo = new Torneo();
+        foreach($torneo->getFillable() as $atributo){
+            //dd($atributo);
+            $dato = $request[strtolower($atributo)];
+            if(isset($dato)){
+                $torneo->setAttribute(strtoupper($atributo),$dato);
+                $torneo->save();
+                //dd($torneo);
+            }else{
+                dd('Sin definir');
+            }     
+        }
+
+
+        //dd($request['nombre']);
+        
         //Si existen torneos activos los cancelos, asi solamente tengo un torneo activo
-        Torneo::where('ESTADO','A')->update(['ESTADO'=>'F']);
-        Torneo::create(
+        //Torneo::where('ESTADO','A')->update(['ESTADO'=>'F']);
+        /*Torneo::create(
             [
                 'NOMBRE' => $data['nombre'],
                 'DESCRIPCION' => $data['descripcion'],
                 'FECHA' => $data['fecha'],
                 'ESTADO' => $data['estado']    
             ]
-        );
+        );*/
 
         return redirect('torneo/');
         

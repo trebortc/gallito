@@ -16,9 +16,34 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="descripcion" class="col-sm-2 col-form-label">Descripción:</label>
+                        <label for="descripcion" class="col-sm-2 col-form-label">Ubicación:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Escriba una descripción">
+                            <select name="descripcion" id="id_descripcion" class="form-control">
+                                <option value="Azu">Azuay</option>
+                                <option value="Bol">Bolívar</option>
+                                <option value="Cañ">Cañar</option>
+                                <option value="Car">Carchi</option>
+                                <option value="Chi">Chimborazo</option>
+                                <option value="Cot">Cotopaxi</option>
+                                <option value="ElO">El Oro</option>
+                                <option value="Esm">Esmeraldas</option>
+                                <option value="Gal">Galápagos</option>
+                                <option value="Gua">Guayas</option>
+                                <option value="Imb">Imbabura</option>
+                                <option value="Loj">Loja</option>
+                                <option value="Los">Los Ríos</option>
+                                <option value="Man">Manabí</option>
+                                <option value="Mor">Morona Santiago</option>
+                                <option value="Nap">Napo</option>
+                                <option value="Ore">Orellana</option>
+                                <option value="Pas">Pastaza</option>
+                                <option selected="selected" value="Pic">Pichincha</option>
+                                <option value="SanE">Santa Elena</option>
+                                <option value="SanD">Santo Domingo de los Tsáchilas</option>
+                                <option value="Sucu">Sucumbíos</option>
+                                <option value="Tung">Tungurahua</option>
+                                <option value="Zamo">Zamora Chinchipe</option>      
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -80,7 +105,34 @@
                                 <tr class="clickTabla-fila">
                                     <th scope="row">{{ $loop -> iteration}}</th>
                                     <td>{{ $criadero -> NOMBRE }}</td>
-                                    <td>{{ $criadero -> DESCRIPCION }}</td>
+                                    <td>
+                                        @switch($criadero -> DESCRIPCION)
+                                            @case('Azu') Azuay @break
+                                            @case('Bol') Bolívar @break
+                                            @case('Cañ') Cañar @break
+                                            @case('Car') Carchi @break
+                                            @case('Chi') Chimborazo @break
+                                            @case('Cot') Cotopaxi @break
+                                            @case('ElO') El Oro @break
+                                            @case('Esm') Esmeraldas @break
+                                            @case('Gal') Galápagos @break
+                                            @case('Gua') Guayas @break
+                                            @case('Imb') Imbabura @break
+                                            @case('Loj') Loja @break
+                                            @case('Los') Los Ríos @break
+                                            @case('Man') Manabí @break
+                                            @case('Mor') Morona Santiago @break
+                                            @case('Nap') Napo @break
+                                            @case('Ore') Orellana @break
+                                            @case('Pas') Pastaza @break
+                                            @case('Pic') Pichincha @break
+                                            @case('SanE') Santa Elena @break
+                                            @case('SanD') Santo Domingo de los Tsáchilas @break
+                                            @case('Sucu') Sucumbíos @break
+                                            @case('Tung') Tungurahua @break
+                                            @case('Zamo') Zamora Chinchipe @break
+                                        @endswitch
+                                    </td>
                                     <td>
                                         @switch($criadero->ESTADO)
                                             @case('A')
@@ -146,6 +198,10 @@
                         }
                     }); 
                 });
+            });
+
+            $('#id_descripcion').select2({
+                width: 'resolve' 
             });
 
         });

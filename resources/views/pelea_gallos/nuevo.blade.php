@@ -15,7 +15,7 @@
                                 <option value="-1">Seleccione una opción:</option>
                                 @foreach ($inscripcionesTorneo as $inscripcionTorneo)
                                     @if($inscripcionTorneo->ESTADO === 'A')
-                                        <option value="{{ $inscripcionTorneo -> ID_DESCRIPCION }}">{{ $inscripcionTorneo -> PLACA_GALLO }}</option>
+                                        <option value="{{ $inscripcionTorneo -> ID_DESCRIPCION }}">{{ $inscripcionTorneo -> PLACA_GALLO }} - {{ $inscripcionTorneo -> representante -> NOMBRES }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -28,7 +28,7 @@
                                 <option value="-1">Seleccione una opción:</option>
                                 @foreach ($inscripcionesTorneo as $inscripcionTorneo)
                                     @if($inscripcionTorneo->ESTADO === 'A')
-                                        <option value="{{ $inscripcionTorneo -> ID_DESCRIPCION }}">{{ $inscripcionTorneo -> PLACA_GALLO }}</option>
+                                        <option value="{{ $inscripcionTorneo -> ID_DESCRIPCION }}">{{ $inscripcionTorneo -> PLACA_GALLO }} - {{ $inscripcionTorneo -> representante -> NOMBRES }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -72,5 +72,25 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script type = "text/javascript">
+        $(document).ready(function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#id_descripcion').select2({
+                width: 'resolve' 
+            });
+
+            $('#ins_id_descripcion').select2({
+                width: 'resolve' 
+            });
+
+        });
+    </script>
 @endsection
 

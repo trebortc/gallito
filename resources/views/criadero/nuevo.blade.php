@@ -15,9 +15,34 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="descripcion" class="col-sm-2 col-form-label">Descripción:</label>
+                            <label for="descripcion" class="col-sm-2 col-form-label">Ubicacion:</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Escriba una descripción">
+                                <select name="descripcion" id="descripcion" class="form-control">
+                                    <option value="Azu">Azuay</option>
+                                    <option value="Bol">Bolívar</option>
+                                    <option value="Cañ">Cañar</option>
+                                    <option value="Car">Carchi</option>
+                                    <option value="Chi">Chimborazo</option>
+                                    <option value="Cot">Cotopaxi</option>
+                                    <option value="ElO">El Oro</option>
+                                    <option value="Esm">Esmeraldas</option>
+                                    <option value="Gal">Galápagos</option>
+                                    <option value="Gua">Guayas</option>
+                                    <option value="Imb">Imbabura</option>
+                                    <option value="Loj">Loja</option>
+                                    <option value="Los">Los Ríos</option>
+                                    <option value="Man">Manabí</option>
+                                    <option value="Mor">Morona Santiago</option>
+                                    <option value="Nap">Napo</option>
+                                    <option value="Ore">Orellana</option>
+                                    <option value="Pas">Pastaza</option>
+                                    <option value="Pic">Pichincha</option>
+                                    <option value="SanE">Santa Elena</option>
+                                    <option value="SanD">Santo Domingo de los Tsáchilas</option>
+                                    <option value="Sucu">Sucumbíos</option>
+                                    <option value="Tung">Tungurahua</option>
+                                    <option value="Zamo">Zamora Chinchipe</option>      
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">

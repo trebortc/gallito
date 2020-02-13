@@ -12,7 +12,7 @@ class ParametroController extends BaseController
 {
     public function index()
     {
-        $parametros = Parametro::paginate(2);
+        $parametros = Parametro::paginate(3);
         //$criaderos = Criadero::all();
         return view('parametro.index',['parametros' => $parametros]);
     }

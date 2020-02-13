@@ -20,7 +20,7 @@ class InscripcionTorneoController extends BaseController
     {
         $torneo = Torneo::where('ESTADO','=','A')->get();
         $inscripcionesTorneo = $torneo->first()->inscripcionTorneos()->orderBy('ESTADO','asc')->orderBy('PESO_GALLO','asc')->paginate(15);
-        $gallos = Gallo::where('ESTADO','=','A')->get();
+        $gallos = Gallo::where('ESTADO','=','A')->orderBy('ID_GALLO','desc')->get();
         /**Valores definidos para pesos */
         $pesoMaximo = Parametro::find('PESO MAXIMO')->VALOR;
         $pesoMinimo = Parametro::find('PESO MINIMO')->VALOR;
