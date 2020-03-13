@@ -98,21 +98,38 @@ class PeleaGallosController extends BaseController
                 'RESULTADO' => $data['resultado'],
                 'TIEMPO' => "".$data['tiempo'],
                 'OBSERVACION' => $data['observacion'],
-                'ESTADO' => 'A'
+                'ESTADO' => $data['estado'],
             ]
         );
 
           /**
              * Cambio estado de las incripciones, cuando se seleccionan para una pelea de gallos
              */
-        $inscripcion1 = InscripcionTorneo::find($data['id_descripcion']);
-        $inscripcion1->ESTADO = 'O';
-        $inscripcion1->save();
-        
-        $inscripcion2 = InscripcionTorneo::find($data['ins_id_descripcion']);
-        $inscripcion2->ESTADO = 'O';
-        $inscripcion2->save();
-
+        if(isset($data['estado']))
+        {
+            switch($data['estado'])
+            {
+                case 'D': 
+                    $inscripcion1 = InscripcionTorneo::find($data['id_descripcion']);
+                    $inscripcion1->ESTADO = 'D';
+                    $inscripcion1->save();
+                    
+                    $inscripcion2 = InscripcionTorneo::find($data['ins_id_descripcion']);
+                    $inscripcion2->ESTADO = 'D';
+                    $inscripcion2->save();
+                break;
+                case 'A':
+                    $inscripcion1 = InscripcionTorneo::find($data['id_descripcion']);
+                    $inscripcion1->ESTADO = 'O';
+                    $inscripcion1->save();
+                    
+                    $inscripcion2 = InscripcionTorneo::find($data['ins_id_descripcion']);
+                    $inscripcion2->ESTADO = 'O';
+                    $inscripcion2->save();
+                break;    
+            }
+            
+        }
         return redirect('pelea_gallos/');
         
     }
@@ -450,7 +467,7 @@ class PeleaGallosController extends BaseController
         //Funcion que me permite desordenar la collection
         $peleaGallosAleatorio = $peleaGallos->shuffle();
         $gallosInscriptos = InscripcionTorneo::where('ESTADO','=','A')->get();
-        $pdf = PDF::loadView('reportes.pelea_gallos',['peleaGallos'=>$peleaGallosAleatorio, 'gallosInscriptos'=>$gallosInscriptos])->setPaper('a4', 'landscape');;
+        $pdf = PDF::loadView('reportes.pelea_gallos',['peleaGallos'=>$peleaGallosAleatorio, 'gallosInscriptos'=>$gallosInscriptos, 'torneo'=>$torneo])->setPaper('a4', 'landscape');;
         return $pdf->stream();
     }
 
@@ -464,8 +481,10 @@ class PeleaGallosController extends BaseController
               ->orWhere('ESTADO','=','F');
         })   
         ->update(['ESTADO'=>'A']);    
-        
-        PeleaGallos::where('ESTADO','=','A')->delete();
+        //O de Sorteeado
+        //F de Finalizado
+
+        PeleaGallos::where('ESTADO','=','A')->orWhere('ESTADO','=','F')->delete();
 
         return redirect('pelea_gallos/');
     }

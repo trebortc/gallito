@@ -1,6 +1,7 @@
 @extends('diseno.reporte')
 @section('titulo','Reporte pelea gallos')
 <h2 style='padding-left: 30px;'>REPORTE PELEA GALLOS</h2>
+<h3 style='padding-left: 30px;'>@isset($torneo) {{ $torneo[0]->DESCRIPCION }} @endisset</h3>
 <style>
    body {font-family: Arial, Helvetica, sans-serif;}
 
@@ -31,7 +32,7 @@
 </style>
 @section('contenido')
 @isset($gallosInscriptos)
-    <h3 style='padding-left: 30px;'>GALLOS SIN ASIGNAR PELEA</h3>
+    <h4 style='padding-left: 30px;'>GALLOS SIN ASIGNAR PELEA</h4>
     <div class="row">
         <div class="col">
             <div class="table-responsive">
@@ -85,7 +86,7 @@
     </div>
 @endisset
 @isset($peleaGallos)
-    <h3 style='padding-left: 30px;'>PELEAS DE GALLOS</h3>
+    <h4 style='padding-left: 30px;'>PELEAS DE GALLOS</h4>
     <div class="row">
         <div class="col">
             <div class="table-responsive">

@@ -156,6 +156,9 @@
                                                 @case('A')
                                                     Activo
                                                     @break
+                                                @case('D')
+                                                    Desafio
+                                                @break
                                                 @case('C')
                                                     Clausurado
                                                 @case('F')

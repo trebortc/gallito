@@ -80,6 +80,9 @@
                                                 @case('A')
                                                     ACTIVO    
                                                 @break
+                                                @case('D')
+                                                    DESAFIO
+                                                @break
                                                 @case('F')
                                                     FINALIZADO
                                                 @break
@@ -91,7 +94,7 @@
                                         <td><a class="btn btn-primary btn-sm" href="{{ url('/pelea_gallos/ver/'.$peleaGallo->ID_PELEA) }}"> <i class="fa fa-file-text-o"></i> </a>
                                         
                                             @switch($peleaGallo->ESTADO)
-                                                @case('A')
+                                                @case('A') @case('D')
                                                     <button type="button" id="criaderoBoton" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#peleaGallosEditarModal" data-id="{{ $peleaGallo->ID_PELEA }}" data-pelea="{{ $peleaGallo }}">
                                                         <i class="fa fa-hand-rock-o" aria-hidden="true"></i>
                                                     </button>  
