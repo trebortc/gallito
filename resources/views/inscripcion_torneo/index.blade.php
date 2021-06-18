@@ -5,6 +5,13 @@
     <div class="container">
         <div class="row">
             <div class="col">
+                <div class="d-flex justify-content-end p-4">
+                    <a href="{{ url('/inscripcion_torneo/todos') }}" class="btn btn-light btn-lg active" role="button" aria-pressed="true"><i class="fa fa-file-o"></i>Inscribir todos</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
                     @isset($mensaje)
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             <strong>Mensaje: </strong> {{ $mensaje }} 

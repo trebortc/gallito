@@ -19,12 +19,15 @@ class InscripcionTorneoController extends BaseController
     public function index()
     {
         $torneo = Torneo::where('ESTADO','=','A')->get();
-        $inscripcionesTorneo = $torneo->first()->inscripcionTorneos()->orderBy('ESTADO','asc')->orderBy('PESO_GALLO','asc')->paginate(15);
-        $gallos = Gallo::where('ESTADO','=','A')->orderBy('ID_GALLO','desc')->get();
         /**Valores definidos para pesos */
         $pesoMaximo = Parametro::find('PESO MAXIMO')->VALOR;
         $pesoMinimo = Parametro::find('PESO MINIMO')->VALOR;
         $torneos = Torneo::where('ESTADO','=','A')->get();
+        $gallos = Gallo::where('ESTADO','=','A')->orderBy('ID_GALLO','desc')->get();
+        if(!$torneo->first()){
+            return view('inscripcion_torneo.index',['inscripciones' => null, 'mensaje'=>'Bienvenido', 'gallos'=>$gallos, 'pesoMaximo'=>$pesoMaximo, 'pesoMinimo'=>$pesoMinimo, 'torneos'=>$torneos]);
+        }
+        $inscripcionesTorneo = $torneo->first()->inscripcionTorneos()->orderBy('ESTADO','asc')->orderBy('PESO_GALLO','asc')->paginate(15);        
         return view('inscripcion_torneo.index',['inscripciones' => $inscripcionesTorneo, 'mensaje'=>'Bienvenido', 'gallos'=>$gallos, 'pesoMaximo'=>$pesoMaximo, 'pesoMinimo'=>$pesoMinimo, 'torneos'=>$torneos]);
     }
 
@@ -178,6 +181,54 @@ class InscripcionTorneoController extends BaseController
     {
         $inscripcionesTorneo = InscripcionTorneo::where('ID_DESCRIPCION','>',0)->delete();
         return redirect('parametro/');
+    }
+
+    public function todos()
+    {
+        //$inscripciones = InscripcionTorneo::All();
+        //dd(count($inscripciones));
+        $gallos = Gallo::where('ESTADO','=','A')->get();
+        $torneo = Torneo::where('ESTADO','=','A')->get()->first();
+        
+        foreach($gallos as $gallo)
+        {
+           $representante = Representante::where('ID_REPRESENTANTE', '=', $gallo->ID_REPRESENTANTE)->get()->first();
+           $criadero = Criadero::where('ID_CRIADEROS', '=', $representante->ID_CRIADEROS)->get()->first();
+           $inscripcionRepetida = InscripcionTorneo::where('ID_GALLO', '=', $gallo->ID_GALLO)->get(); 
+           if(count($inscripcionRepetida)==0)
+           {
+                InscripcionTorneo::create(
+                    [
+                        'ID_TORNEO' => $torneo->ID_TORNEO,
+                        'ID_CRIADEROS' => $criadero->ID_CRIADEROS,
+                        'ID_REPRESENTANTE' => $representante->ID_REPRESENTANTE,
+                        'ID_GALLO' => $gallo->ID_GALLO,
+                        'NOMBRE_CRIADERO' => $criadero->NOMBRE,
+                        'NOMBRE_REPRESENTANTE' => $representante->NOMBRES,
+                        'PLACA_GALLO' => $gallo->PLACA,
+                        'PESO_GALLO' => $gallo->PESO,
+                        'EDAD_GALLO' => $gallo->EDAD,
+                        'TALLA_GALLO' => $gallo->TALLA,
+                        'ESTADO' => 'A',
+                    ]
+                );
+            }
+        }
+
+        $inscripciones = InscripcionTorneo::All();
+        if(count($inscripciones)>0)
+        {
+            $torneo = Torneo::where('ESTADO','=','A')->get();
+            $inscripcionesTorneo = $torneo->first()->inscripcionTorneos()->orderBy('ESTADO','asc')->orderBy('PESO_GALLO','asc')->paginate(15);
+            $gallos = Gallo::where('ESTADO','=','A')->get();
+            /**Valores definidos para pesos */
+            $pesoMaximo = Parametro::find('PESO MAXIMO')->VALOR;
+            $pesoMinimo = Parametro::find('PESO MINIMO')->VALOR;
+            $torneos = Torneo::where('ESTADO','=','A')->get();
+
+            return view('inscripcion_torneo.index',['inscripciones' => $inscripcionesTorneo,'mensaje'=>'Se inscribieron todos los gallos', 'gallos'=>$gallos, 'pesoMaximo'=>$pesoMaximo, 'pesoMinimo'=>$pesoMinimo, 'torneos'=>$torneos]); 
+        }
+
     }
 
 

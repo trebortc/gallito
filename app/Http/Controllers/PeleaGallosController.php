@@ -17,6 +17,9 @@ class PeleaGallosController extends BaseController
     public function index()
     {
         $torneo = Torneo::where('ESTADO','=','A')->get();
+        if(!$torneo->first()){
+            return view('pelea_gallos.index', ['peleaGallos'=>null, 'mensaje'=>'No existe gallos']);
+        }
         $peleaGallos = $torneo->first()->peleaGallos()->paginate(7);
         return view('pelea_gallos.index',['peleaGallos' => $peleaGallos, 'mensaje'=>'Bienvenidos']);
     }
@@ -35,7 +38,7 @@ class PeleaGallosController extends BaseController
         if(count($gallosSegunPeso)>0)
         {
             /**
-             * Creo las peleas por pesos iguales
+             * Creo las peleas por pesos iguales-------------------------------------------------------------------------------------------------------------------------
              */
             $this->crearPeleaPesosIguales($gallosSegunPeso);
             /**
@@ -46,7 +49,6 @@ class PeleaGallosController extends BaseController
              * Mezclo todos los gallos ordenadamente segun su peso para sortear en las peleas con un rango mayor de 0.1
              */
             $gallos = $this->obtenerTodosGallos($gallosSegunPeso);
-            
             $this->crearPeleaPesosDiferentes($gallos);
             /**
              * Cargar las peleas creadas
@@ -90,6 +92,7 @@ class PeleaGallosController extends BaseController
 
     public function crear()
     {
+
         $data = request()->all();
         PeleaGallos::create(
             [
@@ -210,7 +213,7 @@ class PeleaGallosController extends BaseController
                 $gallosPorPeso->put("".$p , $gallosInscriptos);
             }
         }
-        //$$gallosPorPeso->shuffle()
+        //$gallosPorPeso->shuffle();
         return $gallosPorPeso;
     }
 
@@ -302,12 +305,8 @@ class PeleaGallosController extends BaseController
             if($localidad == 'NO'){
                 if(isset($arrayGalloSegunPeso[$i],$arrayGalloSegunPeso[$i+1]))
                 {
-                    $peso1 = bcdiv($arrayGalloSegunPeso[$i]->PESO_GALLO, '1', 2);$peso1 = $peso1 + 0.01;
+                    $peso1 = bcdiv($arrayGalloSegunPeso[$i]->PESO_GALLO, '1', 2);$peso1 = $peso1 + 0.10;
                     $peso2 = bcdiv($arrayGalloSegunPeso[$i+1]->PESO_GALLO, '1', 2);$peso2 = $peso2 + 0.00;
-                    //dd($peso1);
-                    //dd($peso2);
-                    //dd($arrayGalloSegunPeso[$i]->ID_CRIADEROS );
-                    //dd($arrayGalloSegunPeso[$i+1]->ID_CRIADEROS );
                     if(($arrayGalloSegunPeso[$i]->ID_CRIADEROS !== $arrayGalloSegunPeso[$i+1]->ID_CRIADEROS) && ((strcmp ($peso1 , $peso2 ) == 0)))
                     {                  
                         /**
@@ -338,12 +337,8 @@ class PeleaGallosController extends BaseController
             }else{
                 if(isset($arrayGalloSegunPeso[$i],$arrayGalloSegunPeso[$i+1]))
                 {
-                    $peso1 = bcdiv($arrayGalloSegunPeso[$i]->PESO_GALLO, '1', 2);$peso1 = $peso1 + 0.01;
+                    $peso1 = bcdiv($arrayGalloSegunPeso[$i]->PESO_GALLO, '1', 2);$peso1 = $peso1 + 0.10;
                     $peso2 = bcdiv($arrayGalloSegunPeso[$i+1]->PESO_GALLO, '1', 2);$peso2 = $peso2 + 0.00;
-                    //dd($peso1);
-                    //dd($peso2);
-                    //dd($arrayGalloSegunPeso[$i]->ID_CRIADEROS );
-                    //dd($arrayGalloSegunPeso[$i+1]->ID_CRIADEROS );
                     if(($arrayGalloSegunPeso[$i]->ID_CRIADEROS !== $arrayGalloSegunPeso[$i+1]->ID_CRIADEROS) && ((strcmp ($peso1 , $peso2 ) == 0)) && $arrayGalloSegunPeso[$i]->criadero->DESCRIPCION !== $arrayGalloSegunPeso[$i+1]->criadero->DESCRIPCION)
                     {                  
                         /**
@@ -483,7 +478,6 @@ class PeleaGallosController extends BaseController
         ->update(['ESTADO'=>'A']);    
         //O de Sorteeado
         //F de Finalizado
-
         PeleaGallos::where('ESTADO','=','A')->orWhere('ESTADO','=','F')->delete();
 
         return redirect('pelea_gallos/');

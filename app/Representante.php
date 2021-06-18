@@ -43,7 +43,7 @@ class Representante extends Model
     /**
      * @var array
      */
-    protected $fillable = ['ID_CRIADEROS', 'IDENTIFICACION', 'NOMBRES', 'TELEFONOS', 'CORREO', 'DESCRIPCION', 'ETADO'];
+    protected $fillable = ['ID_REPRESENTANTE','ID_CRIADEROS', 'IDENTIFICACION', 'NOMBRES', 'TELEFONOS', 'CORREO', 'DESCRIPCION', 'ETADO'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

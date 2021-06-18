@@ -38,7 +38,7 @@ class Criadero extends Model
     /**
      * @var array
      */
-    protected $fillable = ['NOMBRE', 'DESCRIPCION', 'ESTADO'];
+    protected $fillable = ['ID_CRIADEROS','NOMBRE', 'DESCRIPCION', 'ESTADO'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

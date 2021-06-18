@@ -90,6 +90,7 @@ Route::get('/gallo/eliminarTodos', 'GalloController@eliminarTodosLosDatos')->nam
 
 //INSCRIPCION TORNEO
 Route::get('/inscripcion_torneo', 'InscripcionTorneoController@index')->name('inscripcion_torneo');
+Route::get('/inscripcion_torneo/todos', 'InscripcionTorneoController@todos')->name('inscripcion_torneo_todos');
 Route::any('/inscripcion_torneo/buscar', 'InscripcionTorneoController@buscar')->name('inscripcion_torneo_buscar');
 Route::get('/inscripcion_torneo/nuevo', 'InscripcionTorneoController@nuevo')->name('inscripcion_torneo_nuevo');
 Route::post('/inscripcion_torneo/crear', 'InscripcionTorneoController@crear')->name('inscripcion_torneo_crear');
